@@ -1,0 +1,33 @@
+// color Pallette
+$black: #111111;
+$gray: #3A3A3A;
+$white: #ffffff;
+$yellow: #FEBD29;
+
+
+// functions
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin marginPadding0 {
+  margin: 0;
+  padding: 0;
+}
+
+
+// styles
+:root {
+  font-family: Roboto Regular, sans-serif;
+  color: $white;
+  background-color: $gray;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}

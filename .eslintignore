@@ -1,0 +1,15 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore basics
+/build/
+/coverage/
+*.log
+/.env
+
+# Ignore src-tauri, the backend for the desktop app
+/src-tauri/
+
+# Ignore typescript and vite config files
+/tsconfig.json
+/vite.config.ts

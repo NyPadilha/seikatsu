@@ -1,1 +1,1 @@
-# seikatsu
+# Tauri + React + Typescript

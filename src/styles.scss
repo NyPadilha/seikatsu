@@ -116,6 +116,8 @@ body {
           gap: 20px;
 
           .card {
+            color: $white;
+            text-decoration: none;
             width: 200px;
             height: 180px;
             background-color: $black;

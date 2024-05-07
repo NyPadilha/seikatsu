@@ -1,5 +1,6 @@
 import 'react';
 import '../styles.scss'
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -23,11 +24,11 @@ export default function Home() {
           <div className='central'>
             <h1>Central</h1>
             <section className='central-content'>
-              <div className='card'></div>
-              <div className='card'></div>
-              <div className='card'></div>
-              <div className='card'></div>
-              <div className='card'></div>
+              <Link to='/watchlist' className='card'>WatchList</Link>
+              <Link to='/metas' className='card'>Metas</Link>
+              <Link to='/training' className='card'>Training</Link>
+              <Link to='/finance' className='card'>Finance</Link>
+              <Link to='/travel' className='card'>Travel</Link>
               <div className='card'></div>
               <div className='card'></div>
               <div className='card'></div>

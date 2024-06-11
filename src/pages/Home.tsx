@@ -1,8 +1,8 @@
-import 'react';
-import '../styles.scss'
+import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles.scss'
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <section id='homepage'>
       <div className='banner'>PlaceHolder</div>
@@ -44,4 +44,6 @@ export default function Home() {
       </section>
     </section>
   );
-}
+};
+
+export default Home;

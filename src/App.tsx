@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import WatchList from './pages/WatchList.tsx';
@@ -7,7 +8,7 @@ import Finance from './pages/Finance.tsx';
 import Travel from './pages/Travel.tsx';
 import './styles.scss';
 
-function App() {
+const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -18,6 +19,6 @@ function App() {
       <Route path="/travel" element={<Travel />} />
     </Routes>
   );
-}
+};
 
 export default App;

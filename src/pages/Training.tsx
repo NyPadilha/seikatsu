@@ -1,13 +1,13 @@
-import 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Training() {
+const Training: React.FC = () => {
   return (
-    <>
+    <div>
       <div>Training</div>
       <Link to='/'>Home</Link>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default Training
+export default Training;

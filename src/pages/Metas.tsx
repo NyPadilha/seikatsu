@@ -1,13 +1,13 @@
-import 'react'
+import React from 'react';
 import { Link } from 'react-router-dom'
 
-function Metas() {
+const Metas: React.FC = () => {
   return (
-    <>
+    <div>
       <div>Metas</div>
       <Link to='/'>Home</Link>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default Metas
+export default Metas;

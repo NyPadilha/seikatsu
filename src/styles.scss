@@ -54,7 +54,7 @@ body {
 
     .time-progress {
       @include flex(row, flex-start, flex-start);
-      margin-left: 76px;
+      margin-left: 120px;
       width: 360px;
       height: 140px;
       background-color: $black;
@@ -71,7 +71,7 @@ body {
     }
 
     .profile {
-      margin-right: 76px;
+      margin-right: 120px;
       width: 260px;
       height: 270px;
       background-color: $black;
@@ -82,7 +82,7 @@ body {
   }
 
   .content {
-    margin: 0 163px;
+    margin: 0 176px;
 
     h1 {
       font-size: 24px;

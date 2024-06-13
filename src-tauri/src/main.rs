@@ -26,7 +26,7 @@ fn get_watchlist() -> Option<Vec<Anime>> {
 }
 
 #[tauri::command]
-fn add_new_season() {
+fn get_new_season() {
     watchlist::add_new_season();
 }
 
@@ -71,7 +71,7 @@ fn main() {
             get_user_profile,
             update_user_profile,
             get_watchlist,
-            add_new_season,
+            get_new_season,
             del_new_season,
             del_anime,
             add_anime,

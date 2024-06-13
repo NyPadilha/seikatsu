@@ -1,0 +1,22 @@
+{
+  "my_list": {
+    "sunday": [],
+    "monday": [],
+    "tuesday": [],
+    "wednesday": [],
+    "thursday": [],
+    "friday": [],
+    "saturday": []
+  },
+  "together_list": {
+    "sunday": [],
+    "monday": [],
+    "tuesday": [],
+    "wednesday": [],
+    "thursday": [],
+    "friday": [],
+    "saturday": []
+  },
+  "new_season": [],
+  "no_weekday": []
+}

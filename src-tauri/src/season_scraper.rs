@@ -1,7 +1,6 @@
 use crate::watchlist::Anime;
 use reqwest;
-use scraper::{Html, Selector}; //ElementRef,
-                               // use std::collections::HashMap;
+use scraper::{Html, Selector};
 
 #[tokio::main]
 pub async fn get_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> {
@@ -50,13 +49,6 @@ pub async fn get_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> 
             });
 
         let formatted_date = format!("{}/{}", &date[2..], &date[..2]);
-
-        // let mut anime_data = HashMap::new();
-        // anime_data.insert("title", title);
-        // anime_data.insert("url", url);
-        // anime_data.insert("image", img);
-        // anime_data.insert("to_watch", false);
-        // anime_data.insert("description", formatted_date);
 
         season.push(Anime {
             title,

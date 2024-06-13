@@ -64,6 +64,7 @@ pub async fn get_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> 
             image: img.to_string(),
             to_watch: false,
             description: formatted_date,
+            tag: "new_season".to_string(),
         })
     }
 

@@ -1,6 +1,5 @@
 use crate::season_scraper::get_new_season as scrape_season;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::path::Path;
@@ -12,32 +11,24 @@ pub struct Anime {
     pub image: String,
     pub to_watch: bool,
     pub description: String,
-}
-// talvez mudar para um sistema de tag para weekday e together/alone
-
-#[derive(Serialize, Deserialize)]
-pub struct Watchlist {
-    pub my_list: HashMap<String, Vec<Anime>>,
-    pub together_list: HashMap<String, Vec<Anime>>,
-    pub new_season: Vec<Anime>,
-    pub no_weekday: Vec<Anime>,
+    pub tag: String,
 }
 
-pub fn read_watchlist() -> Option<Watchlist> {
+pub fn read_watchlist() -> Option<Vec<Anime>> {
     let path = Path::new("watchlist.json");
     if path.exists() {
         let mut file = File::open(path).expect("Failed to open file");
         let mut contents = String::new();
         file.read_to_string(&mut contents)
             .expect("Failed to read file");
-        let watchlist: Watchlist = serde_json::from_str(&contents).expect("Failed to parse JSON");
+        let watchlist: Vec<Anime> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(watchlist)
     } else {
         None
     }
 }
 
-pub fn write_watchlist(watchlist: &Watchlist) {
+pub fn write_watchlist(watchlist: &Vec<Anime>) {
     let contents = serde_json::to_string(watchlist).expect("Failed to serialize to JSON");
     let mut file = File::create("watchlist.json").expect("Failed to create file");
     file.write_all(contents.as_bytes())
@@ -48,14 +39,11 @@ pub fn add_new_season() {
     let season: Result<Vec<Anime>, Box<dyn std::error::Error>> = scrape_season();
     match season {
         Ok(season) => {
-            let mut watchlist = read_watchlist().unwrap_or_else(|| Watchlist {
-                my_list: HashMap::new(),
-                together_list: HashMap::new(),
-                new_season: Vec::new(),
-                no_weekday: Vec::new(),
-            });
+            let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
 
-            watchlist.new_season = season;
+            for anime in season {
+                watchlist.push(anime);
+            }
 
             write_watchlist(&watchlist);
         }
@@ -66,14 +54,77 @@ pub fn add_new_season() {
 }
 
 pub fn del_new_season() {
-    let mut watchlist = read_watchlist().unwrap_or_else(|| Watchlist {
-        my_list: HashMap::new(),
-        together_list: HashMap::new(),
-        new_season: Vec::new(),
-        no_weekday: Vec::new(),
-    });
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
 
-    watchlist.new_season.clear();
+    watchlist.retain(|anime| anime.tag != "new_season");
+
+    write_watchlist(&watchlist);
+}
+
+pub fn del_anime(url: &str) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    watchlist.retain(|anime| anime.url != url);
+
+    write_watchlist(&watchlist);
+}
+
+pub fn add_anime(anime: Anime) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    watchlist.push(anime);
+
+    write_watchlist(&watchlist);
+}
+
+pub fn update_to_watch(url: &str) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    for anime in watchlist.iter_mut() {
+        if anime.url == url {
+            anime.to_watch = !anime.to_watch;
+            break;
+        }
+    }
+
+    write_watchlist(&watchlist);
+}
+
+pub fn update_description(url: &str, description: &str) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    for anime in watchlist.iter_mut() {
+        if anime.url == url {
+            anime.description = description.to_string();
+            break;
+        }
+    }
+
+    write_watchlist(&watchlist);
+}
+
+pub fn update_tag(url: &str, tag: &str) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    for anime in watchlist.iter_mut() {
+        if anime.url == url {
+            anime.tag = tag.to_string();
+            break;
+        }
+    }
+
+    write_watchlist(&watchlist);
+}
+
+pub fn update_title(url: &str, title: &str) {
+    let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+
+    for anime in watchlist.iter_mut() {
+        if anime.url == url {
+            anime.title = title.to_string();
+            break;
+        }
+    }
 
     write_watchlist(&watchlist);
 }

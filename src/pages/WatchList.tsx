@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import { Anime } from '../types/IWatchlist';
 import Deck from '../components/Deck';
+import '../styles.scss';
 
 const WatchList: React.FC = () => {
   const [sunday, setSunday] = useState<Anime[]>([])
@@ -104,36 +105,41 @@ const WatchList: React.FC = () => {
   return (
     <section id='watchlist'>
       <div>WatchList</div>
-      <h2>- Sunday -</h2>
-      <Deck animes={sunday} />
-      <h2>- Monday -</h2>
-      <Deck animes={monday} />
-      <h2>- Tuesday -</h2>
-      <Deck animes={tuesday} />
-      <h2>- Wednesday -</h2>
-      <Deck animes={wednesday} />
-      <h2>- Thursday -</h2>
-      <Deck animes={thursday} />
-      <h2>- Friday -</h2>
-      <Deck animes={friday} />
-      <h2>- Saturday -</h2>
-      <Deck animes={saturday} />
-      <h2>- Untagged -</h2>
-      <Deck animes={untagged} />
-      <h2>- Sun -</h2>
-      <Deck animes={sun} />
-      <h2>- Mon -</h2>
-      <Deck animes={mon} />
-      <h2>- Tue -</h2>
-      <Deck animes={tue} />
-      <h2>- Wed -</h2>
-      <Deck animes={wed} />
-      <h2>- Thu -</h2>
-      <Deck animes={thu} />
-      <h2>- Fri -</h2>
-      <Deck animes={fri} />
-      <h2>- Sat -</h2>
-      <Deck animes={sat} />
+      <div className='alone'>
+        <h2>- Sunday -</h2>
+        <Deck animes={sunday} />
+        <h2>- Monday -</h2>
+        <Deck animes={monday} />
+        <h2>- Tuesday -</h2>
+        <Deck animes={tuesday} />
+        <h2>- Wednesday -</h2>
+        <Deck animes={wednesday} />
+        <h2>- Thursday -</h2>
+        <Deck animes={thursday} />
+        <h2>- Friday -</h2>
+        <Deck animes={friday} />
+        <h2>- Saturday -</h2>
+        <Deck animes={saturday} />
+        <h2>- Untagged -</h2>
+        <Deck animes={untagged} />
+      </div>
+      <div className='together'>
+        <h2>- Sun -</h2>
+        <Deck animes={sun} />
+        <h2>- Mon -</h2>
+        <Deck animes={mon} />
+        <h2>- Tue -</h2>
+        <Deck animes={tue} />
+        <h2>- Wed -</h2>
+        <Deck animes={wed} />
+        <h2>- Thu -</h2>
+        <Deck animes={thu} />
+        <h2>- Fri -</h2>
+        <Deck animes={fri} />
+        <h2>- Sat -</h2>
+        <Deck animes={sat} />
+      </div>
+
       <h2>- New Season -</h2>
       <Deck animes={newSeason} />
 

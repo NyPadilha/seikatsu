@@ -1,6 +1,7 @@
 // color Pallette
 $black: #111111;
 $gray: #3A3A3A;
+$lesserGray: #7a7a7a;
 $white: #ffffff;
 $yellow: #FEBD29;
 
@@ -133,4 +134,56 @@ body {
 
 #watchlist {
   @include flex(column, flex-start, center);
+
+  .deck {
+    @include flex(row, center, flex-start);
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 0 10% 0 10%;
+
+    .to-watch {
+      border: $yellow 2px solid;
+      box-shadow: 0px 0px 10px 0px rgb(254, 189, 41, 0.75);
+    }
+
+    .watched {
+      border: $black 2px solid;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .card {
+      @include flex(column, flex-start, center);
+      text-align: center;
+      width: 225px;
+      background-color: $black;
+      color: $lesserGray;
+      border-radius: 7px;
+      margin: 9px;
+
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        @include marginPadding0;
+        padding: 5px 0 5px 0;
+      }
+
+      img {
+        width: 225px;
+        height: 319px;
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: 400;
+        @include marginPadding0;
+        padding: 5px 0 5px 0;
+        height: 43px;
+
+        a {
+          color: $lesserGray;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }

@@ -226,6 +226,8 @@ body {
     }
   }
 
+  .untagged {}
+
   .new-season-section {
     button {
       margin: 0 85px 0 85px;
@@ -245,7 +247,8 @@ body {
     }
   }
 
-  .tag-modal {
+  .tag-modal,
+  .new-anime-modal {
     @include flex(column, center, center);
     @include marginPadding0;
     background-color: $black;
@@ -253,13 +256,107 @@ body {
     color: $lesserGray;
     border-radius: 7px;
     margin: 9px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+
+    .x-button,
+    .x-button:hover {
+      background-color: rgb(255, 80, 80);
+      border: rgb(255, 60, 60) 1px solid;
+      margin: 7px 7px 0 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 20px;
+      align-self: flex-end
+    }
+
+    section {
+      @include flex(row, center, flex-start);
+
+      div {
+        @include flex(column, center, center);
+
+        h1 {
+          width: 110px;
+          font-size: 16px;
+          font-weight: 800;
+          margin: 3px 0 10px 0;
+        }
+      }
+    }
+  }
+
+  .new-anime-modal {
+    padding-bottom: 7px;
+
+    .selected {
+      background-color: $yellow;
+      color: $black;
+    }
+
+    .submit-btn {
+      width: 140px;
+      height: 40px;
+      background-color: $lesserGray;
+      color: $black;
+      border: $black 1px solid;
+      border-radius: 3px;
+      margin: 5px;
+      font-size: 16px;
+      font-weight: 1000;
+    }
+
+    .submit-btn:hover {
+      background-color: $yellow;
+      color: $black;
+    }
+
+    #new-season {
+      width: 100px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 7px 0 10px 0;
+    }
+
+    form {
+      @include flex(column, center, center);
+      width: 350px;
+      padding-bottom: 10px;
+
+      input {
+        width: 300px;
+        height: 25px;
+        background-color: $black;
+        color: $lesserGray;
+        border: $lesserGray 1px solid;
+        border-radius: 3px;
+        font-size: 12px;
+        margin: 5px;
+      }
+
+      button {
+        width: 80px;
+        height: 25px;
+        background-color: $lesserGray;
+        color: $black;
+        border: $black 1px solid;
+        border-radius: 3px;
+        margin: 5px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tag-modal {
     width: 260px;
     padding-bottom: 10px;
-    position: fixed; // Position it relative to the viewport
-    top: 50%; // Center it vertically
-    left: 50%; // Center it horizontally
-    transform: translate(-50%, -50%); // Adjust the position so the center of the modal aligns with the center of the screen
-    z-index: 1000; // Make it appear over everything else
 
     button {
       width: 80px;
@@ -280,32 +377,6 @@ body {
 
     .new-season {
       width: 100px;
-    }
-
-    .x-button,
-    .x-button:hover {
-      background-color: rgb(255, 80, 80);
-      border: rgb(255, 60, 60) 1px solid;
-      margin: 5px 5px 0 0;
-      width: 14px;
-      height: 14px;
-      border-radius: 20px;
-      align-self: flex-end
-    }
-
-    section {
-      @include flex(row, center, flex-start);
-
-      div {
-        @include flex(column, center, center);
-
-        h1 {
-          width: 110px;
-          font-size: 16px;
-          font-weight: 800;
-          margin: 3px 0 10px 0;
-        }
-      }
     }
   }
 

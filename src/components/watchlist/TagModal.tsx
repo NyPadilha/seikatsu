@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import WatchListContext from '../context/useContext';
-import { updateTag } from '../services/api';
-import { Tag } from '../types/IWatchlist';
-import '../styles.scss';
+import WatchListContext from '../../context/useContext';
+import { updateTag } from '../../services/api';
+import { Tag } from '../../types/IWatchlist';
+import '../../styles.scss';
 
 interface TagModalProps {
   url: string;

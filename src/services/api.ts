@@ -21,7 +21,7 @@ export async function deleteAnime(url: string) {
 }
 
 export async function addAnime(anime: Anime) {
-  await invoke('add_anime', anime);
+  await invoke('add_anime', { anime });
 }
 
 export async function updateToWatch(url: string) {

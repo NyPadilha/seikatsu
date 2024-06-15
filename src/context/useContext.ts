@@ -6,6 +6,8 @@ type WatchListContextType = {
   setIsTagModalOpen: (bool: boolean) => void;
   tagChanged: TagChanger;
   setTagChanged: (tag: TagChanger) => void;
+  isNewAnimeModalOpen: boolean;
+  setIsNewAnimeModalOpen: (bool: boolean) => void;
 };
 
 const WatchListContext = createContext<WatchListContextType>({
@@ -13,6 +15,8 @@ const WatchListContext = createContext<WatchListContextType>({
   setIsTagModalOpen: () => { },
   tagChanged: { url: null, tag: null },
   setTagChanged: () => { },
+  isNewAnimeModalOpen: false,
+  setIsNewAnimeModalOpen: () => { },
 });
 
 export default WatchListContext;

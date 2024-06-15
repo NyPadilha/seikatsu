@@ -9,6 +9,7 @@ interface ProviderProps {
 const WatchlistProvider: React.FC<ProviderProps> = ({ children }) => {
   const [isTagModalOpen, setIsTagModalOpenState] = useState<boolean>(false);
   const [tagChanged, setTagChangedState] = useState<TagChanger>({ url: null, tag: null });
+  const [isNewAnimeModalOpen, setIsNewAnimeModalOpenState] = useState<boolean>(false);
 
   useEffect(() => {
     setIsTagModalOpenState(false);
@@ -22,12 +23,18 @@ const WatchlistProvider: React.FC<ProviderProps> = ({ children }) => {
     setTagChangedState(tag);
   };
 
+  const setIsNewAnimeModalOpen = (bool: boolean) => {
+    setIsNewAnimeModalOpenState(bool);
+  }
+
   const store = useMemo(() => ({
     isTagModalOpen,
     setIsTagModalOpen,
     tagChanged,
-    setTagChanged
-  }), [isTagModalOpen, tagChanged]);
+    setTagChanged,
+    isNewAnimeModalOpen,
+    setIsNewAnimeModalOpen,
+  }), [isTagModalOpen, tagChanged, isNewAnimeModalOpen]);
 
   return (
     <WatchListContext.Provider value={store}>

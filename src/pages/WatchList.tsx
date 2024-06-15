@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@primer/octicons-react';
 import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import watchlistSwitchCase from '../services/watchlistSwitchCase';
-import AnimeCard from '../components/AnimeCard';
+import NewAnimeModal from '../components/watchlist/NewAnimeModal';
+import AnimeCard from '../components/watchlist/AnimeCard';
+import WatchListContext from '../context/useContext';
 import { Anime, Tag } from '../types/IWatchlist';
 import { Link } from 'react-router-dom'
 import '../styles.scss';
@@ -39,7 +41,7 @@ const WatchList: React.FC = () => {
   const [isThuMinimized, setIsThuMinimized] = useState(false);
   const [isFriMinimized, setIsFriMinimized] = useState(false);
   const [isSatMinimized, setIsSatMinimized] = useState(false);
-  // const [isUntaggedMinimized, setIsUntaggedMinimized] = useState(false);
+  const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchListContext);
 
   const clearState = () => {
     setSunday([])
@@ -76,6 +78,10 @@ const WatchList: React.FC = () => {
   const handleDeleteNewSeason = async () => {
     await deleteNewSeason()
     setNewSeason([])
+  }
+
+  const handleNewAnime = () => {
+    setIsNewAnimeModalOpen(true)
   }
 
   useEffect(() => {
@@ -724,10 +730,31 @@ const WatchList: React.FC = () => {
         </div>
       )}
 
+      {isNewAnimeModalOpen && <NewAnimeModal onAdd={(anime) => {
+        watchlistSwitchCase(
+          anime,
+          setSunday,
+          setMonday,
+          setTuesday,
+          setWednesday,
+          setThursday,
+          setFriday,
+          setSaturday,
+          setNewSeason,
+          setSun,
+          setMon,
+          setTue,
+          setWed,
+          setThu,
+          setFri,
+          setSat,
+          setUntagged
+        )
+      }} />}
       <div className='untagged'>
         <button id='invisible-btn'></button>
         <h2>Untagged</h2>
-        <button id='invisible-btn'></button>
+        <button className='+button' onClick={() => handleNewAnime()}></button>
       </div>
       <div className='deck'>
         {

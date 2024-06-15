@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { updateTitle, updateDescription, updateToWatch, deleteAnime } from '../services/api';
-import WatchListContext from '../context/useContext';
-import { Anime, Tag } from '../types/IWatchlist';
+import { updateTitle, updateDescription, updateToWatch, deleteAnime } from '../../services/api';
+import WatchListContext from '../../context/useContext';
+import { Anime, Tag } from '../../types/IWatchlist';
 import TagModal from './TagModal';
-import '../styles.scss';
+import '../../styles.scss';
 
 interface AnimeCardProps {
   anime: Anime;

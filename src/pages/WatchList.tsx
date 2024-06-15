@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import { Anime } from '../types/IWatchlist';
 import Deck from '../components/Deck';
+import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@primer/octicons-react';
 import '../styles.scss';
 
 const WatchList: React.FC = () => {
@@ -22,6 +23,22 @@ const WatchList: React.FC = () => {
   const [fri, setFri] = useState<Anime[]>([])
   const [sat, setSat] = useState<Anime[]>([])
   const [untagged, setUntagged] = useState<Anime[]>([])
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSundayMinimized, setIsSundayMinimized] = useState(false);
+  const [isMondayMinimized, setIsMondayMinimized] = useState(false);
+  const [isTuesdayMinimized, setIsTuesdayMinimized] = useState(false);
+  const [isWednesdayMinimized, setIsWednesdayMinimized] = useState(false);
+  const [isThursdayMinimized, setIsThursdayMinimized] = useState(false);
+  const [isFridayMinimized, setIsFridayMinimized] = useState(false);
+  const [isSaturdayMinimized, setIsSaturdayMinimized] = useState(false);
+  const [isSunMinimized, setIsSunMinimized] = useState(false);
+  const [isMonMinimized, setIsMonMinimized] = useState(false);
+  const [isTueMinimized, setIsTueMinimized] = useState(false);
+  const [isWedMinimized, setIsWedMinimized] = useState(false);
+  const [isThuMinimized, setIsThuMinimized] = useState(false);
+  const [isFriMinimized, setIsFriMinimized] = useState(false);
+  const [isSatMinimized, setIsSatMinimized] = useState(false);
+  const [isUntaggedMinimized, setIsUntaggedMinimized] = useState(false);
 
   const clearState = () => {
     setSunday([])
@@ -40,6 +57,14 @@ const WatchList: React.FC = () => {
     setFri([])
     setSat([])
     setUntagged([])
+  }
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % 2);
+  };
+
+  const previousSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
   }
 
   useEffect(() => {
@@ -104,48 +129,176 @@ const WatchList: React.FC = () => {
 
   return (
     <section id='watchlist'>
-      <div>WatchList</div>
-      <div className='alone'>
-        <h2>- Sunday -</h2>
-        <Deck animes={sunday} />
-        <h2>- Monday -</h2>
-        <Deck animes={monday} />
-        <h2>- Tuesday -</h2>
-        <Deck animes={tuesday} />
-        <h2>- Wednesday -</h2>
-        <Deck animes={wednesday} />
-        <h2>- Thursday -</h2>
-        <Deck animes={thursday} />
-        <h2>- Friday -</h2>
-        <Deck animes={friday} />
-        <h2>- Saturday -</h2>
-        <Deck animes={saturday} />
-        <h2>- Untagged -</h2>
-        <Deck animes={untagged} />
+      <div className='t-a-bar'>
+        <button onClick={previousSlide}>{<ChevronLeftIcon />}</button>
+        {currentSlide === 0 ? <h1>Alone</h1> : <h1>Together</h1>}
+        <button onClick={nextSlide}>{<ChevronRightIcon />}</button>
       </div>
-      <div className='together'>
-        <h2>- Sun -</h2>
-        <Deck animes={sun} />
-        <h2>- Mon -</h2>
-        <Deck animes={mon} />
-        <h2>- Tue -</h2>
-        <Deck animes={tue} />
-        <h2>- Wed -</h2>
-        <Deck animes={wed} />
-        <h2>- Thu -</h2>
-        <Deck animes={thu} />
-        <h2>- Fri -</h2>
-        <Deck animes={fri} />
-        <h2>- Sat -</h2>
-        <Deck animes={sat} />
-      </div>
+      {currentSlide === 0 ? (
+        <div className='alone'>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Sunday</h1>
+              <button onClick={() => setIsSundayMinimized(!isSundayMinimized)}>
+                {isSundayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isSundayMinimized && <Deck animes={sunday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Monday</h1>
+              <button onClick={() => setIsMondayMinimized(!isMondayMinimized)}>
+                {isMondayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isMondayMinimized && <Deck animes={monday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Tuesday</h1>
+              <button onClick={() => setIsTuesdayMinimized(!isTuesdayMinimized)}>
+                {isTuesdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isTuesdayMinimized && <Deck animes={tuesday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Wednesday</h1>
+              <button onClick={() => setIsWednesdayMinimized(!isWednesdayMinimized)}>
+                {isWednesdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isWednesdayMinimized && <Deck animes={wednesday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Thursday</h1>
+              <button onClick={() => setIsThursdayMinimized(!isThursdayMinimized)}>
+                {isThursdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isThursdayMinimized && <Deck animes={thursday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Friday</h1>
+              <button onClick={() => setIsFridayMinimized(!isFridayMinimized)}>
+                {isFridayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isFridayMinimized && <Deck animes={friday} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Saturday</h1>
+              <button onClick={() => setIsSaturdayMinimized(!isSaturdayMinimized)}>
+                {isSaturdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isSaturdayMinimized && <Deck animes={saturday} />}
+          </section>
+        </div>
+      ) : (
+        <div className='together'>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Sunday</h1>
+              <button onClick={() => setIsSunMinimized(!isSunMinimized)}>
+                {isSunMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isSunMinimized && <Deck animes={sun} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Monday</h1>
+              <button onClick={() => setIsMonMinimized(!isMonMinimized)}>
+                {isMonMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isMonMinimized && <Deck animes={mon} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Tuesday</h1>
+              <button onClick={() => setIsTueMinimized(!isTueMinimized)}>
+                {isTueMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isTueMinimized && <Deck animes={tue} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Wednesday</h1>
+              <button onClick={() => setIsWedMinimized(!isWedMinimized)}>
+                {isWedMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isWedMinimized && <Deck animes={wed} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Thursday</h1>
+              <button onClick={() => setIsThuMinimized(!isThuMinimized)}>
+                {isThuMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isThuMinimized && <Deck animes={thu} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Friday</h1>
+              <button onClick={() => setIsFriMinimized(!isFriMinimized)}>
+                {isFriMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isFriMinimized && <Deck animes={fri} />}
+          </section>
+          <section>
+            <div className='min-max-div'>
+              <button id='invisible-btn'></button>
+              <h1>Saturday</h1>
+              <button onClick={() => setIsSatMinimized(!isSatMinimized)}>
+                {isSatMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
+              </button>
+            </div>
+            {!isSatMinimized && <Deck animes={sat} />}
+          </section>
+        </div>
+      )}
 
-      <h2>- New Season -</h2>
+      <div className='untagged'>
+        <button id='invisible-btn'></button>
+        <h2>Untagged</h2>
+        <button className='untagged-btn' onClick={() => setIsUntaggedMinimized(!isUntaggedMinimized)}>
+          {isUntaggedMinimized ? <ChevronUpIcon /> : <ChevronDownIcon />}
+        </button>
+      </div>
+      <Deck animes={untagged} />
+
+      <div className='new-season-section'>
+        <button onClick={deleteNewSeason}>Delete New Season</button>
+        <h2>New Season</h2>
+        <button onClick={getNewSeason}>Get New Season</button>
+      </div>
       <Deck animes={newSeason} />
 
-      <button onClick={getNewSeason}>Get New Season</button>
-      <button onClick={deleteNewSeason}>Delete New Season</button>
-      <Link to='/'>Home</Link>
+      <Link to='/'><button className='home-btn'>Home</button></Link>
     </section>
   );
 };

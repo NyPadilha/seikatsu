@@ -135,6 +135,128 @@ body {
 #watchlist {
   @include flex(column, flex-start, center);
 
+  .t-a-bar {
+    @include flex(row, space-between, center);
+    width: 95%;
+    background-color: $black;
+    color: $lesserGray;
+    border-radius: 7px;
+    margin: 9px;
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 7px 0 7px 0;
+    }
+
+    button {
+      margin: 0 25px 0 25px;
+      width: 140px;
+      height: 25px;
+      background-color: $black;
+      color: $lesserGray;
+      border: $black 1px solid;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .alone,
+  .together {
+    @include flex(column, flex-start, center);
+    @include marginPadding0;
+    width: 100%;
+
+    section {
+      @include flex(column, flex-start, center);
+      @include marginPadding0;
+      width: 100%;
+
+      .min-max-div {
+        @include flex(row, space-between, center);
+        @include marginPadding0;
+        width: 80%;
+        background-color: $black;
+        color: $lesserGray;
+        border-radius: 7px;
+        margin: 9px;
+
+        button {
+          background-color: $black;
+          border: none;
+          color: $lesserGray;
+          font-size: 14px;
+          font-weight: 600;
+          margin: 0 20px 0 20px;
+          width: 30px;
+        }
+
+        h1 {
+          font-size: 22px;
+          font-weight: 800;
+          margin: 7px 0 7px 0;
+        }
+
+      }
+    }
+  }
+
+  #invisible-btn,
+  #invisible-btn:hover {
+    background-color: $black;
+    color: $black;
+    border: none;
+  }
+
+  .untagged {
+    button {
+      width: 30px;
+      background-color: $black;
+      color: $lesserGray;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 20px 0 20px;
+    }
+  }
+
+  .new-season-section,
+  .untagged {
+    @include flex(row, space-between, center);
+    @include marginPadding0;
+    width: 80%;
+    background-color: $black;
+    color: $lesserGray;
+    border-radius: 7px;
+    margin: 9px;
+
+    h2 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 7px 0 7px 0;
+    }
+  }
+
+  .new-season-section {
+    button {
+      margin: 0 85px 0 85px;
+      width: 140px;
+      height: 25px;
+      background-color: $lesserGray;
+      color: $black;
+      border: $black 1px solid;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background-color: $yellow;
+      color: $black;
+    }
+  }
+
   .tag-modal {
     @include flex(column, center, center);
     @include marginPadding0;
@@ -198,7 +320,6 @@ body {
       }
     }
   }
-
 
   .deck {
     @include flex(row, center, flex-start);
@@ -297,5 +418,21 @@ body {
         }
       }
     }
+  }
+
+  .home-btn {
+    width: 200px;
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 60px 0 100px 0;
+  }
+
+  .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
   }
 }

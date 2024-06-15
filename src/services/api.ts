@@ -2,12 +2,14 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { Anime } from '../types/IWatchlist';
 
 export async function getWatchlist() {
-  const watchlist = await invoke('get_watchlist');
+  const watchlist: Anime[] = await invoke('get_watchlist');
   return watchlist;
 }
 
 export async function getNewSeason() {
-  await invoke('get_new_season');
+  const season: Anime[] = await invoke('get_new_season');
+  console.log(season);
+  return season
 }
 
 export async function deleteNewSeason() {

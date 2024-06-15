@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Databases
+user_profile.json
+watchlist.json
+finance.json
+metas.json
+training.json

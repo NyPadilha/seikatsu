@@ -3,7 +3,6 @@
 
 use watchlist::Anime;
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides /features/command
 mod profile;
 mod season_scraper;
 mod watchlist;
@@ -26,8 +25,15 @@ fn get_watchlist() -> Option<Vec<Anime>> {
 }
 
 #[tauri::command]
-fn get_new_season() {
-    watchlist::add_new_season();
+fn get_new_season() -> Result<Vec<Anime>, String> {
+    match watchlist::add_new_season() {
+        Ok(animes) => Ok(animes),
+        Err(e) => {
+            let error_message = format!("Failed to add new season: {}", e);
+            eprintln!("{}", &error_message);
+            Err(error_message)
+        }
+    }
 }
 
 #[tauri::command]

@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::{Read, Write};
 use std::path::Path;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Anime {
     pub title: String,
     pub url: String,
@@ -35,20 +35,24 @@ pub fn write_watchlist(watchlist: &Vec<Anime>) {
         .expect("Failed to write to file");
 }
 
-pub fn add_new_season() {
+pub fn add_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> {
     let season: Result<Vec<Anime>, Box<dyn std::error::Error>> = scrape_season();
     match season {
         Ok(season) => {
             let mut watchlist = read_watchlist().unwrap_or_else(Vec::new);
+            let mut new_season: Vec<Anime> = Vec::new();
 
-            for anime in season {
-                watchlist.push(anime);
+            for anime in &season {
+                watchlist.push(anime.clone());
+                new_season.push(anime.clone());
             }
 
             write_watchlist(&watchlist);
+            Ok(new_season)
         }
         Err(e) => {
             eprintln!("Failed to scrape new season: {}", e);
+            Err(e)
         }
     }
 }

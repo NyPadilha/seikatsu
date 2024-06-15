@@ -209,18 +209,6 @@ body {
     border: none;
   }
 
-  .untagged {
-    button {
-      width: 30px;
-      background-color: $black;
-      color: $lesserGray;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      margin: 0 20px 0 20px;
-    }
-  }
-
   .new-season-section,
   .untagged {
     @include flex(row, space-between, center);
@@ -379,6 +367,7 @@ body {
           font-size: 14px;
           font-weight: 600;
           width: 160px;
+          min-height: 20px;
         }
 
         input {

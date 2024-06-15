@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
-import { Anime } from '../types/IWatchlist';
-import Deck from '../components/Deck';
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@primer/octicons-react';
+import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
+import watchlistSwitchCase from '../services/watchlistSwitchCase';
+import AnimeCard from '../components/AnimeCard';
+import { Anime, Tag } from '../types/IWatchlist';
+import { Link } from 'react-router-dom'
 import '../styles.scss';
 
 const WatchList: React.FC = () => {
@@ -38,7 +39,7 @@ const WatchList: React.FC = () => {
   const [isThuMinimized, setIsThuMinimized] = useState(false);
   const [isFriMinimized, setIsFriMinimized] = useState(false);
   const [isSatMinimized, setIsSatMinimized] = useState(false);
-  const [isUntaggedMinimized, setIsUntaggedMinimized] = useState(false);
+  // const [isUntaggedMinimized, setIsUntaggedMinimized] = useState(false);
 
   const clearState = () => {
     setSunday([])
@@ -67,61 +68,40 @@ const WatchList: React.FC = () => {
     setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
   }
 
+  const handleGetNewSeason = async () => {
+    const season = await getNewSeason()
+    setNewSeason(season)
+  }
+
+  const handleDeleteNewSeason = async () => {
+    await deleteNewSeason()
+    setNewSeason([])
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const watchlist = await getWatchlist() as Anime[]
       clearState()
       watchlist.forEach((anime: Anime) => {
-        switch (anime.tag) {
-          case "sunday":
-            setSunday((prev) => [...prev, anime])
-            break
-          case "monday":
-            setMonday((prev) => [...prev, anime])
-            break
-          case "tuesday":
-            setTuesday((prev) => [...prev, anime])
-            break
-          case "wednesday":
-            setWednesday((prev) => [...prev, anime])
-            break
-          case "thursday":
-            setThursday((prev) => [...prev, anime])
-            break
-          case "friday":
-            setFriday((prev) => [...prev, anime])
-            break
-          case "saturday":
-            setSaturday((prev) => [...prev, anime])
-            break
-          case "new_season":
-            setNewSeason((prev) => [...prev, anime])
-            break
-          case "sun":
-            setSun((prev) => [...prev, anime])
-            break
-          case "mon":
-            setMon((prev) => [...prev, anime])
-            break
-          case "tue":
-            setTue((prev) => [...prev, anime])
-            break
-          case "wed":
-            setWed((prev) => [...prev, anime])
-            break
-          case "thu":
-            setThu((prev) => [...prev, anime])
-            break
-          case "fri":
-            setFri((prev) => [...prev, anime])
-            break
-          case "sat":
-            setSat((prev) => [...prev, anime])
-            break
-          case "untagged":
-            setUntagged((prev) => [...prev, anime])
-            break
-        }
+        watchlistSwitchCase(
+          anime,
+          setSunday,
+          setMonday,
+          setTuesday,
+          setWednesday,
+          setThursday,
+          setFriday,
+          setSaturday,
+          setNewSeason,
+          setSun,
+          setMon,
+          setTue,
+          setWed,
+          setThu,
+          setFri,
+          setSat,
+          setUntagged
+        )
       })
     }
     fetchData()
@@ -144,7 +124,40 @@ const WatchList: React.FC = () => {
                 {isSundayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isSundayMinimized && <Deck animes={sunday} />}
+            <div className='deck'>
+              {!isSundayMinimized && sunday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setSunday(sunday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setSunday(sunday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -154,7 +167,40 @@ const WatchList: React.FC = () => {
                 {isMondayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isMondayMinimized && <Deck animes={monday} />}
+            <div className='deck'>
+              {!isMondayMinimized && monday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setMonday(monday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setMonday(monday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -164,7 +210,40 @@ const WatchList: React.FC = () => {
                 {isTuesdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isTuesdayMinimized && <Deck animes={tuesday} />}
+            <div className='deck'>
+              {!isTuesdayMinimized && tuesday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setTuesday(tuesday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setTuesday(tuesday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -174,7 +253,40 @@ const WatchList: React.FC = () => {
                 {isWednesdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isWednesdayMinimized && <Deck animes={wednesday} />}
+            <div className='deck'>
+              {!isWednesdayMinimized && wednesday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setWednesday(wednesday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setWednesday(wednesday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -184,7 +296,40 @@ const WatchList: React.FC = () => {
                 {isThursdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isThursdayMinimized && <Deck animes={thursday} />}
+            <div className='deck'>
+              {!isThursdayMinimized && thursday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setThursday(thursday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setThursday(thursday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -194,7 +339,40 @@ const WatchList: React.FC = () => {
                 {isFridayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isFridayMinimized && <Deck animes={friday} />}
+            <div className='deck'>
+              {!isFridayMinimized && friday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setFriday(friday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setFriday(friday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -204,7 +382,40 @@ const WatchList: React.FC = () => {
                 {isSaturdayMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isSaturdayMinimized && <Deck animes={saturday} />}
+            <div className='deck'>
+              {!isSaturdayMinimized && saturday.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setSaturday(saturday.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setSaturday(saturday.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
         </div>
       ) : (
@@ -217,7 +428,40 @@ const WatchList: React.FC = () => {
                 {isSunMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isSunMinimized && <Deck animes={sun} />}
+            <div className='deck'>
+              {!isSunMinimized && sun.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setSun(sun.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setSun(sun.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -227,7 +471,40 @@ const WatchList: React.FC = () => {
                 {isMonMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isMonMinimized && <Deck animes={mon} />}
+            <div className='deck'>
+              {!isMonMinimized && mon.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setMon(mon.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setMon(mon.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -237,7 +514,40 @@ const WatchList: React.FC = () => {
                 {isTueMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isTueMinimized && <Deck animes={tue} />}
+            <div className='deck'>
+              {!isTueMinimized && tue.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setTue(tue.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setTue(tue.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -247,7 +557,40 @@ const WatchList: React.FC = () => {
                 {isWedMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isWedMinimized && <Deck animes={wed} />}
+            <div className='deck'>
+              {!isWedMinimized && wed.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setWed(wed.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setWed(wed.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -257,7 +600,40 @@ const WatchList: React.FC = () => {
                 {isThuMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isThuMinimized && <Deck animes={thu} />}
+            <div className='deck'>
+              {!isThuMinimized && thu.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setThu(thu.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setThu(thu.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -267,7 +643,40 @@ const WatchList: React.FC = () => {
                 {isFriMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isFriMinimized && <Deck animes={fri} />}
+            <div className='deck'>
+              {!isFriMinimized && fri.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setFri(fri.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setFri(fri.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
           <section>
             <div className='min-max-div'>
@@ -277,7 +686,40 @@ const WatchList: React.FC = () => {
                 {isSatMinimized ? <ChevronDownIcon /> : <ChevronUpIcon />}
               </button>
             </div>
-            {!isSatMinimized && <Deck animes={sat} />}
+            <div className='deck'>
+              {!isSatMinimized && sat.map((anime) => (
+                <AnimeCard
+                  key={anime.url}
+                  anime={anime}
+                  onDelete={() => {
+                    setSat(sat.filter(a => a.url !== anime.url));
+                  }}
+                  onTagChange={(anime, tag) => {
+                    setSat(sat.filter(a => a.url !== anime.url));
+                    anime.tag = tag as Tag;
+                    watchlistSwitchCase(
+                      anime,
+                      setSunday,
+                      setMonday,
+                      setTuesday,
+                      setWednesday,
+                      setThursday,
+                      setFriday,
+                      setSaturday,
+                      setNewSeason,
+                      setSun,
+                      setMon,
+                      setTue,
+                      setWed,
+                      setThu,
+                      setFri,
+                      setSat,
+                      setUntagged
+                    )
+                  }}
+                />
+              ))}
+            </div>
           </section>
         </div>
       )}
@@ -285,18 +727,86 @@ const WatchList: React.FC = () => {
       <div className='untagged'>
         <button id='invisible-btn'></button>
         <h2>Untagged</h2>
-        <button className='untagged-btn' onClick={() => setIsUntaggedMinimized(!isUntaggedMinimized)}>
-          {isUntaggedMinimized ? <ChevronUpIcon /> : <ChevronDownIcon />}
-        </button>
+        <button id='invisible-btn'></button>
       </div>
-      <Deck animes={untagged} />
+      <div className='deck'>
+        {
+          untagged.map((anime) => (
+            <AnimeCard
+              key={anime.url}
+              anime={anime}
+              onDelete={() => {
+                setUntagged(untagged.filter(a => a.url !== anime.url));
+              }}
+              onTagChange={(anime, tag) => {
+                setUntagged(untagged.filter(a => a.url !== anime.url));
+                anime.tag = tag as Tag;
+                watchlistSwitchCase(
+                  anime,
+                  setSunday,
+                  setMonday,
+                  setTuesday,
+                  setWednesday,
+                  setThursday,
+                  setFriday,
+                  setSaturday,
+                  setNewSeason,
+                  setSun,
+                  setMon,
+                  setTue,
+                  setWed,
+                  setThu,
+                  setFri,
+                  setSat,
+                  setUntagged
+                )
+              }}
+            />
+          ))
+        }
+      </div>
 
       <div className='new-season-section'>
-        <button onClick={deleteNewSeason}>Delete New Season</button>
+        <button onClick={() => handleDeleteNewSeason()}>Delete New Season</button>
         <h2>New Season</h2>
-        <button onClick={getNewSeason}>Get New Season</button>
+        <button onClick={() => handleGetNewSeason()}>Get New Season</button>
       </div>
-      <Deck animes={newSeason} />
+      <div className='deck'>
+        {
+          newSeason.map((anime) => (
+            <AnimeCard
+              key={anime.url}
+              anime={anime}
+              onDelete={() => {
+                setNewSeason(newSeason.filter(a => a.url !== anime.url));
+              }}
+              onTagChange={(anime, tag) => {
+                setNewSeason(newSeason.filter(a => a.url !== anime.url));
+                anime.tag = tag as Tag;
+                watchlistSwitchCase(
+                  anime,
+                  setSunday,
+                  setMonday,
+                  setTuesday,
+                  setWednesday,
+                  setThursday,
+                  setFriday,
+                  setSaturday,
+                  setNewSeason,
+                  setSun,
+                  setMon,
+                  setTue,
+                  setWed,
+                  setThu,
+                  setFri,
+                  setSat,
+                  setUntagged
+                )
+              }}
+            />
+          ))
+        }
+      </div>
 
       <Link to='/'><button className='home-btn'>Home</button></Link>
     </section>

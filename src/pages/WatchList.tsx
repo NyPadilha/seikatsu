@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@primer/octicons-react';
+import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon } from '@primer/octicons-react';
 import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import watchlistSwitchCase from '../services/watchlistSwitchCase';
 import NewAnimeModal from '../components/watchlist/NewAnimeModal';
@@ -754,7 +754,7 @@ const WatchList: React.FC = () => {
       <div className='untagged'>
         <button id='invisible-btn'></button>
         <h2>Untagged</h2>
-        <button className='+button' onClick={() => handleNewAnime()}></button>
+        <button onClick={() => handleNewAnime()}><PlusIcon /></button>
       </div>
       <div className='deck'>
         {

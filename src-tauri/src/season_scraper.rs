@@ -48,7 +48,7 @@ pub async fn get_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> 
                     .unwrap()
             });
 
-        let formatted_date = format!("{}/{}", &date[2..], &date[..2]);
+        let formatted_date = format!("{}/{}", &date[6..8], &date[4..6]);
 
         season.push(Anime {
             title,

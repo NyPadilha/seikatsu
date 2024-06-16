@@ -940,7 +940,7 @@ const WatchList: React.FC = () => {
         }
       </div>
 
-      <Link to='/'><button className='home-btn'>Home</button></Link>
+      <Link className='home-btn' to='/'>Home</Link>
     </section>
   );
 };

@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           <div className='central'>
             <h1>Central</h1>
             <section className='central-content'>
-              <Link to='/watchlist' className='card'>WatchList</Link>
+              <Link to='/watchlist' className='card watchlist'></Link>
               <Link to='/metas' className='card'>Metas</Link>
               <Link to='/training' className='card'>Training</Link>
               <Link to='/finance' className='card'>Finance</Link>

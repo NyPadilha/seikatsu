@@ -125,6 +125,13 @@ body {
             border: black 1px solid;
             border-radius: 3px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+
+          .card.watchlist {
+            background-image: url("./public/mal_img.png");
+            background-position: center;
           }
         }
       }

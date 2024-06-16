@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.scss'
+import WaterCounter from '../components/WaterCounter';
 
 const Home: React.FC = () => {
   return (
@@ -17,14 +18,18 @@ const Home: React.FC = () => {
       </section>
       <section className='content'>
         <section className='first-section'>
-          <div className='skills'>
-            <h1>Skills</h1>
-            <div className='skills-graphic'>PlaceHolder</div>
+          <div className='basic'>
+            <div className='skills'>
+              <h1>Skills</h1>
+              <div className='skills-graphic'>PlaceHolder</div>
+            </div>
+
+            <WaterCounter />
           </div>
           <div className='central'>
             <h1>Central</h1>
             <section className='central-content'>
-              <Link to='/watchlist' className='card'>WatchList</Link>
+              <Link to='/watchlist' className='card watchlist'></Link>
               <Link to='/metas' className='card'>Metas</Link>
               <Link to='/training' className='card'>Training</Link>
               <Link to='/finance' className='card'>Finance</Link>

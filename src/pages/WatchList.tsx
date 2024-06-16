@@ -26,21 +26,66 @@ const WatchList: React.FC = () => {
   const [fri, setFri] = useState<Anime[]>([])
   const [sat, setSat] = useState<Anime[]>([])
   const [untagged, setUntagged] = useState<Anime[]>([])
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isSundayMinimized, setIsSundayMinimized] = useState(false);
-  const [isMondayMinimized, setIsMondayMinimized] = useState(false);
-  const [isTuesdayMinimized, setIsTuesdayMinimized] = useState(false);
-  const [isWednesdayMinimized, setIsWednesdayMinimized] = useState(false);
-  const [isThursdayMinimized, setIsThursdayMinimized] = useState(false);
-  const [isFridayMinimized, setIsFridayMinimized] = useState(false);
-  const [isSaturdayMinimized, setIsSaturdayMinimized] = useState(false);
-  const [isSunMinimized, setIsSunMinimized] = useState(false);
-  const [isMonMinimized, setIsMonMinimized] = useState(false);
-  const [isTueMinimized, setIsTueMinimized] = useState(false);
-  const [isWedMinimized, setIsWedMinimized] = useState(false);
-  const [isThuMinimized, setIsThuMinimized] = useState(false);
-  const [isFriMinimized, setIsFriMinimized] = useState(false);
-  const [isSatMinimized, setIsSatMinimized] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState<number>(() => {
+    const saved = localStorage.getItem('currentSlide');
+    return saved !== null ? Number(saved) : 0;
+  });
+  const [isSundayMinimized, setIsSundayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isSundayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isMondayMinimized, setIsMondayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isMondayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isTuesdayMinimized, setIsTuesdayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isTuesdayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isWednesdayMinimized, setIsWednesdayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isWednesdayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isThursdayMinimized, setIsThursdayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isThursdayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isFridayMinimized, setIsFridayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isFridayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isSaturdayMinimized, setIsSaturdayMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isSaturdayMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isSunMinimized, setIsSunMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isSunMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isMonMinimized, setIsMonMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isMonMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isTueMinimized, setIsTueMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isTueMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isWedMinimized, setIsWedMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isWedMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isThuMinimized, setIsThuMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isThuMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isFriMinimized, setIsFriMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isFriMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
+  const [isSatMinimized, setIsSatMinimized] = useState<boolean>(() => {
+    const saved = localStorage.getItem('isSatMinimized');
+    return saved !== null ? JSON.parse(saved) : false;
+  });
   const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchListContext);
 
   const clearState = () => {
@@ -63,12 +108,72 @@ const WatchList: React.FC = () => {
   }
 
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % 2);
+    setCurrentSlide(currentSlide === 0 ? 1 : 0);
   };
 
   const previousSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + 2) % 2);
+    setCurrentSlide(currentSlide === 0 ? 1 : 0);
   }
+
+  useEffect(() => {
+    localStorage.setItem('currentSlide', String(currentSlide));
+  }, [currentSlide]);
+
+  useEffect(() => {
+    localStorage.setItem('isSundayMinimized', JSON.stringify(isSundayMinimized));
+  }, [isSundayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isMondayMinimized', JSON.stringify(isMondayMinimized));
+  }, [isMondayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isTuesdayMinimized', JSON.stringify(isTuesdayMinimized));
+  }, [isTuesdayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isWednesdayMinimized', JSON.stringify(isWednesdayMinimized));
+  }, [isWednesdayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isThursdayMinimized', JSON.stringify(isThursdayMinimized));
+  }, [isThursdayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isFridayMinimized', JSON.stringify(isFridayMinimized));
+  }, [isFridayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isSaturdayMinimized', JSON.stringify(isSaturdayMinimized));
+  }, [isSaturdayMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isSunMinimized', JSON.stringify(isSunMinimized));
+  }, [isSunMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isMonMinimized', JSON.stringify(isMonMinimized));
+  }, [isMonMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isTueMinimized', JSON.stringify(isTueMinimized));
+  }, [isTueMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isWedMinimized', JSON.stringify(isWedMinimized));
+  }, [isWedMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isThuMinimized', JSON.stringify(isThuMinimized));
+  }, [isThuMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isFriMinimized', JSON.stringify(isFriMinimized));
+  }, [isFriMinimized]);
+
+  useEffect(() => {
+    localStorage.setItem('isSatMinimized', JSON.stringify(isSatMinimized));
+  }, [isSatMinimized]);
 
   const handleGetNewSeason = async () => {
     const season = await getNewSeason()
@@ -835,7 +940,7 @@ const WatchList: React.FC = () => {
         }
       </div>
 
-      <Link to='/'><button className='home-btn'>Home</button></Link>
+      <Link className='home-btn' to='/'>Home</Link>
     </section>
   );
 };

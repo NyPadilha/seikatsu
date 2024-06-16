@@ -93,18 +93,115 @@ body {
     .first-section {
       @include flex(row, flex-start, flex-start);
 
-      .skills {
+      .basic {
         @include flex(column, flex-start, flex-start);
         margin-right: 150px;
 
-        .skills-graphic {
-          @include flex(column, center, center);
-          width: 400px;
-          height: 270px;
+        .water-counter {
+          @include flex(column, flex-start, center);
+          margin-top: 30px;
+          width: 230px;
           background-color: $black;
           border: black 1px solid;
           border-radius: 3px;
           box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+          h1 {
+            margin: 20px 0 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+          }
+
+          .total {
+            @include flex(row, center, flex-start);
+            margin: 10px 0 18px 0;
+            padding: 5px;
+            border: $black 1px solid;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.0);
+
+            h3 {
+              margin: 0 3px 0 3px;
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            input {
+              width: 53px;
+              height: 16px;
+              background-color: $black;
+              color: $lesserGray;
+              border: $lesserGray 1px solid;
+              border-radius: 3px;
+              font-size: 12px;
+              font-weight: 800;
+            }
+          }
+
+          .achieved {
+            border: $yellow 1px solid;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px 0px rgba(254, 189, 41, 0.75);
+          }
+
+          section {
+            @include flex(row, center, center);
+            @include marginPadding0();
+            width: 100%;
+
+            input {
+              @include marginPadding0();
+              width: 50px;
+              height: 19px;
+              background-color: $lesserGray;
+              color: $black;
+              border: $lesserGray 1px solid;
+              border-radius: 3px;
+              font-size: 10px;
+              font-weight: 600;
+            }
+
+            .plus-water {
+              @include flex(row, space-between, center);
+              height: 25px;
+              background-color: $lesserGray;
+              border: $black 1px solid;
+              border-radius: 3px;
+              color: $black;
+              margin: 0 5px 0 5px;
+              font-size: 12px;
+              font-weight: 600;
+              padding: 0 7px 0 7px;
+
+              button {
+                @include marginPadding0();
+                @include flex(row, center, center);
+                background-color: $lesserGray;
+                border: none;
+                color: $black;
+                margin-left: 5px;
+
+                .octicon-plus {
+                  width: 12px;
+                  height: 12px;
+                }
+              }
+            }
+          }
+        }
+
+        .skills {
+          @include flex(column, flex-start, flex-start);
+
+          .skills-graphic {
+            @include flex(column, center, center);
+            width: 400px;
+            height: 205px;
+            background-color: $black;
+            border: black 1px solid;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+          }
         }
       }
 
@@ -125,6 +222,13 @@ body {
             border: black 1px solid;
             border-radius: 3px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+
+          .card.watchlist {
+            background-image: url("./public/mal_img.png");
+            background-position: center;
           }
         }
       }
@@ -493,14 +597,17 @@ body {
   }
 
   .home-btn {
-    width: 200px;
+    @include flex(row, center, center);
     background-color: $black;
     color: $lesserGray;
     border: $black 1px solid;
     border-radius: 3px;
+    margin: 60px 0 100px 0;
     font-size: 26px;
     font-weight: 800;
-    margin: 60px 0 100px 0;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
   }
 
   .home-btn:hover {

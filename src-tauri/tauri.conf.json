@@ -6,7 +6,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "seikatsu",
+    "productName": "Seikatsu",
     "version": "0.1.0"
   },
   "tauri": {

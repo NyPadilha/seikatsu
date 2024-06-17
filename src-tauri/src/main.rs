@@ -75,7 +75,7 @@ fn update_title(url: &str, title: &str) {
 
 // training
 #[tauri::command]
-fn read_workout() -> Option<Vec<Workout>> {
+fn get_workouts() -> Option<Vec<Workout>> {
     training::read_workout()
 }
 
@@ -103,7 +103,7 @@ fn main() {
             update_description,
             update_tag,
             update_title,
-            read_workout,
+            get_workouts,
             add_workout,
             del_workout
         ])

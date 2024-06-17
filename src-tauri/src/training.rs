@@ -7,7 +7,7 @@ use std::path::Path;
 pub struct Exercise {
     pub name: String,
     pub tag: String,
-    pub config: String,
+    pub config: f32,
 }
 
 #[derive(Serialize, Deserialize)]

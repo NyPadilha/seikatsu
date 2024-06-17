@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 
 const Finance: React.FC = () => {
   return (
-    <div>
+    <section>
+      <div className='banner'>PlaceHolder</div>
+
       <div>Finance</div>
       <Link to='/'>Home</Link>
-    </div>
+    </section>
   );
 };
 

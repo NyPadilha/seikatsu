@@ -220,6 +220,8 @@ const WatchList: React.FC = () => {
 
   return (
     <section id='watchlist'>
+      <div className='banner'>PlaceHolder</div>
+
       <div className='t-a-bar'>
         <button onClick={previousSlide}>{<ChevronLeftIcon />}</button>
         {currentSlide === 0 ? <h1>Alone</h1> : <h1>Together</h1>}

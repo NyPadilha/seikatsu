@@ -899,7 +899,7 @@ const WatchList: React.FC = () => {
       </div>
 
       <div className='new-season-section'>
-        <button onClick={() => handleDeleteNewSeason()}>Delete New Season</button>
+        <button onClick={() => handleDeleteNewSeason()}>Delete Season</button>
         <h2>New Season</h2>
         <button onClick={() => handleGetNewSeason()}>Get New Season</button>
       </div>

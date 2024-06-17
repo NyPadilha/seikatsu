@@ -167,10 +167,10 @@ body {
               background-color: $lesserGray;
               border: $black 1px solid;
               border-radius: 3px;
-              color: $black;
+              color: black;
               margin: 0 5px 0 5px;
               font-size: 12px;
-              font-weight: 600;
+              font-weight: 800;
               padding: 0 7px 0 7px;
 
               button {
@@ -178,7 +178,7 @@ body {
                 @include flex(row, center, center);
                 background-color: $lesserGray;
                 border: none;
-                color: $black;
+                color: black;
                 margin-left: 5px;
 
                 .octicon-plus {
@@ -227,7 +227,7 @@ body {
           }
 
           .card.watchlist {
-            background-image: url("./public/mal_img.png");
+            background-image: url("./public/mal_blue_img.png");
             background-position: center;
           }
         }

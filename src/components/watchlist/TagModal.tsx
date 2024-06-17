@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import WatchListContext from '../../context/useContext';
+import { WatchlistContext } from '../../context/useContext';
 import { updateTag } from '../../services/api';
 import { Tag } from '../../types/IWatchlist';
 import '../../styles.scss';
@@ -9,8 +9,8 @@ interface TagModalProps {
 }
 
 const TagModal: React.FC<TagModalProps> = ({ url }) => {
-  const { setIsTagModalOpen } = useContext(WatchListContext);
-  const { setTagChanged } = useContext(WatchListContext);
+  const { setIsTagModalOpen } = useContext(WatchlistContext);
+  const { setTagChanged } = useContext(WatchlistContext);
 
   const handleUpdate = async (url: string, tag: Tag) => {
     await updateTag(url, tag);

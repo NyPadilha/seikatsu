@@ -4,7 +4,7 @@ import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import watchlistSwitchCase from '../services/watchlistSwitchCase';
 import NewAnimeModal from '../components/watchlist/NewAnimeModal';
 import AnimeCard from '../components/watchlist/AnimeCard';
-import WatchListContext from '../context/useContext';
+import { WatchlistContext } from '../context/useContext';
 import { Anime, Tag } from '../types/IWatchlist';
 import { Link } from 'react-router-dom'
 import '../styles.scss';
@@ -86,7 +86,7 @@ const WatchList: React.FC = () => {
     const saved = localStorage.getItem('isSatMinimized');
     return saved !== null ? JSON.parse(saved) : false;
   });
-  const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchListContext);
+  const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchlistContext);
 
   const clearState = () => {
     setSunday([])

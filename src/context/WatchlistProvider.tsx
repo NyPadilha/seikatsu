@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, ReactNode } from 'react';
-import WatchListContext from './useContext';
+import { WatchlistContext } from './useContext';
 import { TagChanger } from '../types/IWatchlist';
 
 interface ProviderProps {
@@ -37,9 +37,9 @@ const WatchlistProvider: React.FC<ProviderProps> = ({ children }) => {
   }), [isTagModalOpen, tagChanged, isNewAnimeModalOpen]);
 
   return (
-    <WatchListContext.Provider value={store}>
+    <WatchlistContext.Provider value={store}>
       {children}
-    </WatchListContext.Provider>
+    </WatchlistContext.Provider>
   );
 }
 

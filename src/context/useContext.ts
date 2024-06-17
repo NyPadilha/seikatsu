@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { TagChanger } from '../types/IWatchlist';
 
-type WatchListContextType = {
+type WatchlistContextType = {
   isTagModalOpen: boolean;
   setIsTagModalOpen: (bool: boolean) => void;
   tagChanged: TagChanger;
@@ -10,7 +10,7 @@ type WatchListContextType = {
   setIsNewAnimeModalOpen: (bool: boolean) => void;
 };
 
-const WatchListContext = createContext<WatchListContextType>({
+const WatchlistContext = createContext<WatchlistContextType>({
   isTagModalOpen: false,
   setIsTagModalOpen: () => { },
   tagChanged: { url: null, tag: null },
@@ -19,4 +19,17 @@ const WatchListContext = createContext<WatchListContextType>({
   setIsNewAnimeModalOpen: () => { },
 });
 
-export default WatchListContext;
+type TrainingContextType = {
+  isNewWorkoutModalOpen: boolean;
+  setIsNewWorkoutModalOpen: (bool: boolean) => void;
+};
+
+const TrainingContext = createContext<TrainingContextType>({
+  isNewWorkoutModalOpen: false,
+  setIsNewWorkoutModalOpen: () => { },
+});
+
+export {
+  WatchlistContext,
+  TrainingContext
+}

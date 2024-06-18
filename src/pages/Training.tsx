@@ -23,9 +23,9 @@ const Training: React.FC = () => {
     <section id='training'>
       <div className='banner'>PlaceHolder</div>
       {isNewWorkoutModalOpen && <NewWorkoutModal onAdd={(workout) => setWorkouts([...workouts, workout])} />}
-
-      <div>Training</div>
-      <button onClick={() => setIsNewWorkoutModalOpen(true)}>Create Workout</button>
+      <button className='new-workout-btn' onClick={() => setIsNewWorkoutModalOpen(true)}>Create Workout</button>
+      <br />
+      <br />
       <div className='workouts'>
         {workouts.map((workout) => (
           <WorkoutTable

@@ -659,7 +659,6 @@ body {
     text-align: center;
     color: $lesserGray;
     border-radius: 7px;
-    margin: 9px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -777,6 +776,23 @@ body {
         color: $black;
       }
     }
+  }
+
+  .new-workout-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 150px;
+    height: 30px;
+  }
+
+  .new-workout-btn:hover {
+    background-color: $yellow;
+    color: $black;
   }
 
   .workouts {

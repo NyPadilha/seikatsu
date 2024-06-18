@@ -61,7 +61,7 @@ const WaterCounter: React.FC = () => {
   useEffect(() => {
     const storeDrunk = localStorage.getItem('drunk');
 
-    const storedDate = new Date(storeDrunk && JSON.parse(storeDrunk).date).toISOString().split('T')[0];
+    const storedDate = storeDrunk && JSON.parse(storeDrunk).date.substring(0, 10);
     const currentDate = new Date().toISOString().split('T')[0];
 
     storedDate !== currentDate && setDrunk(0);

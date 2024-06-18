@@ -68,7 +68,7 @@ const WaterCounter: React.FC = () => {
   }, []);
 
   return (
-    <div className='water-counter'>
+    <div className={drunk >= goal ? "achieved water-counter" : 'water-counter'}>
       <h1>- Water Counter -</h1>
       <section>
         <div className='plus-water'>
@@ -102,7 +102,7 @@ const WaterCounter: React.FC = () => {
           <button onClick={() => setDrunk(drunk + ml)}><PlusIcon /></button>
         </div>
       </section>
-      <div className={drunk >= goal ? "total achieved" : "total"}>
+      <div className="total">
         <h3>{`${drunk}ml`}</h3>
         <h3>|</h3>
         {isEditingGoal ? (

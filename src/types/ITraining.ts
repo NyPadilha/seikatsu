@@ -1,8 +1,8 @@
-export type Tag = "endurance" | "rep" | "rep/side"
+export type Tag = "endurance" | "rep" | "rep/side" | "fatigue"
 
 export type Exercise = {
   name: string,
-  tags: Tag[],
+  tag: Tag,
   config: number
 }
 

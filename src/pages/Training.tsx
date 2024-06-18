@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import WorkoutTable from '../components/training/WorkoutTable';
+import NewWorkoutModal from '../components/training/NewWorkoutModal';
+import { TrainingContext } from '../context/useContext';
 import { getWorkouts } from '../services/api';
-import { Exercise, Workout } from '../types/ITraining';
+import { Workout } from '../types/ITraining';
 import { Link } from 'react-router-dom';
 import '../styles.scss';
-import WorkoutTable from '../components/training/WorkoutTable';
 
 const Training: React.FC = () => {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const { isNewWorkoutModalOpen, setIsNewWorkoutModalOpen } = useContext(TrainingContext);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
       const data = await getWorkouts() as Workout[];
-      setWorkouts(data);
+      data && setWorkouts(data);
     };
     fetchWorkouts();
   }, []);
@@ -19,12 +22,17 @@ const Training: React.FC = () => {
   return (
     <section id='training'>
       <div className='banner'>PlaceHolder</div>
+      {isNewWorkoutModalOpen && <NewWorkoutModal onAdd={(workout) => setWorkouts([...workouts, workout])} />}
 
       <div>Training</div>
-      <button>Create Workout</button>
+      <button onClick={() => setIsNewWorkoutModalOpen(true)}>Create Workout</button>
       <div className='workouts'>
         {workouts.map((workout) => (
-          <WorkoutTable key={workout.title} workout={workout} />
+          <WorkoutTable
+            key={workout.title}
+            workout={workout}
+            onDelete={() => setWorkouts(workouts.filter((w) => w.title !== workout.title))}
+          />
         ))}
       </div>
       <Link className='home-btn' to='/'>Home</Link>

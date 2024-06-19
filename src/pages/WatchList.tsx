@@ -4,7 +4,7 @@ import { getWatchlist, getNewSeason, deleteNewSeason } from '../services/api';
 import watchlistSwitchCase from '../services/watchlistSwitchCase';
 import NewAnimeModal from '../components/watchlist/NewAnimeModal';
 import AnimeCard from '../components/watchlist/AnimeCard';
-import WatchListContext from '../context/useContext';
+import { WatchlistContext } from '../context/useContext';
 import { Anime, Tag } from '../types/IWatchlist';
 import { Link } from 'react-router-dom'
 import '../styles.scss';
@@ -86,7 +86,7 @@ const WatchList: React.FC = () => {
     const saved = localStorage.getItem('isSatMinimized');
     return saved !== null ? JSON.parse(saved) : false;
   });
-  const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchListContext);
+  const { isNewAnimeModalOpen, setIsNewAnimeModalOpen } = useContext(WatchlistContext);
 
   const clearState = () => {
     setSunday([])
@@ -220,6 +220,8 @@ const WatchList: React.FC = () => {
 
   return (
     <section id='watchlist'>
+      <div className='banner'>PlaceHolder</div>
+
       <div className='t-a-bar'>
         <button onClick={previousSlide}>{<ChevronLeftIcon />}</button>
         {currentSlide === 0 ? <h1>Alone</h1> : <h1>Together</h1>}
@@ -899,7 +901,7 @@ const WatchList: React.FC = () => {
       </div>
 
       <div className='new-season-section'>
-        <button onClick={() => handleDeleteNewSeason()}>Delete New Season</button>
+        <button onClick={() => handleDeleteNewSeason()}>Delete Season</button>
         <h2>New Season</h2>
         <button onClick={() => handleGetNewSeason()}>Get New Season</button>
       </div>

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom'
 
 const Travel: React.FC = () => {
   return (
-    <div>
+    <section>
+      <div className='banner'>PlaceHolder</div>
+
       <div>Travel</div>
       <Link to='/'>Home</Link>
-    </div>
+    </section>
   );
 };
 

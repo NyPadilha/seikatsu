@@ -61,14 +61,14 @@ const WaterCounter: React.FC = () => {
   useEffect(() => {
     const storeDrunk = localStorage.getItem('drunk');
 
-    const storedDate = new Date(storeDrunk && JSON.parse(storeDrunk).date).toISOString().split('T')[0];
+    const storedDate = storeDrunk && JSON.parse(storeDrunk).date.substring(0, 10);
     const currentDate = new Date().toISOString().split('T')[0];
 
     storedDate !== currentDate && setDrunk(0);
   }, []);
 
   return (
-    <div className='water-counter'>
+    <div className={drunk >= goal ? "achieved water-counter" : 'water-counter'}>
       <h1>- Water Counter -</h1>
       <section>
         <div className='plus-water'>
@@ -102,7 +102,7 @@ const WaterCounter: React.FC = () => {
           <button onClick={() => setDrunk(drunk + ml)}><PlusIcon /></button>
         </div>
       </section>
-      <div className={drunk >= goal ? "total achieved" : "total"}>
+      <div className="total">
         <h3>{`${drunk}ml`}</h3>
         <h3>|</h3>
         {isEditingGoal ? (

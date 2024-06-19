@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { updateTitle, updateDescription, updateToWatch, deleteAnime } from '../../services/api';
-import WatchListContext from '../../context/useContext';
+import { WatchlistContext } from '../../context/useContext';
 import { Anime, Tag } from '../../types/IWatchlist';
 import TagModal from './TagModal';
 import '../../styles.scss';
@@ -14,14 +14,14 @@ interface AnimeCardProps {
 const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) => {
   const [editingDescription, setEditingDescription] = useState<string | null>(null);
   const [editingTitle, setEditingTitle] = useState<string | null>(null);
-  const { isTagModalOpen, setIsTagModalOpen } = useContext(WatchListContext);
+  const { isTagModalOpen, setIsTagModalOpen } = useContext(WatchlistContext);
   const [editingTag, setEditingTag] = useState<string | null>(null);
   const [title, setTitle] = useState<string>('');
   const [url, setUrl] = useState<string>('');
   const [image, setImage] = useState<string>('');
   const [to_watch, setToWatch] = useState<boolean>(false);
   const [description, setDescription] = useState<string>('');
-  const { tagChanged, setTagChanged } = useContext(WatchListContext);
+  const { tagChanged, setTagChanged } = useContext(WatchlistContext);
 
   const handleDCDesc = (url: string, description: string) => {
     setEditingDescription(url);

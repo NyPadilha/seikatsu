@@ -1,10 +1,12 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use training::Workout;
 use watchlist::Anime;
 
 mod profile;
 mod season_scraper;
+mod training;
 mod watchlist;
 
 // profile
@@ -71,6 +73,22 @@ fn update_title(url: &str, title: &str) {
     watchlist::update_title(url, title);
 }
 
+// training
+#[tauri::command]
+fn get_workouts() -> Option<Vec<Workout>> {
+    training::read_workout()
+}
+
+#[tauri::command]
+fn add_workout(workout: Workout) {
+    training::add_workout(workout);
+}
+
+#[tauri::command]
+fn del_workout(title: &str) {
+    training::del_workout(title);
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -84,7 +102,10 @@ fn main() {
             update_to_watch,
             update_description,
             update_tag,
-            update_title
+            update_title,
+            get_workouts,
+            add_workout,
+            del_workout
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

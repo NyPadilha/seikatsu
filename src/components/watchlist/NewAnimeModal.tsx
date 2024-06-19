@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import WatchListContext from '../../context/useContext';
+import { WatchlistContext } from '../../context/useContext';
 import { addAnime } from '../../services/api';
 import { Anime, Tag } from '../../types/IWatchlist';
 import '../../styles.scss';
@@ -9,7 +9,7 @@ interface NewAnimeProps {
 }
 
 const NewAnime: React.FC<NewAnimeProps> = ({ onAdd }) => {
-  const { setIsNewAnimeModalOpen } = useContext(WatchListContext);
+  const { setIsNewAnimeModalOpen } = useContext(WatchlistContext);
   const [selectedTag, setSelectedTag] = useState<Tag>('untagged');
   const [anime, setAnime] = useState<Anime>({
     title: '',

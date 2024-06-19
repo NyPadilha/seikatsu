@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import { Anime } from '../types/IWatchlist';
+import { Workout } from '../types/ITraining';
 
 export async function getWatchlist() {
   const watchlist: Anime[] = await invoke('get_watchlist');
@@ -38,4 +39,17 @@ export async function updateTag(url: string, tag: string) {
 
 export async function updateTitle(url: string, title: string) {
   await invoke('update_title', { url, title });
+}
+
+export async function getWorkouts() {
+  const workouts: Workout[] = await invoke('get_workouts');
+  return workouts;
+}
+
+export async function addWorkout(workout: Workout) {
+  await invoke('add_workout', { workout });
+}
+
+export async function deleteWorkout(title: string) {
+  await invoke('del_workout', { title });
 }

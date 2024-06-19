@@ -1,9 +1,12 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use metas::FinanceMeta;
+use metas::SetupMetas;
 use training::Workout;
 use watchlist::Anime;
 
+mod metas;
 mod profile;
 mod season_scraper;
 mod training;
@@ -89,6 +92,37 @@ fn del_workout(title: &str) {
     training::del_workout(title);
 }
 
+// metas
+#[tauri::command]
+fn get_setup() -> Option<Vec<SetupMetas>> {
+    metas::read_setup()
+}
+
+#[tauri::command]
+fn add_row(item: SetupMetas) {
+    metas::add_row(item);
+}
+
+#[tauri::command]
+fn del_row(item: &str) {
+    metas::del_row(item);
+}
+
+#[tauri::command]
+fn update_row(item: &str, value: f32, paid: f32, bought: bool) {
+    metas::update_row(item, value, paid, bought);
+}
+
+#[tauri::command]
+fn read_finance() -> Option<FinanceMeta> {
+    metas::read_finance()
+}
+
+#[tauri::command]
+fn update_finance(value: FinanceMeta) {
+    metas::write_finance(&value);
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -105,7 +139,13 @@ fn main() {
             update_title,
             get_workouts,
             add_workout,
-            del_workout
+            del_workout,
+            get_setup,
+            add_row,
+            del_row,
+            update_row,
+            read_finance,
+            update_finance
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

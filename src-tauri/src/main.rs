@@ -101,18 +101,18 @@ fn get_setup() -> Option<Vec<SetupMetas>> {
 }
 
 #[tauri::command]
-fn add_row(item: SetupMetas) {
-    metas::add_row(item);
+fn add_setup_row(item: SetupMetas) {
+    metas::add_setup_row(item);
 }
 
 #[tauri::command]
-fn del_row(item: &str) {
-    metas::del_row(item);
+fn del_setup_row(item: &str) {
+    metas::del_setup_row(item);
 }
 
 #[tauri::command]
-fn update_row(item: &str, value: f32, paid: f32, bought: bool) {
-    metas::update_row(item, value, paid, bought);
+fn update_setup_row(item: &str, value: f32, paid: f32, bought: bool) {
+    metas::update_setup_row(item, value, paid, bought);
 }
 
 #[tauri::command]
@@ -171,13 +171,13 @@ fn del_generic_meta(meta: &str) {
 }
 
 #[tauri::command]
-fn add_row_generic_meta(meta: &str, item: Vec<String>) {
-    metas::add_row_generic_meta(meta, item);
+fn add_row_generic_meta(meta: &str, row: Vec<String>) {
+    metas::add_row_generic_meta(meta, row);
 }
 
 #[tauri::command]
-fn del_row_generic_meta(meta: &str, item: Vec<String>) {
-    metas::del_row_generic_meta(meta, &item);
+fn del_row_generic_meta(meta: &str, row: Vec<String>) {
+    metas::del_row_generic_meta(meta, &row);
 }
 
 #[tauri::command]
@@ -203,9 +203,9 @@ fn main() {
             add_workout,
             del_workout,
             get_setup,
-            add_row,
-            del_row,
-            update_row,
+            add_setup_row,
+            del_setup_row,
+            update_setup_row,
             get_finance,
             update_finance,
             get_metas,

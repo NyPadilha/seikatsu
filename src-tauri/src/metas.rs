@@ -32,19 +32,19 @@ pub fn write_setup(setup: &Vec<SetupMetas>) {
         .expect("Failed to write to file");
 }
 
-pub fn add_row(item: SetupMetas) {
+pub fn add_setup_row(item: SetupMetas) {
     let mut setup_list = read_setup().unwrap_or_else(Vec::new);
     setup_list.push(item);
     write_setup(&setup_list);
 }
 
-pub fn del_row(item: &str) {
+pub fn del_setup_row(item: &str) {
     let mut setup_list = read_setup().unwrap_or_else(Vec::new);
     setup_list.retain(|setup| setup.item != item);
     write_setup(&setup_list);
 }
 
-pub fn update_row(item: &str, value: f32, paid: f32, bought: bool) {
+pub fn update_setup_row(item: &str, value: f32, paid: f32, bought: bool) {
     let mut setup_list = read_setup().unwrap_or_else(Vec::new);
     for setup in setup_list.iter_mut() {
         if setup.item == item {

@@ -24,8 +24,10 @@ const NewWorkoutModal: React.FC<NewWorkoutModalProps> = ({ onAdd }) => {
   });
 
   const handleAdd = async (workout: Workout) => {
-    if (typeof workout.rest === 'string') { workout.rest = 0 }
-    if (typeof workout.sets === 'string') { workout.sets = 0 }
+    console.log(workout.sets, workout.rest);
+    if (typeof workout.rest === 'string') { workout.rest = Number(workout.rest) }
+    if (typeof workout.sets === 'string') { workout.sets = Number(workout.sets) }
+    console.log(workout.sets, workout.rest);
 
     await addWorkout(workout);
     onAdd(workout);

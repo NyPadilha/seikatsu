@@ -2,6 +2,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use metas::FinanceMeta;
+use metas::GenericMetaTable;
+use metas::Metas;
 use metas::SetupMetas;
 use training::Workout;
 use watchlist::Anime;
@@ -114,13 +116,73 @@ fn update_row(item: &str, value: f32, paid: f32, bought: bool) {
 }
 
 #[tauri::command]
-fn read_finance() -> Option<FinanceMeta> {
+fn get_finance() -> Option<FinanceMeta> {
     metas::read_finance()
 }
 
 #[tauri::command]
 fn update_finance(value: FinanceMeta) {
     metas::write_finance(&value);
+}
+
+#[tauri::command]
+fn get_metas() -> Option<Vec<Metas>> {
+    metas::read_metas()
+}
+
+#[tauri::command]
+fn add_meta(meta: Metas) {
+    metas::add_meta(meta);
+}
+
+#[tauri::command]
+fn del_meta(meta: &str) {
+    metas::del_meta(meta);
+}
+
+#[tauri::command]
+fn update_deadline(meta: &str, deadline: &str) {
+    metas::update_deadline(meta, deadline);
+}
+
+#[tauri::command]
+fn update_achieved(meta: &str, achieved: bool) {
+    metas::update_achieved(meta, achieved);
+}
+
+#[tauri::command]
+fn del_m(meta: &str) {
+    metas::del_m(meta);
+}
+
+#[tauri::command]
+fn get_generic_metas() -> Option<Vec<GenericMetaTable>> {
+    metas::read_generic_metas()
+}
+
+#[tauri::command]
+fn add_generic_meta(meta: GenericMetaTable) {
+    metas::add_generic_meta(meta);
+}
+
+#[tauri::command]
+fn del_generic_meta(meta: &str) {
+    metas::del_generic_meta(meta);
+}
+
+#[tauri::command]
+fn add_row_generic_meta(meta: &str, item: Vec<String>) {
+    metas::add_row_generic_meta(meta, item);
+}
+
+#[tauri::command]
+fn del_row_generic_meta(meta: &str, item: Vec<String>) {
+    metas::del_row_generic_meta(meta, &item);
+}
+
+#[tauri::command]
+fn update_row_generic_meta(title: &str, row_id: String, row: Vec<String>) {
+    metas::update_row_generic_meta(title, row_id, row);
 }
 
 fn main() {
@@ -144,8 +206,20 @@ fn main() {
             add_row,
             del_row,
             update_row,
-            read_finance,
-            update_finance
+            get_finance,
+            update_finance,
+            get_metas,
+            add_meta,
+            del_meta,
+            update_deadline,
+            update_achieved,
+            del_m,
+            get_generic_metas,
+            add_generic_meta,
+            del_generic_meta,
+            add_row_generic_meta,
+            del_row_generic_meta,
+            update_row_generic_meta
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

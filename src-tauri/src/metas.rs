@@ -81,3 +81,144 @@ pub fn write_finance(value: &FinanceMeta) {
     file.write_all(contents.as_bytes())
         .expect("Failed to write to file");
 }
+
+#[derive(Serialize, Deserialize)]
+pub struct Metas {
+    pub meta: String,
+    pub deadline: String,
+    pub achieved: bool,
+}
+
+pub fn read_metas() -> Option<Vec<Metas>> {
+    let path = Path::new("metas.json");
+    if path.exists() {
+        let mut file = File::open(path).expect("Failed to open file");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents)
+            .expect("Failed to read file");
+        let metas: Vec<Metas> = serde_json::from_str(&contents).expect("Failed to parse JSON");
+        Some(metas)
+    } else {
+        None
+    }
+}
+
+pub fn write_metas(metas: &Vec<Metas>) {
+    let contents = serde_json::to_string(metas).expect("Failed to serialize to JSON");
+    let mut file = File::create("metas.json").expect("Failed to create file");
+    file.write_all(contents.as_bytes())
+        .expect("Failed to write to file");
+}
+
+pub fn add_meta(meta: Metas) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    metas_list.push(meta);
+    write_metas(&metas_list);
+}
+
+pub fn del_meta(meta: &str) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    metas_list.retain(|m| m.meta != meta);
+    write_metas(&metas_list);
+}
+
+pub fn update_deadline(meta: &str, deadline: &str) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    for m in metas_list.iter_mut() {
+        if m.meta == meta {
+            m.deadline = deadline.to_string();
+        }
+    }
+    write_metas(&metas_list);
+}
+
+pub fn update_achieved(meta: &str, achieved: bool) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    for m in metas_list.iter_mut() {
+        if m.meta == meta {
+            m.achieved = achieved;
+        }
+    }
+    write_metas(&metas_list);
+}
+
+pub fn del_m(meta: &str) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    metas_list.retain(|m: &Metas| m.meta != meta);
+    write_metas(&metas_list);
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct GenericMetaTable {
+    pub title: String,
+    pub columns: Vec<String>,
+    pub data: Vec<Vec<String>>,
+}
+
+pub fn read_generic_metas() -> Option<Vec<GenericMetaTable>> {
+    let path = Path::new("generic_meta.json");
+    if path.exists() {
+        let mut file = File::open(path).expect("Failed to open file");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents)
+            .expect("Failed to read file");
+        let generic_meta: Vec<GenericMetaTable> =
+            serde_json::from_str(&contents).expect("Failed to parse JSON");
+        Some(generic_meta)
+    } else {
+        None
+    }
+}
+
+pub fn write_generic_metas(generic_meta: &Vec<GenericMetaTable>) {
+    let contents = serde_json::to_string(generic_meta).expect("Failed to serialize to JSON");
+    let mut file = File::create("generic_meta.json").expect("Failed to create file");
+    file.write_all(contents.as_bytes())
+        .expect("Failed to write to file");
+}
+
+pub fn add_generic_meta(generic_meta: GenericMetaTable) {
+    let mut generic_meta_list = read_generic_metas().unwrap_or_else(Vec::new);
+    generic_meta_list.push(generic_meta);
+    write_generic_metas(&generic_meta_list);
+}
+
+pub fn del_generic_meta(title: &str) {
+    let mut generic_meta_list = read_generic_metas().unwrap_or_else(Vec::new);
+    generic_meta_list.retain(|generic_meta| generic_meta.title != title);
+    write_generic_metas(&generic_meta_list);
+}
+
+pub fn add_row_generic_meta(title: &str, row: Vec<String>) {
+    let mut generic_meta_list = read_generic_metas().unwrap_or_else(Vec::new);
+    for generic_meta in generic_meta_list.iter_mut() {
+        if generic_meta.title == title {
+            generic_meta.data.push(row.clone());
+        }
+    }
+    write_generic_metas(&generic_meta_list);
+}
+
+pub fn del_row_generic_meta(title: &str, row: &Vec<String>) {
+    let mut generic_meta_list = read_generic_metas().unwrap_or_else(Vec::new);
+    for generic_meta in generic_meta_list.iter_mut() {
+        if generic_meta.title == title {
+            generic_meta.data.retain(|data| data != row);
+        }
+    }
+    write_generic_metas(&generic_meta_list);
+}
+
+pub fn update_row_generic_meta(title: &str, row_id: String, row: Vec<String>) {
+    let mut generic_meta_list = read_generic_metas().unwrap_or_else(Vec::new);
+    for generic_meta in generic_meta_list.iter_mut() {
+        if generic_meta.title == title {
+            for data_row in generic_meta.data.iter_mut() {
+                if data_row[0] == row_id {
+                    *data_row = row.clone();
+                }
+            }
+        }
+    }
+    write_generic_metas(&generic_meta_list);
+}

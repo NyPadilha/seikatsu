@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import { Anime } from '../types/IWatchlist';
 import { Workout } from '../types/ITraining';
-import { SetupMetas, FinanceMeta, Metas, GenericMeta } from '../types/IMetas';
+import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
 
 // Watchlist
 export async function getWatchlist() {
@@ -85,11 +85,11 @@ export async function updateFinanceMeta(value: number) {
 }
 
 export async function getMetas() {
-  const metas: Metas[] = await invoke('get_metas');
+  const metas: MetasType[] = await invoke('get_metas');
   return metas;
 }
 
-export async function addMeta(meta: Metas) {
+export async function addMeta(meta: MetasType) {
   await invoke('add_meta', { meta });
 }
 

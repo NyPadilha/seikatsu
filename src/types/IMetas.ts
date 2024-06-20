@@ -9,7 +9,7 @@ export type FinanceMeta = {
   value: number,
 }
 
-export type Metas = {
+export type MetasType = {
   meta: string,
   deadline: string,
   achieved: boolean,

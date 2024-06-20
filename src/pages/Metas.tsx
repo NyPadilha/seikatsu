@@ -6,9 +6,9 @@ import '../styles.scss'
 
 const Metas: React.FC = () => {
   const [setupMetas, setSetupMetas] = useState<SetupMetas[]>([]);
-  const [financeMeta, setFinanceMeta] = useState<FinanceMeta>();
-  const [metas, setMetas] = useState<MetasType[]>([]);
-  const [genericMetas, setGenericMetas] = useState<GenericMeta[]>([]);
+  const [/*financeMeta*/, setFinanceMeta] = useState<FinanceMeta>();
+  const [/*metas*/, setMetas] = useState<MetasType[]>([]);
+  const [/*genericMetas*/, setGenericMetas] = useState<GenericMeta[]>([]);
 
   useEffect(() => {
     async function fetchApi() {

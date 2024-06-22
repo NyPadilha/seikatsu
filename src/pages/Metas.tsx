@@ -84,7 +84,7 @@ const Metas: React.FC = () => {
           value={newFinanceMeta}
           onChange={handleFinanceMetaChange}
           onBlur={handleFinanceMetaBlur}
-          onKeyPress={handleKeyPressFinanceMeta}
+          onKeyDown={handleKeyPressFinanceMeta}
           autoFocus
         />
       ) : (

@@ -6,7 +6,7 @@ import '../styles.scss'
 
 const Metas: React.FC = () => {
   const [setupMetas, setSetupMetas] = useState<SetupMetas[]>([]);
-  const [/*financeMeta*/, setFinanceMeta] = useState<FinanceMeta>();
+  const [financeMeta, setFinanceMeta] = useState<FinanceMeta>();
   const [/*metas*/, setMetas] = useState<MetasType[]>([]);
   const [/*genericMetas*/, setGenericMetas] = useState<GenericMeta[]>([]);
 
@@ -55,7 +55,33 @@ const Metas: React.FC = () => {
       </table>
 
       <h1>Finance Meta</h1>
-      // implement finance meta table
+      {<h1>{financeMeta && financeMeta.value}</h1>}
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Metas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Renda Variavel | 40% Bull Bear</td>
+            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.4).toFixed(2))}` : 0}</td>
+          </tr>
+          <tr>
+            <td>Renda Variavel | 40% Top20 CDV</td>
+            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.4).toFixed(2))}` : 0}</td>
+          </tr>
+          <tr>
+            <td>Renda Variavel | 20% Top15 FII</td>
+            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.2).toFixed(2))}` : 0}</td>
+          </tr>
+          <tr>
+            <td>Reserva de Emergencia</td>
+            <td>R$ 5000.00</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h1>Metas</h1>
       // implement metas table

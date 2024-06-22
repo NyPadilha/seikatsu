@@ -42,7 +42,11 @@ export default function watchlistSwitchCase(
       setSaturday((prev) => [...prev, anime])
       break
     case "new_season":
-      setNewSeason((prev) => [...prev, anime])
+      setNewSeason((prev) => {
+        const updatedList = [...prev, anime];
+        updatedList.sort((a, b) => a.description.localeCompare(b.description));
+        return updatedList;
+      });
       break
     case "sun":
       setSun((prev) => [...prev, anime])

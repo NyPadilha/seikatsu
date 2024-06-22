@@ -30,6 +30,12 @@ const WaterCounter: React.FC = () => {
     setIsEditingBottle(false);
   }
 
+  const handleKeyPressBottle = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlurBottle();
+    }
+  }
+
   const handleDCMl = () => {
     setEditMl(ml.toString());
     setIsEditingMl(true);
@@ -40,6 +46,12 @@ const WaterCounter: React.FC = () => {
     setIsEditingMl(false);
   }
 
+  const handleKeyPressMl = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlurMl();
+    }
+  }
+
   const handleDCGoal = () => {
     setEditGoal(goal.toString());
     setIsEditingGoal(true);
@@ -48,6 +60,12 @@ const WaterCounter: React.FC = () => {
   const handleBlurGoal = () => {
     setGoal(Number(editGoal));
     setIsEditingGoal(false);
+  }
+
+  const handleKeyPressGoal = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlurGoal();
+    }
   }
 
   useEffect(() => {
@@ -78,6 +96,7 @@ const WaterCounter: React.FC = () => {
               value={editBottle}
               onChange={(e) => setEditBottle(e.target.value)}
               onBlur={handleBlurBottle}
+              onKeyDown={handleKeyPressBottle}
             />
           ) : (
             <p onDoubleClick={handleDCBottle}>
@@ -93,6 +112,7 @@ const WaterCounter: React.FC = () => {
               value={editMl}
               onChange={(e) => setEditMl(e.target.value)}
               onBlur={handleBlurMl}
+              onKeyDown={handleKeyPressMl}
             />
           ) : (
             <p onDoubleClick={handleDCMl}>
@@ -111,6 +131,7 @@ const WaterCounter: React.FC = () => {
             value={editGoal}
             onChange={(e) => setEditGoal(e.target.value)}
             onBlur={handleBlurGoal}
+            onKeyDown={handleKeyPressGoal}
           />
         ) : (
           <h3 onDoubleClick={handleDCGoal}>

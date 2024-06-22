@@ -39,6 +39,12 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     setDescription(e.target.value);
   };
 
+  const handleKeyPressDesc = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlurDesc(url);
+    }
+  }
+
   const handleDCTitle = (url: string, title: string) => {
     setEditingTitle(url);
     setTitle(title);
@@ -54,6 +60,12 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
   const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
+  const handleKeyPressTitle = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlurTitle(url);
+    }
+  }
 
   const handleTag = async (url: string) => {
     setEditingTag(url);
@@ -98,6 +110,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
             value={description}
             onChange={handleChangeDesc}
             onBlur={() => handleBlurDesc(url)}
+            onKeyDown={handleKeyPressDesc}
             autoFocus
           />
         ) : (
@@ -113,6 +126,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
           value={title}
           onChange={handleChangeTitle}
           onBlur={() => handleBlurTitle(url)}
+          onKeyDown={handleKeyPressTitle}
           autoFocus
         />
       ) : (

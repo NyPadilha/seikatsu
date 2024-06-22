@@ -9,6 +9,29 @@ const Metas: React.FC = () => {
   const [financeMeta, setFinanceMeta] = useState<FinanceMeta>();
   const [/*metas*/, setMetas] = useState<MetasType[]>([]);
   const [/*genericMetas*/, setGenericMetas] = useState<GenericMeta[]>([]);
+  const [editingFinanceMeta, setEditingFinanceMeta] = useState<boolean>(false);
+  const [newFinanceMeta, setNewFinanceMeta] = useState<string>(
+    financeMeta ? financeMeta.value.toString() : '',
+  );
+
+  const handleDCFinanceMeta = () => {
+    setEditingFinanceMeta(true);
+  };
+
+  const handleFinanceMetaChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setNewFinanceMeta(target.value);
+  };
+
+  const handleFinanceMetaBlur = async () => {
+    setFinanceMeta({ value: parseFloat(newFinanceMeta) });
+    setEditingFinanceMeta(false);
+  };
+
+  const handleKeyPressFinanceMeta = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleFinanceMetaBlur();
+    }
+  };
 
   useEffect(() => {
     async function fetchApi() {
@@ -55,7 +78,20 @@ const Metas: React.FC = () => {
       </table>
 
       <h1>Finance Meta</h1>
-      {<h1>{financeMeta && financeMeta.value}</h1>}
+      {editingFinanceMeta ? (
+        <input
+          type="number"
+          value={newFinanceMeta}
+          onChange={handleFinanceMetaChange}
+          onBlur={handleFinanceMetaBlur}
+          onKeyDown={handleKeyPressFinanceMeta}
+          autoFocus
+        />
+      ) : (
+        <h1
+          onDoubleClick={handleDCFinanceMeta}
+        >R$ {financeMeta && financeMeta.value}</h1>
+      )}
       <table>
         <thead>
           <tr>
@@ -66,15 +102,15 @@ const Metas: React.FC = () => {
         <tbody>
           <tr>
             <td>Renda Variavel | 40% Bull Bear</td>
-            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.4).toFixed(2))}` : 0}</td>
+            <td>R$ {financeMeta ? (financeMeta.value - 5000) * 0.4 : 0}</td>
           </tr>
           <tr>
             <td>Renda Variavel | 40% Top20 CDV</td>
-            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.4).toFixed(2))}` : 0}</td>
+            <td>R$ {financeMeta ? parseFloat(((financeMeta.value - 5000) * 0.4).toFixed(2)) : 0}</td>
           </tr>
           <tr>
             <td>Renda Variavel | 20% Top15 FII</td>
-            <td>{financeMeta ? `R$ ${parseFloat(((financeMeta.value - 5000) * 0.2).toFixed(2))}` : 0}</td>
+            <td>R$ {financeMeta ? parseFloat(((financeMeta.value - 5000) * 0.2).toFixed(2)) : 0}</td>
           </tr>
           <tr>
             <td>Reserva de Emergencia</td>

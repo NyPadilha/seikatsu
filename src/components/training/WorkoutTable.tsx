@@ -28,7 +28,7 @@ const WorkoutTable: React.FC<WorkoutTableProps> = ({ workout, onDelete }) => {
       <button className='x-button' onClick={handleDelete}></button>
       <div className='top'>
         <h2>{workout.title}</h2>
-        <p>Rest: {workout.rest}</p>
+        <p>Rest: {workout.rest} min</p>
         <p>Sets: {workout.sets}</p>
       </div>
       <table>

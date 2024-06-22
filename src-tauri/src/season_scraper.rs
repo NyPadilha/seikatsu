@@ -60,5 +60,7 @@ pub async fn get_new_season() -> Result<Vec<Anime>, Box<dyn std::error::Error>> 
         })
     }
 
+    season.sort_by(|a, b| a.description.cmp(&b.description));
+
     Ok(season)
 }

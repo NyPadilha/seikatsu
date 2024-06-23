@@ -75,8 +75,8 @@ pub fn read_finance() -> Option<FinanceMeta> {
     }
 }
 
-pub fn write_finance(value: &FinanceMeta) {
-    let contents = serde_json::to_string(value).expect("Failed to serialize to JSON");
+pub fn write_finance(finance: &FinanceMeta) {
+    let contents = serde_json::to_string(finance).expect("Failed to serialize to JSON");
     let mut file = File::create("finance.json").expect("Failed to create file");
     file.write_all(contents.as_bytes())
         .expect("Failed to write to file");

@@ -121,8 +121,8 @@ fn get_finance() -> Option<FinanceMeta> {
 }
 
 #[tauri::command]
-fn update_finance(value: FinanceMeta) {
-    metas::write_finance(&value);
+fn update_finance(finance: FinanceMeta) {
+    metas::write_finance(&finance);
 }
 
 #[tauri::command]

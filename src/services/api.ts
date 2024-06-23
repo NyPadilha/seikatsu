@@ -59,7 +59,7 @@ export async function deleteWorkout(title: string) {
 
 // Metas
 export async function getSetupMetas() {
-  const setupMetas: SetupMetas[] = await invoke('get_setup_metas');
+  const setupMetas: SetupMetas[] = await invoke('get_setup');
   return setupMetas;
 }
 
@@ -80,8 +80,8 @@ export async function getFinanceMetas() {
   return financeMeta;
 }
 
-export async function updateFinanceMeta(value: number) {
-  await invoke('update_finance', { value });
+export async function updateFinanceMeta(finance: FinanceMeta) {
+  await invoke('update_finance', { finance });
 }
 
 export async function getMetas() {

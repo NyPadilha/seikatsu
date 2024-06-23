@@ -35,8 +35,8 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     }
   };
 
-  const handleChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
+  const handleChangeDesc = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(target.value);
   };
 
   const handleKeyPressDesc = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
@@ -57,8 +57,8 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     }
   };
 
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const handleChangeTitle = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(target.value);
   };
 
   const handleKeyPressTitle = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {

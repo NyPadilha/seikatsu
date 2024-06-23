@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { getSetupMetas, getFinanceMetas, updateFinanceMeta, getMetas, getGenericMetas } from '../services/api';
+import {
+  getSetupMetas, addSetupRow, deleteSetupRow,
+  getFinanceMetas, updateFinanceMeta,
+  getMetas,
+  getGenericMetas
+} from '../services/api';
+import { CheckboxIcon, DiffAddedIcon } from '@primer/octicons-react';
 import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
 import { Link } from 'react-router-dom'
 import '../styles.scss'
+import SetupMetaRow from '../components/metas/SetupMetaRow';
 
 const Metas: React.FC = () => {
-  const [/*setupMetas*/, setSetupMetas] = useState<SetupMetas[]>([]);
+  const [setupMetas, setSetupMetas] = useState<SetupMetas[]>([]);
   const [financeMeta, setFinanceMeta] = useState<FinanceMeta>();
   const [/*metas*/, setMetas] = useState<MetasType[]>([]);
   const [/*genericMetas*/, setGenericMetas] = useState<GenericMeta[]>([]);
@@ -13,6 +20,12 @@ const Metas: React.FC = () => {
   const [newFinanceMeta, setNewFinanceMeta] = useState<string>(
     financeMeta ? financeMeta.value.toString() : '',
   );
+
+  const addNewSetupRow = async () => {
+    const newItem = { item: 'New Item', value: 0, paid: 0, bought: false };
+    await addSetupRow(newItem);
+    setSetupMetas([...setupMetas, newItem]);
+  }
 
   const handleDCFinanceMeta = () => {
     setEditingFinanceMeta(true);
@@ -56,27 +69,43 @@ const Metas: React.FC = () => {
       <div className='banner'>PlaceHolder</div>
 
       // implement edit/add/delete row functions
-      {/* <h1>Setup Metas</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Value</th>
-            <th>Paid</th>
-            <th>CheckIcon</th>
-          </tr>
-        </thead>
-        <tbody>
-          {setupMetas.map((meta) => (
-            <tr key={meta.item}>
-              <td>{meta.item}</td>
-              <td>{meta.value}</td>
-              <td>{meta.paid}</td>
-              <td>{meta.bought ? 'Yes' : 'No'}</td>
+      <div className='setup-metas'>
+        <h1>Setup Metas</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Value</th>
+              <th>Paid</th>
+              <th><CheckboxIcon /></th>
+              <th onClick={addNewSetupRow}><DiffAddedIcon /></th>
             </tr>
-          ))}
-        </tbody>
-      </table> */}
+          </thead>
+          <tbody>
+            {setupMetas && setupMetas.map((meta) => (
+              <SetupMetaRow
+                key={meta.item}
+                meta={meta}
+                onDelete={(item) => {
+                  deleteSetupRow(item)
+                  setSetupMetas(setupMetas.filter((meta) => meta.item !== item))
+                }}
+              // onEdit={(item, value, paid, bought) => {
+              //   setSetupMetas(setupMetas.map((meta) => {
+              //     if (meta.item === item) {
+              //       meta.value = value
+              //       meta.paid = paid
+              //       meta.bought = bought
+              //       meta.item = item
+              //     }
+              //     return meta
+              //   }))
+              // }}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <div className='finance-meta'>
         <div>

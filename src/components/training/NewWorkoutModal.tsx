@@ -75,10 +75,6 @@ const NewWorkoutModal: React.FC<NewWorkoutModalProps> = ({ onAdd }) => {
     });
   }
 
-  const handleClose = () => {
-    setIsNewWorkoutModalOpen(false);
-  }
-
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setWorkout({
       ...workout,
@@ -88,7 +84,7 @@ const NewWorkoutModal: React.FC<NewWorkoutModalProps> = ({ onAdd }) => {
 
   return (
     <div className='new-workout-modal'>
-      <button className='x-button' onClick={handleClose}></button>
+      <button className='x-button' onClick={() => setIsNewWorkoutModalOpen(false)}></button>
       <h2>- New Workout -</h2>
       <form onSubmit={e => { e.preventDefault(); handleAdd(workout); }}>
         <input

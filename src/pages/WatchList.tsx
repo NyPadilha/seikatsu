@@ -185,10 +185,6 @@ const WatchList: React.FC = () => {
     setNewSeason([])
   }
 
-  const handleNewAnime = () => {
-    setIsNewAnimeModalOpen(true)
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       const watchlist = await getWatchlist() as Anime[]
@@ -861,7 +857,7 @@ const WatchList: React.FC = () => {
       <div className='untagged'>
         <button id='invisible-btn'></button>
         <h2>Untagged</h2>
-        <button onClick={() => handleNewAnime()}><PlusIcon /></button>
+        <button onClick={() => setIsNewAnimeModalOpen(true)}><PlusIcon /></button>
       </div>
       <div className='deck'>
         {

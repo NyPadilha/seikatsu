@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  getSetupMetas, addSetupRow, deleteSetupRow,
+  getSetupMetas, addSetupRow,
   getFinanceMetas, updateFinanceMeta,
   getMetas,
   getGenericMetas
@@ -87,20 +87,8 @@ const Metas: React.FC = () => {
                 key={meta.item}
                 meta={meta}
                 onDelete={(item) => {
-                  deleteSetupRow(item)
                   setSetupMetas(setupMetas.filter((meta) => meta.item !== item))
                 }}
-              // onEdit={(item, value, paid, bought) => {
-              //   setSetupMetas(setupMetas.map((meta) => {
-              //     if (meta.item === item) {
-              //       meta.value = value
-              //       meta.paid = paid
-              //       meta.bought = bought
-              //       meta.item = item
-              //     }
-              //     return meta
-              //   }))
-              // }}
               />
             ))}
           </tbody>

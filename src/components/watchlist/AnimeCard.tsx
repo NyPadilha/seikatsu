@@ -57,10 +57,6 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     }
   };
 
-  const handleChangeTitle = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(target.value);
-  };
-
   const handleKeyPressTitle = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
       handleBlurTitle(url);
@@ -124,7 +120,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
         <input
           type='text'
           value={title}
-          onChange={handleChangeTitle}
+          onChange={({ target }) => setTitle(target.value)}
           onBlur={() => handleBlurTitle(url)}
           onKeyDown={handleKeyPressTitle}
           autoFocus

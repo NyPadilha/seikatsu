@@ -1,7 +1,7 @@
 import React from 'react';
+import WaterCounter from '../components/WaterCounter';
 import { Link } from 'react-router-dom';
 import '../styles.scss'
-import WaterCounter from '../components/WaterCounter';
 
 const Home: React.FC = () => {
   return (
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
             <h1>Central</h1>
             <section className='central-content'>
               <Link to='/watchlist' className='card watchlist'></Link>
-              <Link to='/metas' className='card metas'>Metas</Link>
+              <Link to='/metas' className='card metas'></Link>
               <Link to='/training' className='card training'></Link>
               <Link to='/finance' className='card'>Finance</Link>
               <Link to='/travel' className='card'>Travel</Link>

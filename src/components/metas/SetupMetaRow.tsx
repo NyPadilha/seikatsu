@@ -6,7 +6,6 @@ import { SetupMetas } from '../../types/IMetas';
 interface SetupMetaRowProps {
   meta: SetupMetas;
   onDelete: (item: string) => void;
-  // onEdit: (item: string, value: number, paid: number, bought: boolean) => void;
 }
 
 const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete }) => {
@@ -14,44 +13,36 @@ const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete }) => {
   const [value, setValue] = useState<number>(0);
   const [paid, setPaid] = useState<number>(0);
   const [bought, setBought] = useState<boolean>(false);
-  const [editingItem, setEditingItem] = useState<string | null>(null);
-  const [editingValue, setEditingValue] = useState<number | null>(null);
-  const [editingPaid, setEditingPaid] = useState<number | null>(null);
-
-  const updateSetupR = async (item: string, value: number, paid: number, bought: boolean) => {
-    console.log(bought);
-    await updateSetupRow(item, value, paid, bought);
-    console.log(bought);
-  }
 
   const delSetupRow = async (item: string) => {
+    await deleteSetupRow(item)
     onDelete(item);
   }
+
+  useEffect(() => {
+    updateSetupRow(item, value, paid, bought);
+  }, [bought]);
 
   useEffect(() => {
     setItem(meta.item);
     setValue(meta.value);
     setPaid(meta.paid);
     setBought(meta.bought);
-    console.log(bought);
   }, []);
 
   return (
     <tr>
       <td
-      // onDoubleClick={() => handleDCSetupItem(meta.item)}
+      // onDoubleClick={}
       >{item}</td>
       <td
-      // onDoubleClick={() => handleDCSetupValue(meta.item)}
+      // onDoubleClick={}
       >{value}</td>
       <td
+      // onDoubleClick={}
       >{paid}</td>
       <td
-        onClick={() => {
-          console.log(bought)
-          setBought(!bought)
-          updateSetupR(item, value, paid, bought)
-        }}
+        onClick={() => setBought(!bought)}
       >{bought ? <CheckCircleFillIcon /> : <XCircleFillIcon />}</td>
       <td
         onClick={() => delSetupRow(meta.item)}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { WatchlistContext } from '../../context/useContext';
 import { addAnime } from '../../services/api';
 import { Anime, Tag } from '../../types/IWatchlist';
@@ -20,20 +20,10 @@ const NewAnime: React.FC<NewAnimeProps> = ({ onAdd }) => {
     tag: selectedTag,
   });
 
-  useEffect(() => {
-    console.log(selectedTag);
-  }, [selectedTag]);
-
   const handleAdd = async (anime: Anime) => {
-    console.log(anime.tag);
     anime.tag = selectedTag;
-    console.log(anime.tag);
     await addAnime(anime);
     onAdd(anime);
-    setIsNewAnimeModalOpen(false);
-  }
-
-  const handleClose = () => {
     setIsNewAnimeModalOpen(false);
   }
 
@@ -46,7 +36,7 @@ const NewAnime: React.FC<NewAnimeProps> = ({ onAdd }) => {
 
   return (
     <div className='new-anime-modal'>
-      <button onClick={() => handleClose()} className='x-button'></button>
+      <button onClick={() => setIsNewAnimeModalOpen(false)} className='x-button'></button>
       <h3>- New Anime -</h3>
       <form onSubmit={e => { e.preventDefault(); handleAdd(anime); }}>
         <input

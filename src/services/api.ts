@@ -59,7 +59,7 @@ export async function deleteWorkout(title: string) {
 
 // Metas
 export async function getSetupMetas() {
-  const setupMetas: SetupMetas[] = await invoke('get_setup_metas');
+  const setupMetas: SetupMetas[] = await invoke('get_setup');
   return setupMetas;
 }
 
@@ -75,13 +75,17 @@ export async function updateSetupRow(item: string, value: number, paid: number, 
   await invoke('update_setup_row', { item, value, paid, bought });
 }
 
+export async function updateSetupItem(oldItem: string, newItem: string) {
+  await invoke('update_setup_item', { oldItem, newItem });
+}
+
 export async function getFinanceMetas() {
   const financeMeta: FinanceMeta = await invoke('get_finance');
   return financeMeta;
 }
 
-export async function updateFinanceMeta(value: number) {
-  await invoke('update_finance', { value });
+export async function updateFinanceMeta(finance: FinanceMeta) {
+  await invoke('update_finance', { finance });
 }
 
 export async function getMetas() {
@@ -130,6 +134,6 @@ export async function deleteRowGenericMeta(meta: string, row: string[]) {
   await invoke('del_row_generic_meta', { meta, row });
 }
 
-export async function updateRowGenericMeta(title: string, row_id: string, row: string[]) {
-  await invoke('update_row_generic_meta', { title, row_id, row });
+export async function updateRowGenericMeta(title: string, rowId: string, row: string[]) {
+  await invoke('update_row_generic_meta', { title, rowId, row });
 }

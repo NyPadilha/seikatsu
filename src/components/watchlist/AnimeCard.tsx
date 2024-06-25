@@ -35,8 +35,8 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     }
   };
 
-  const handleChangeDesc = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
+  const handleChangeDesc = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(target.value);
   };
 
   const handleKeyPressDesc = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
@@ -55,10 +55,6 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
     if (title !== anime.title) {
       await updateTitle(url, title);
     }
-  };
-
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
   };
 
   const handleKeyPressTitle = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
@@ -124,7 +120,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
         <input
           type='text'
           value={title}
-          onChange={handleChangeTitle}
+          onChange={({ target }) => setTitle(target.value)}
           onBlur={() => handleBlurTitle(url)}
           onKeyDown={handleKeyPressTitle}
           autoFocus

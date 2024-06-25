@@ -116,13 +116,18 @@ fn update_setup_row(item: &str, value: f32, paid: f32, bought: bool) {
 }
 
 #[tauri::command]
+fn update_setup_item(old_item: &str, new_item: &str) {
+    metas::update_setup_item(old_item, new_item);
+}
+
+#[tauri::command]
 fn get_finance() -> Option<FinanceMeta> {
     metas::read_finance()
 }
 
 #[tauri::command]
-fn update_finance(value: FinanceMeta) {
-    metas::write_finance(&value);
+fn update_finance(finance: FinanceMeta) {
+    metas::write_finance(&finance);
 }
 
 #[tauri::command]
@@ -206,6 +211,7 @@ fn main() {
             add_setup_row,
             del_setup_row,
             update_setup_row,
+            update_setup_item,
             get_finance,
             update_finance,
             get_metas,

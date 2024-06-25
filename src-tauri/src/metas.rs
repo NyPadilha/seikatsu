@@ -56,6 +56,16 @@ pub fn update_setup_row(item: &str, value: f32, paid: f32, bought: bool) {
     write_setup(&setup_list);
 }
 
+pub fn update_setup_item(old_item: &str, new_item: &str) {
+    let mut setup_list = read_setup().unwrap_or_else(Vec::new);
+    for setup in setup_list.iter_mut() {
+        if setup.item == old_item {
+            setup.item = new_item.to_string();
+        }
+    }
+    write_setup(&setup_list);
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct FinanceMeta {
     pub value: f32,
@@ -75,8 +85,8 @@ pub fn read_finance() -> Option<FinanceMeta> {
     }
 }
 
-pub fn write_finance(value: &FinanceMeta) {
-    let contents = serde_json::to_string(value).expect("Failed to serialize to JSON");
+pub fn write_finance(finance: &FinanceMeta) {
+    let contents = serde_json::to_string(finance).expect("Failed to serialize to JSON");
     let mut file = File::create("finance.json").expect("Failed to create file");
     file.write_all(contents.as_bytes())
         .expect("Failed to write to file");

@@ -18,13 +18,9 @@ const TagModal: React.FC<TagModalProps> = ({ url }) => {
     setIsTagModalOpen(false);
   }
 
-  const handleClose = () => {
-    setIsTagModalOpen(false);
-  }
-
   return (
     <div className='tag-modal'>
-      <button onClick={() => handleClose()} className='x-button'></button>
+      <button onClick={() => setIsTagModalOpen(false)} className='x-button'></button>
       <section>
         <div>
           <h1>- Alone -</h1>

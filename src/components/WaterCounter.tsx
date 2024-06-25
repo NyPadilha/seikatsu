@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PlusIcon } from '@primer/octicons-react';
 import '../styles.scss';
 
@@ -68,8 +68,15 @@ const WaterCounter: React.FC = () => {
     }
   }
 
+  const storedDrunk = JSON.parse(localStorage.getItem('drunk') || '{}').drunk;
+
+  const prevDrunkRef = useRef<number>(storedDrunk);
+
   useEffect(() => {
-    localStorage.setItem('drunk', JSON.stringify({ drunk, date: new Date() }));
+    if (prevDrunkRef.current !== drunk) {
+      localStorage.setItem('drunk', JSON.stringify({ drunk, date: new Date() }));
+      prevDrunkRef.current = drunk;
+    }
   }, [drunk]);
 
   useEffect(() => {
@@ -80,7 +87,9 @@ const WaterCounter: React.FC = () => {
     const storeDrunk = localStorage.getItem('drunk');
 
     const storedDate = storeDrunk && JSON.parse(storeDrunk).date.substring(0, 10);
+    console.log(storedDate);
     const currentDate = new Date().toISOString().split('T')[0];
+    console.log(currentDate);
 
     storedDate !== currentDate && setDrunk(0);
   }, []);

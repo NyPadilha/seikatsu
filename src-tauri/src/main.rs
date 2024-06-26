@@ -5,6 +5,7 @@ use metas::FinanceMeta;
 use metas::GenericMetaTable;
 use metas::Metas;
 use metas::SetupMetas;
+use tauri::Manager;
 use training::Workout;
 use watchlist::Anime;
 
@@ -192,6 +193,11 @@ fn update_row_generic_meta(title: &str, row_id: String, row: Vec<String>) {
 
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            let window = app.get_window("main").unwrap();
+            window.open_devtools();
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             get_user_profile,
             update_user_profile,

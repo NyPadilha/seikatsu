@@ -934,6 +934,20 @@ body {
         padding: 5px;
       }
 
+      input {
+        width: 90px;
+        height: 13px;
+        background-color: $black;
+        color: $lesserGray;
+        border: none;
+        font-size: 10px;
+        text-align: center;
+      }
+
+      .item-input {
+        width: 240px;
+      }
+
       .item {
         width: 250px;
       }

@@ -73,7 +73,9 @@ const WaterCounter: React.FC = () => {
   const prevDrunkRef = useRef<number>(storedDrunk);
 
   useEffect(() => {
+    console.log('prevDrunkRef', prevDrunkRef.current, 'drunk', drunk)
     if (prevDrunkRef.current !== drunk) {
+      console.log('set date');
       localStorage.setItem('drunk', JSON.stringify({ drunk, date: new Date() }));
       prevDrunkRef.current = drunk;
     }

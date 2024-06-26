@@ -79,6 +79,7 @@ const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete, onEdit }) =
         {editingItem ? (
           <input
             type="text"
+            className='item-input'
             value={tempItem}
             onChange={({ target }) => setTempItem(target.value)}
             onBlur={handleBlurItem}
@@ -92,7 +93,7 @@ const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete, onEdit }) =
       <td className='value' onDoubleClick={() => setEditingValue(true)}>
         {editingValue ? (
           <input
-            type="text"
+            type="number"
             value={value}
             onChange={({ target }) => setValue(parseFloat(target.value))}
             onBlur={handleBlurValue}
@@ -106,7 +107,7 @@ const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete, onEdit }) =
       <td className='paid' onDoubleClick={() => setEditingPaid(true)}>
         {editingPaid ? (
           <input
-            type="text"
+            type="number"
             value={paid}
             onChange={({ target }) => setPaid(parseFloat(target.value))}
             onBlur={handleBlurPaid}

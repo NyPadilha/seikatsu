@@ -73,12 +73,12 @@ const Metas: React.FC = () => {
         <table>
           <thead>
             <tr>
-              <th>Item</th>
-              <th>Value</th>
-              <th>Paid</th>
-              <th>Difference</th>
-              <th><CheckboxIcon /></th>
-              <th onClick={addNewSetupRow}><DiffAddedIcon /></th>
+              <th className='.item'>Item</th>
+              <th className='value'>Value</th>
+              <th className='paid'>Paid</th>
+              <th className='difference'>Difference</th>
+              <th className='bought'><CheckboxIcon /></th>
+              <th className='delete' onClick={addNewSetupRow}><DiffAddedIcon /></th>
             </tr>
           </thead>
           <tbody>
@@ -103,10 +103,12 @@ const Metas: React.FC = () => {
         </table>
         <div className='total-div'>
           <p className='total-p'>Total: </p>
-          <p className='value-p'>R$ {setupMetas.reduce((acc, meta) => acc + meta.value, 0).toFixed(2)}</p>
-          <p className='paid-p'>R$ {setupMetas.reduce((acc, meta) => acc + meta.paid, 0).toFixed(2)}</p>
-          <p className='diff-p'>R$ {setupMetas.reduce((acc, meta) => acc + meta.value - meta.paid, 0).toFixed(2)}</p>
-          <p className='bought-p'>{`${setupMetas.reduce((acc, meta) => meta.bought ? acc + 1 : acc, 0)}/${setupMetas.length}`}</p>
+          <p className='value-p'>R$ {setupMetas && setupMetas.reduce((acc, meta) => acc + meta.value, 0).toFixed(2)}</p>
+          <p className='paid-p'>R$ {setupMetas && setupMetas.reduce((acc, meta) => acc + meta.paid, 0).toFixed(2)}</p>
+          <p className='diff-p'>R$ {setupMetas && setupMetas.reduce((acc, meta) => acc + meta.value - meta.paid, 0).toFixed(2)}</p>
+          <p className='bought-p'>{
+            `${setupMetas ? setupMetas.reduce((acc, meta) => meta.bought ? acc + 1 : acc, 0) : 0}/${setupMetas ? setupMetas.length : 0}`
+          }</p>
         </div>
       </div>
 

@@ -147,6 +147,11 @@ fn del_meta(meta: &str) {
 }
 
 #[tauri::command]
+fn update_meta(meta: &str, new_meta: &str) {
+    metas::update_meta(meta, new_meta);
+}
+
+#[tauri::command]
 fn update_deadline(meta: &str, deadline: &str) {
     metas::update_deadline(meta, deadline);
 }
@@ -154,11 +159,6 @@ fn update_deadline(meta: &str, deadline: &str) {
 #[tauri::command]
 fn update_achieved(meta: &str, achieved: bool) {
     metas::update_achieved(meta, achieved);
-}
-
-#[tauri::command]
-fn del_m(meta: &str) {
-    metas::del_m(meta);
 }
 
 #[tauri::command]
@@ -216,6 +216,7 @@ fn main() {
             get_setup,
             add_setup_row,
             del_setup_row,
+            update_meta,
             update_setup_row,
             update_setup_item,
             get_finance,
@@ -225,7 +226,6 @@ fn main() {
             del_meta,
             update_deadline,
             update_achieved,
-            del_m,
             get_generic_metas,
             add_generic_meta,
             del_generic_meta,

@@ -71,6 +71,7 @@ const SetupMetaRow: React.FC<SetupMetaRowProps> = ({ meta, onDelete, onEdit }) =
     setValue(meta.value);
     setPaid(meta.paid);
     setBought(meta.bought);
+    setTempItem(meta.item);
   }, []);
 
   return (

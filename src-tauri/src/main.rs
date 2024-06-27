@@ -5,7 +5,6 @@ use metas::FinanceMeta;
 use metas::GenericMetaTable;
 use metas::Metas;
 use metas::SetupMetas;
-use tauri::Manager;
 use training::Workout;
 use watchlist::Anime;
 
@@ -147,6 +146,11 @@ fn del_meta(meta: &str) {
 }
 
 #[tauri::command]
+fn update_meta(meta: &str, new_meta: &str) {
+    metas::update_meta(meta, new_meta);
+}
+
+#[tauri::command]
 fn update_deadline(meta: &str, deadline: &str) {
     metas::update_deadline(meta, deadline);
 }
@@ -154,11 +158,6 @@ fn update_deadline(meta: &str, deadline: &str) {
 #[tauri::command]
 fn update_achieved(meta: &str, achieved: bool) {
     metas::update_achieved(meta, achieved);
-}
-
-#[tauri::command]
-fn del_m(meta: &str) {
-    metas::del_m(meta);
 }
 
 #[tauri::command]
@@ -193,11 +192,6 @@ fn update_row_generic_meta(title: &str, row_id: String, row: Vec<String>) {
 
 fn main() {
     tauri::Builder::default()
-        .setup(|app| {
-            let window = app.get_window("main").unwrap();
-            window.open_devtools();
-            Ok(())
-        })
         .invoke_handler(tauri::generate_handler![
             get_user_profile,
             update_user_profile,
@@ -216,6 +210,7 @@ fn main() {
             get_setup,
             add_setup_row,
             del_setup_row,
+            update_meta,
             update_setup_row,
             update_setup_item,
             get_finance,
@@ -225,7 +220,6 @@ fn main() {
             del_meta,
             update_deadline,
             update_achieved,
-            del_m,
             get_generic_metas,
             add_generic_meta,
             del_generic_meta,

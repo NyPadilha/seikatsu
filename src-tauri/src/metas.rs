@@ -132,6 +132,16 @@ pub fn del_meta(meta: &str) {
     write_metas(&metas_list);
 }
 
+pub fn update_meta(meta: &str, new_meta: &str) {
+    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
+    for m in metas_list.iter_mut() {
+        if m.meta == meta {
+            m.meta = new_meta.to_string();
+        }
+    }
+    write_metas(&metas_list);
+}
+
 pub fn update_deadline(meta: &str, deadline: &str) {
     let mut metas_list = read_metas().unwrap_or_else(Vec::new);
     for m in metas_list.iter_mut() {
@@ -149,12 +159,6 @@ pub fn update_achieved(meta: &str, achieved: bool) {
             m.achieved = achieved;
         }
     }
-    write_metas(&metas_list);
-}
-
-pub fn del_m(meta: &str) {
-    let mut metas_list = read_metas().unwrap_or_else(Vec::new);
-    metas_list.retain(|m: &Metas| m.meta != meta);
     write_metas(&metas_list);
 }
 

@@ -101,16 +101,16 @@ export async function deleteMeta(meta: string) {
   await invoke('del_meta', { meta });
 }
 
+export async function updateMeta(meta: string, newMeta: string) {
+  await invoke('update_meta', { meta, newMeta });
+}
+
 export async function updateDeadline(meta: string, deadline: string) {
   await invoke('update_deadline', { meta, deadline });
 }
 
 export async function updateAchieved(meta: string, achieved: boolean) {
   await invoke('update_achieved', { meta, achieved });
-}
-
-export async function deleteM(meta: string) {
-  await invoke('del_m', { meta });
 }
 
 export async function getGenericMetas() {

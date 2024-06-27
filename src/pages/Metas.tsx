@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import {
   getSetupMetas, addSetupRow,
   getFinanceMetas, updateFinanceMeta,
-  getMetas,
+  getMetas, addMeta,
   getGenericMetas
 } from '../services/api';
-import { CheckboxIcon, DiffAddedIcon } from '@primer/octicons-react';
 import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
+import { CheckboxIcon, DiffAddedIcon } from '@primer/octicons-react';
+import SetupMetaRow from '../components/metas/SetupMetaRow';
+import MetasRow from '../components/metas/MetasRow';
 import { Link } from 'react-router-dom'
 import '../styles.scss'
-import SetupMetaRow from '../components/metas/SetupMetaRow';
 
 const Metas: React.FC = () => {
   const [setupMetas, setSetupMetas] = useState<SetupMetas[]>([]);
   const [financeMeta, setFinanceMeta] = useState<FinanceMeta>();
-  const [/*metas*/, setMetas] = useState<MetasType[]>([]);
+  const [metas, setMetas] = useState<MetasType[]>([]);
   const [/*genericMetas*/, setGenericMetas] = useState<GenericMeta[]>([]);
   const [editingFinanceMeta, setEditingFinanceMeta] = useState<boolean>(false);
   const [newFinanceMeta, setNewFinanceMeta] = useState<string>(
@@ -46,6 +47,12 @@ const Metas: React.FC = () => {
       handleFinanceMetaBlur();
     }
   };
+
+  const addNewMeta = async () => {
+    const newMeta = { meta: 'New Meta', deadline: '00/00/0000', achieved: false };
+    await addMeta(newMeta);
+    setMetas([...metas, newMeta]);
+  }
 
   useEffect(() => {
     async function fetchApi() {
@@ -112,6 +119,31 @@ const Metas: React.FC = () => {
         </div>
       </div>
 
+      <div className='metas'>
+        <h1>Metas</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Meta</th>
+              <th>Deadline</th>
+              <th><CheckboxIcon /></th>
+              <th onClick={addNewMeta}><DiffAddedIcon /></th>
+            </tr>
+          </thead>
+          <tbody>
+            {metas && metas.map((m) => (
+              <MetasRow
+                key={m.meta}
+                meta={m}
+                onDelete={(meta) => {
+                  setMetas(metas.filter((m) => m.meta !== meta))
+                }}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <div className='finance-meta'>
         <div>
           <h1>Finance Meta: </h1>
@@ -127,7 +159,7 @@ const Metas: React.FC = () => {
           ) : (
             <h2
               onDoubleClick={handleDCFinanceMeta}
-            >R$ {financeMeta && financeMeta.value}</h2>
+            >R$ {financeMeta && financeMeta.value.toFixed(2)}</h2>
           )}
         </div>
         <table>
@@ -157,9 +189,6 @@ const Metas: React.FC = () => {
           </tbody>
         </table>
       </div>
-
-      <h1>Metas</h1>
-      // implement metas table
 
       <h1>Generic Metas</h1>
       // implement generic metas table

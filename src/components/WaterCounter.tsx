@@ -73,10 +73,12 @@ const WaterCounter: React.FC = () => {
   const prevDrunkRef = useRef<number>(storedDrunk);
 
   useEffect(() => {
-    console.log('prevDrunkRef', prevDrunkRef.current, 'drunk', drunk)
     if (prevDrunkRef.current !== drunk) {
-      console.log('set date');
-      localStorage.setItem('drunk', JSON.stringify({ drunk, date: new Date() }));
+      const newDate = new Date();
+      localStorage.setItem('drunk', JSON.stringify({
+        drunk,
+        date: `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
+      }));
       prevDrunkRef.current = drunk;
     }
   }, [drunk]);
@@ -88,11 +90,9 @@ const WaterCounter: React.FC = () => {
   useEffect(() => {
     const storeDrunk = localStorage.getItem('drunk');
 
-    const storedDate = storeDrunk && JSON.parse(storeDrunk).date.substring(0, 10);
-    console.log(storedDate);
-    const currentDate = new Date().toISOString().split('T')[0];
-    console.log(currentDate);
-
+    const storedDate = storeDrunk && JSON.parse(storeDrunk).date;
+    const newDate = new Date();
+    const currentDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
     storedDate !== currentDate && setDrunk(0);
   }, []);
 

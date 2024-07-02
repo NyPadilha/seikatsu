@@ -10,7 +10,7 @@ interface CreateTableModalProps {
 
 const CreateTableModal: React.FC<CreateTableModalProps> = ({ onAdd }) => {
   const { setIsCreateTableModalOpen } = useContext(MetasContext);
-  const [meta, setMeta] = useState<GenericMeta>({ title: '', columns: [], data: [] });
+  const [meta, /*setMeta*/] = useState<GenericMeta>({ title: '', columns: [], data: [] });
 
   const handleAdd = async (meta: GenericMeta) => {
     await addGenericMeta(meta);

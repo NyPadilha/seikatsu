@@ -899,170 +899,299 @@ body {
   @include flex(column, flex-start, center);
   @include marginPadding0;
 
-  .setup-metas {
+  .banner {
     @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
+  }
+
+  .create-table-btn {
+    @include flex(row, center, center);
     background-color: $black;
-    border-collapse: collapse;
-    border-spacing: 0;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 150px;
+    height: 30px;
+    margin-bottom: 50px;
+  }
+
+  .create-table-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+
+  .create-table-modal {
+    @include flex(column, center, center);
+    @include marginPadding0;
+    background-color: $black;
+    text-align: center;
+    color: $lesserGray;
     border-radius: 7px;
-    margin: 9px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    border: $yellow 2px solid;
+    box-shadow: 0px 0px 10px 0px rgb(254, 189, 41, 0.75);
 
-    h1 {
-      font-size: 20px;
-      font-weight: 800;
-      margin: 7px 0 7px 0;
-    }
-
-    table {
-      width: 98.5%;
-      color: $lesserGray;
-      border-radius: 7px 7px 0 0;
-      border-spacing: 0;
-      margin: 7px 7px 0 7px;
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-
-      th {
-        font-size: 12px;
-        border-bottom: $gray 1px solid;
-        padding: 5px;
-      }
-
-      td {
-        font-size: 12px;
-        border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
-        padding: 5px;
-      }
-
-      input {
-        width: 90px;
-        height: 13px;
-        background-color: $black;
-        color: $lesserGray;
-        border: none;
-        font-size: 10px;
-        text-align: center;
-      }
-
-      .item-input {
-        width: 240px;
-      }
-
-      .item {
-        width: 250px;
-      }
-
-      .value,
-      .paid,
-      .difference {
-        width: 100px;
-        text-align: center;
-      }
-
-      .bought,
-      .delete {
-        width: 30px;
-        text-align: center;
-      }
-    }
-
-    .total-div {
-      @include flex(row, center, center);
-      width: 98.5%;
-      color: $lesserGray;
-      margin: 0 0 5px 0;
-      border-radius: 0 0 7px 7px;
-      box-shadow:
-        1px 1px 3px rgba(0, 0, 0, 0.5),
-        -1px 1px 3px rgba(0, 0, 0, 0.5),
-        0px 1px 3px rgba(0, 0, 0, 0.5);
-
-      p {
-        margin: 0;
-        font-size: 12px;
-        font-weight: 800;
-        padding: 5px;
-      }
-
-      .total-p {
-        width: 250px;
-      }
-
-      .value-p,
-      .paid-p,
-      .diff-p {
-        width: 100px;
-        text-align: center;
-      }
-
-      .bought-p {
-        width: 30px;
-        text-align: center;
-        margin-right: 40px
-      }
+    .x-button,
+    .x-button:hover {
+      background-color: rgb(255, 80, 80);
+      border: rgb(255, 60, 60) 1px solid;
+      margin: 7px 7px 0 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 20px;
+      align-self: flex-end
     }
   }
 
-  .finance-meta {
-    @include flex(column, center, center);
-    background-color: $black;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-radius: 7px;
-    margin: 9px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  .first-section {
+    @include flex(row, center, flex-start);
+    flex-wrap: wrap;
+    gap: 50px;
 
-    div {
-      @include flex(row, center, center);
-      color: $lesserGray;
+    .setup-metas {
+      @include flex(column, center, center);
+      background-color: $black;
+      border-collapse: collapse;
+      border-spacing: 0;
       border-radius: 7px;
-
-      input {
-        width: 89px;
-        background-color: $black;
-        color: $lesserGray;
-        border: $lesserGray 1px solid;
-        border-radius: 3px;
-        margin: 7px 0 0 0;
-        font-size: 12px;
-        text-align: center;
-      }
-
-      h1,
-      h2 {
-        font-weight: 800;
-        margin: 7px 7px 0 7px;
-      }
+      margin: 9px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 
       h1 {
-        font-size: 16px;
-        margin: 7px 7px 0 7px;
+        font-size: 18px;
+        font-weight: 800;
+        margin: 7px 0 5px 0;
+        color: $lesserGray;
       }
 
-      h2 {
-        font-size: 15px;
-        margin: 7px 7px 0 0;
+      table {
+        width: 98.5%;
+        color: $lesserGray;
+        border-radius: 7px 7px 0 0;
+        border-spacing: 0;
+        margin: 7px 7px 0 7px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+        th {
+          font-size: 12px;
+          border-bottom: $gray 1px solid;
+          padding: 5px;
+        }
+
+        td {
+          font-size: 12px;
+          border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
+          padding: 5px;
+        }
+
+        input {
+          width: 90px;
+          height: 13px;
+          background-color: $black;
+          color: $lesserGray;
+          border: none;
+          font-size: 10px;
+          text-align: center;
+        }
+
+        .item-input {
+          width: 240px;
+          text-align: start;
+        }
+
+        .item {
+          width: 250px;
+        }
+
+        .value,
+        .paid,
+        .difference {
+          width: 100px;
+          text-align: center;
+        }
+
+        .bought,
+        .delete {
+          width: 30px;
+          text-align: center;
+        }
+      }
+
+      .total-div {
+        @include flex(row, center, center);
+        width: 98.5%;
+        color: $lesserGray;
+        margin: 0 0 5px 0;
+        border-radius: 0 0 7px 7px;
+        box-shadow:
+          1px 1px 3px rgba(0, 0, 0, 0.5),
+          -1px 1px 3px rgba(0, 0, 0, 0.5),
+          0px 1px 3px rgba(0, 0, 0, 0.5);
+
+        p {
+          margin: 0;
+          font-size: 12px;
+          font-weight: 800;
+          padding: 5px;
+        }
+
+        .total-p {
+          width: 250px;
+        }
+
+        .value-p,
+        .paid-p,
+        .diff-p {
+          width: 100px;
+          text-align: center;
+        }
+
+        .bought-p {
+          width: 30px;
+          text-align: center;
+          margin-right: 40px
+        }
       }
     }
 
-    table {
-      width: 98.5%;
-      color: $lesserGray;
-      border-radius: 7px 7px 0 0;
+    .metas {
+      @include flex(column, center, center);
+      background-color: $black;
+      border-collapse: collapse;
       border-spacing: 0;
-      margin: 7px 7px 4px 7px;
+      border-radius: 7px;
+      margin: 9px;
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 
-      th {
-        font-size: 12px;
-        border-bottom: $gray 1px solid;
-        padding: 5px;
+      h1 {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 7px 0 5px 0;
+        color: $lesserGray;
       }
 
-      td {
-        font-size: 12px;
-        border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
-        padding: 5px;
+      table {
+        width: 98.5%;
+        color: $lesserGray;
+        border-radius: 7px 7px 0 0;
+        border-spacing: 0;
+        margin: 7px 7px 4px 7px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+        th {
+          font-size: 12px;
+          border-bottom: $gray 1px solid;
+          padding: 5px;
+        }
+
+        td {
+          font-size: 12px;
+          border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
+          padding: 5px;
+        }
+
+        input {
+          width: 90px;
+          height: 13px;
+          background-color: $black;
+          color: $lesserGray;
+          border: none;
+          font-size: 10px;
+          text-align: center;
+        }
+
+        .meta {
+          width: 200px;
+        }
+
+        .meta-input {
+          width: 190px;
+          text-align: start;
+        }
+
+        .deadline {
+          width: 100px;
+          text-align: center;
+        }
+
+        .delete,
+        .achieved {
+          width: 30px;
+          text-align: center;
+        }
+      }
+    }
+
+    .finance-meta {
+      @include flex(column, center, center);
+      background-color: $black;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border-radius: 7px;
+      margin: 9px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+      div {
+        @include flex(row, center, center);
+        color: $lesserGray;
+        border-radius: 7px;
+
+        input {
+          width: 89px;
+          background-color: $black;
+          color: $lesserGray;
+          border: $lesserGray 1px solid;
+          border-radius: 3px;
+          margin: 7px 0 0 0;
+          font-size: 12px;
+          text-align: center;
+        }
+
+        h1,
+        h2 {
+          font-weight: 800;
+          margin: 7px 7px 0 7px;
+        }
+
+        h1 {
+          font-size: 16px;
+          margin: 7px 7px 0 7px;
+        }
+
+        h2 {
+          font-size: 15px;
+          margin: 7px 7px 0 0;
+        }
+      }
+
+      table {
+        width: 98.5%;
+        color: $lesserGray;
+        border-radius: 7px 7px 0 0;
+        border-spacing: 0;
+        margin: 7px 7px 4px 7px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+        th {
+          font-size: 12px;
+          border-bottom: $gray 1px solid;
+          padding: 5px;
+        }
+
+        td {
+          font-size: 12px;
+          border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
+          padding: 5px;
+        }
       }
     }
   }

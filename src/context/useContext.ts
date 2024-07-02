@@ -29,7 +29,18 @@ const TrainingContext = createContext<TrainingContextType>({
   setIsNewWorkoutModalOpen: () => { },
 });
 
+type MetasContextType = {
+  isCreateTableModalOpen: boolean;
+  setIsCreateTableModalOpen: (bool: boolean) => void;
+};
+
+const MetasContext = createContext<MetasContextType>({
+  isCreateTableModalOpen: false,
+  setIsCreateTableModalOpen: () => { },
+});
+
 export {
   WatchlistContext,
-  TrainingContext
+  TrainingContext,
+  MetasContext,
 }

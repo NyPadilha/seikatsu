@@ -60,20 +60,21 @@ const MetasRow: React.FC<MetasRowProps> = ({ meta, onDelete }) => {
       <td
         className='meta'
         onDoubleClick={() => setEditingMetaName(true)}
-      >{
-          editingMetaName ? (
-            <input
-              className='meta-input'
-              type='text'
-              value={tempMetaName}
-              onChange={({ target }) => setTempMetaName(target.value)}
-              onBlur={handleBlurMetaName}
-              onKeyDown={handleKeyPressMetaName}
-            />
-          ) : (
-            metaName
-          )
-        }</td>
+      >
+        {editingMetaName ? (
+          <input
+            type='text'
+            className='meta-input'
+            value={tempMetaName}
+            onChange={({ target }) => setTempMetaName(target.value)}
+            onBlur={handleBlurMetaName}
+            onKeyDown={handleKeyPressMetaName}
+            autoFocus
+          />
+        ) : (
+          metaName
+        )}
+      </td>
       <td
         className='deadline'
         onDoubleClick={() => setEditingDeadline(true)}
@@ -85,6 +86,7 @@ const MetasRow: React.FC<MetasRowProps> = ({ meta, onDelete }) => {
             onChange={({ target }) => setDeadline(target.value)}
             onBlur={handleBlurDeadline}
             onKeyDown={handleKeyPressDeadline}
+            autoFocus
           />
         ) : (
           deadline

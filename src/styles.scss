@@ -860,6 +860,11 @@ body {
           text-align: center;
           padding: 5px;
         }
+
+        .exercise-field {
+          width: 200px;
+          text-align: start;
+        }
       }
 
       .x-button,
@@ -1030,7 +1035,7 @@ body {
         @include flex(row, center, center);
         width: 98.5%;
         color: $lesserGray;
-        margin: 0 0 5px 0;
+        margin: 3px 0 5px 0;
         border-radius: 0 0 7px 7px;
         box-shadow:
           1px 1px 3px rgba(0, 0, 0, 0.5),

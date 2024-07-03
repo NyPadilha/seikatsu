@@ -72,7 +72,7 @@ pub struct FinanceMeta {
 }
 
 pub fn read_finance() -> Option<FinanceMeta> {
-    let path = Path::new("finance.json");
+    let path = Path::new("finance_meta.json");
     if path.exists() {
         let mut file = File::open(path).expect("Failed to open file");
         let mut contents = String::new();
@@ -87,7 +87,7 @@ pub fn read_finance() -> Option<FinanceMeta> {
 
 pub fn write_finance(finance: &FinanceMeta) {
     let contents = serde_json::to_string(finance).expect("Failed to serialize to JSON");
-    let mut file = File::create("finance.json").expect("Failed to create file");
+    let mut file = File::create("finance_meta.json").expect("Failed to create file");
     file.write_all(contents.as_bytes())
         .expect("Failed to write to file");
 }

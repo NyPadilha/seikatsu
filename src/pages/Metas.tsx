@@ -65,9 +65,19 @@ const Metas: React.FC = () => {
       const metas = await getMetas();
       const genericMetas = await getGenericMetas();
 
+      const sortedMetas = metas.sort((a, b) => {
+        const rearrangeDate = (date: string) => date.split('/').reverse().join('/');
+        const aDate = rearrangeDate(a.deadline);
+        const bDate = rearrangeDate(b.deadline);
+
+        if (aDate < bDate) return -1;
+        if (aDate > bDate) return 1;
+        return 0;
+      });
+
       setSetupMetas(setupMetas);
       setFinanceMeta(financeMeta);
-      setMetas(metas);
+      setMetas(sortedMetas);
       setGenericMetas(genericMetas);
     }
 

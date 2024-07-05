@@ -41,7 +41,7 @@ const WorkoutTable: React.FC<WorkoutTableProps> = ({ workout, onDelete }) => {
         <tbody>
           {workout.exercises.map((exercise: Exercise) => (
             <tr key={exercise.name}>
-              <td>{exercise.name}</td>
+              <td className='exercise-field'>{exercise.name}</td>
               <td>{settingFormatter(exercise.tag, exercise.config)}</td>
             </tr>
           ))}

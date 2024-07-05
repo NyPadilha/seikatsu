@@ -403,7 +403,6 @@ body {
     text-align: center;
     color: $lesserGray;
     border-radius: 7px;
-    margin: 9px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -860,6 +859,11 @@ body {
           text-align: center;
           padding: 5px;
         }
+
+        .exercise-field {
+          width: 200px;
+          text-align: start;
+        }
       }
 
       .x-button,
@@ -939,6 +943,7 @@ body {
     z-index: 1000;
     border: $yellow 2px solid;
     box-shadow: 0px 0px 10px 0px rgb(254, 189, 41, 0.75);
+    padding-bottom: 7px;
 
     .x-button,
     .x-button:hover {
@@ -949,6 +954,86 @@ body {
       height: 14px;
       border-radius: 20px;
       align-self: flex-end
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 7px 0 15px 0;
+    }
+
+    form {
+      @include flex(column, center, center);
+      width: 350px;
+      padding-bottom: 10px;
+
+      input {
+        width: 275px;
+        height: 25px;
+        background-color: $black;
+        color: $lesserGray;
+        border: $lesserGray 1px solid;
+        border-radius: 3px;
+        font-size: 12px;
+        margin: 5px;
+        text-align: center;
+      }
+
+      .header {
+        @include flex(row, space-between, center);
+        width: 277px;
+        margin: 15px 0 3px 0;
+
+        h4 {
+          @include marginPadding0;
+          font-size: 16px;
+          width: 154px;
+          text-align: center;
+        }
+
+        p {
+          @include marginPadding0;
+        }
+      }
+
+      .rows {
+        @include flex(column, center, center);
+
+        .row {
+          @include flex(row, center, center);
+          width: 100%;
+
+          input {
+            width: 150px;
+            text-align: start;
+            margin: 3px 10px 3px 5px;
+          }
+
+          button {
+            background-color: $black;
+            color: $lesserGray;
+            margin-left: 5px;
+            border: none;
+          }
+        }
+      }
+    }
+
+    .submit-btn {
+      width: 140px;
+      height: 40px;
+      background-color: $lesserGray;
+      color: $black;
+      border: $black 1px solid;
+      border-radius: 3px;
+      margin: 20px 5px 5px 5px;
+      font-size: 16px;
+      font-weight: 1000;
+    }
+
+    .submit-btn:hover {
+      background-color: $yellow;
+      color: $black;
     }
   }
 
@@ -1030,7 +1115,7 @@ body {
         @include flex(row, center, center);
         width: 98.5%;
         color: $lesserGray;
-        margin: 0 0 5px 0;
+        margin: 3px 0 5px 0;
         border-radius: 0 0 7px 7px;
         box-shadow:
           1px 1px 3px rgba(0, 0, 0, 0.5),
@@ -1191,6 +1276,60 @@ body {
           font-size: 12px;
           border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
           padding: 5px;
+        }
+      }
+    }
+  }
+
+  .generic-section {
+    @include flex(row, center, flex-start);
+    flex-wrap: wrap;
+    gap: 50px;
+
+    .generic-table {
+      @include flex(column, center, center);
+      background-color: $black;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border-radius: 7px;
+      margin: 9px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+      h1 {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 7px 0 5px 0;
+        color: $lesserGray;
+      }
+
+      table {
+        width: 98.5%;
+        color: $lesserGray;
+        border-radius: 7px 7px 0 0;
+        border-spacing: 0;
+        margin: 7px 7px 4px 7px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+
+        th {
+          font-size: 12px;
+          border-bottom: $gray 1px solid;
+          padding: 5px;
+        }
+
+        td {
+          font-size: 12px;
+          border-bottom: rgb(58, 58, 58, 0.4) 1px solid;
+          padding: 5px;
+        }
+
+        input {
+          width: 90px;
+          height: 13px;
+          background-color: $black;
+          color: $lesserGray;
+          border: none;
+          font-size: 10px;
+          text-align: center;
         }
       }
     }

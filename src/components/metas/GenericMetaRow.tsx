@@ -18,8 +18,10 @@ const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ row, dataTypes, onDelet
   return (
     <tr>
       {thisRow.map((r, index) => (
-        <td key={r}>
-          {r}
+        <td key={index}>
+          {dataTypes[index] === 'checkbox' && (r === 'true' ? <CheckIcon /> : <XIcon />)}
+          {dataTypes[index] === 'money' && `R$ ${r}`}
+          {(['number', 'string'].includes(dataTypes[index])) && r}
         </td>
       ))}
       <td onClick={() => onDelete(thisRow)}><XCircleFillIcon /></td>

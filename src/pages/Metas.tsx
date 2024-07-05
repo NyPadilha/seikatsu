@@ -217,7 +217,7 @@ const Metas: React.FC = () => {
 
       <section className='generic-section'>
         {genericMetas && genericMetas.map((meta) => (
-          <div key={meta.title}>
+          <div className='generic-table' key={meta.title}>
             <h1>{meta.title}</h1>
             <GenericMetaTable meta={meta} />
           </div>

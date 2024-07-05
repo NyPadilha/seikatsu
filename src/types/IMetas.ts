@@ -15,8 +15,15 @@ export type MetasType = {
   achieved: boolean,
 }
 
+export type ColumnType = "string" | "number" | "checkbox" | "money";
+
+export type Column = {
+  name: string,
+  c_type: ColumnType,
+}
+
 export type GenericMeta = {
   title: string,
-  columns: string[],
+  columns: Column[],
   data: string[][],
 }

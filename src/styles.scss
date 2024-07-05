@@ -403,7 +403,6 @@ body {
     text-align: center;
     color: $lesserGray;
     border-radius: 7px;
-    margin: 9px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -944,6 +943,7 @@ body {
     z-index: 1000;
     border: $yellow 2px solid;
     box-shadow: 0px 0px 10px 0px rgb(254, 189, 41, 0.75);
+    padding-bottom: 7px;
 
     .x-button,
     .x-button:hover {
@@ -954,6 +954,86 @@ body {
       height: 14px;
       border-radius: 20px;
       align-self: flex-end
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 7px 0 15px 0;
+    }
+
+    form {
+      @include flex(column, center, center);
+      width: 350px;
+      padding-bottom: 10px;
+
+      input {
+        width: 275px;
+        height: 25px;
+        background-color: $black;
+        color: $lesserGray;
+        border: $lesserGray 1px solid;
+        border-radius: 3px;
+        font-size: 12px;
+        margin: 5px;
+        text-align: center;
+      }
+
+      .header {
+        @include flex(row, space-between, center);
+        width: 277px;
+        margin: 15px 0 3px 0;
+
+        h4 {
+          @include marginPadding0;
+          font-size: 16px;
+          width: 154px;
+          text-align: center;
+        }
+
+        p {
+          @include marginPadding0;
+        }
+      }
+
+      .rows {
+        @include flex(column, center, center);
+
+        .row {
+          @include flex(row, center, center);
+          width: 100%;
+
+          input {
+            width: 150px;
+            text-align: start;
+            margin: 3px 10px 3px 5px;
+          }
+
+          button {
+            background-color: $black;
+            color: $lesserGray;
+            margin-left: 5px;
+            border: none;
+          }
+        }
+      }
+    }
+
+    .submit-btn {
+      width: 140px;
+      height: 40px;
+      background-color: $lesserGray;
+      color: $black;
+      border: $black 1px solid;
+      border-radius: 3px;
+      margin: 20px 5px 5px 5px;
+      font-size: 16px;
+      font-weight: 1000;
+    }
+
+    .submit-btn:hover {
+      background-color: $yellow;
+      color: $black;
     }
   }
 

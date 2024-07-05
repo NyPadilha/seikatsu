@@ -77,6 +77,7 @@ const Metas: React.FC = () => {
 
       setSetupMetas(setupMetas);
       setFinanceMeta(financeMeta);
+      setNewFinanceMeta(financeMeta.value.toString());
       setMetas(sortedMetas);
       setGenericMetas(genericMetas);
     }

@@ -14,6 +14,7 @@ metas.json
 workout.json
 setup.json
 finance_meta.json
+generic_meta.json
 */user_profile.json
 */watchlist.json
 */finance.json
@@ -21,3 +22,4 @@ finance_meta.json
 */workout.json
 */setup.json
 */finance_meta.json
+*/generic_meta.json

@@ -163,9 +163,15 @@ pub fn update_achieved(meta: &str, achieved: bool) {
 }
 
 #[derive(Serialize, Deserialize)]
+pub struct Columns {
+    pub name: String,
+    pub c_type: String,
+}
+
+#[derive(Serialize, Deserialize)]
 pub struct GenericMetaTable {
     pub title: String,
-    pub columns: Vec<String>,
+    pub columns: Vec<Columns>,
     pub data: Vec<Vec<String>>,
 }
 

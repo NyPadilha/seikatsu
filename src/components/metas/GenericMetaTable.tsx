@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import { XCircleFillIcon, XIcon, CheckIcon } from '@primer/octicons-react';
-import { GenericMeta } from '../../types/IMetas';
+import { GenericMeta, Column, ColumnType } from '../../types/IMetas';
 import GenericMetaRow from './GenericMetaRow';
 
 interface GenericMetaTableProps {
@@ -10,10 +10,12 @@ interface GenericMetaTableProps {
 const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
   const [columns, setColumns] = useState<string[]>([]);
   const [data, setData] = useState<string[][]>([]);
+  const [dataTypes, setDataTypes] = useState<ColumnType[]>([]);
 
   useEffect(() => {
-    setColumns(meta.columns);
+    setColumns(meta.columns.map((column) => column.name));
     setData(meta.data);
+    setDataTypes(meta.columns.map((column) => column.c_type));
   }, []);
 
   return (
@@ -27,7 +29,7 @@ const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
       </thead>
       <tbody>
         {data.map((row) => (
-          <GenericMetaRow row={row} />
+          <GenericMetaRow row={row} dataTypes={dataTypes} />
         ))}
       </tbody>
     </table>

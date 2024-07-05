@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 interface GenericMetaRowProps {
   row: string[];
+  dataTypes: string[];
 }
 
 const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ row }) => {
@@ -15,7 +16,7 @@ const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ row }) => {
 
   return (
     <tr>
-      {rows.map((r) => (
+      {rows.map((r, index) => (
         <td key={r}>
           {r}
         </td>

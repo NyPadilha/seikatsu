@@ -16,10 +16,9 @@ const CreateTableModal: React.FC<CreateTableModalProps> = ({ onAdd }) => {
 
   const handleAdd = async (meta: GenericMeta) => {
     meta.columns = columns;
-    console.log(meta);
-    // await addGenericMeta(meta);
-    // onAdd(meta);
-    // setIsCreateTableModalOpen(false);
+    await addGenericMeta(meta);
+    onAdd(meta);
+    setIsCreateTableModalOpen(false);
   }
 
   return (

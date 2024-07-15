@@ -1,31 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { XCircleFillIcon, XIcon, CheckIcon } from '@primer/octicons-react';
-// import { GenericMeta } from '../../types/IMetas';
+import { XIcon, CheckIcon } from '@primer/octicons-react';
+// import { DataType } from '../../types/IMetas';
 
 interface GenericMetaRowProps {
-  row: string[];
-  dataTypes: string[];
-  onDelete: (row: string[]) => void;
+  data: string;
+  dataType: string;
+  updateData: (data: string) => void;
 }
 
-const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ row, dataTypes, onDelete }) => {
-  const [thisRow, setThisRow] = useState<string[]>([]);
+const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ data, dataType, updateData }) => {
+  const [rowD, setRowD] = useState<string>("");
+  const [editing, setEditing] = useState<boolean>(false);
+  const [tempRowD, setTempRowD] = useState<string>(rowD);
+
+  const dataFormatter = (data: string, type: string) => {
+    if (type === 'checkbox') {
+      return data === 'true' ? <CheckIcon /> : <XIcon />;
+    }
+    if (type === 'money') {
+      return `R$ ${data}`;
+    }
+    return data;
+  }
+
+  const handleBlur = async () => {
+    updateData(tempRowD);
+    setEditing(false);
+    setRowD(tempRowD);
+  }
+
+  const handleKeyPress = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleBlur();
+    }
+  }
+
+  const updateCheckpoint = () => {
+    const newData = rowD === 'true' ? 'false' : 'true';
+    updateData(newData);
+    setRowD(newData);
+  }
 
   useEffect(() => {
-    setThisRow(row);
+    setRowD(data);
   }, []);
 
   return (
-    <tr>
-      {thisRow.map((r, index) => (
-        <td key={index}>
-          {dataTypes[index] === 'checkbox' && (r === 'true' ? <CheckIcon /> : <XIcon />)}
-          {dataTypes[index] === 'money' && `R$ ${r}`}
-          {(['number', 'string'].includes(dataTypes[index])) && r}
-        </td>
-      ))}
-      <td onClick={() => onDelete(thisRow)}><XCircleFillIcon /></td>
-    </tr>
+    <td
+      onClick={() => {
+        dataType === 'checkbox' && updateCheckpoint();
+      }}
+      onDoubleClick={() => dataType !== 'checkbox' && setEditing(true)}
+    >
+      {editing ? (
+        <input
+          type={dataType === 'money' ? 'number' : 'text'}
+          value={tempRowD}
+          onChange={({ target }) => setTempRowD(target.value)}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyPress}
+          autoFocus
+        />
+      ) :
+        dataFormatter(rowD, dataType)}
+    </td>
   );
 };
 

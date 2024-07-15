@@ -11,7 +11,6 @@ export async function getWatchlist() {
 
 export async function getNewSeason() {
   const season: Anime[] = await invoke('get_new_season');
-  console.log(season);
   return season
 }
 
@@ -135,5 +134,6 @@ export async function deleteRowGenericMeta(meta: string, row: string[]) {
 }
 
 export async function updateRowGenericMeta(title: string, rowId: string, row: string[]) {
+  console.log(title, rowId, row);
   await invoke('update_row_generic_meta', { title, rowId, row });
 }

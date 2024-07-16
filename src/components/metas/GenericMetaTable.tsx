@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { CheckboxIcon, DiffAddedIcon } from '@primer/octicons-react';
+import { CheckboxIcon, DiffAddedIcon, XCircleFillIcon } from '@primer/octicons-react';
 import { GenericMeta, Column, ColumnType } from '../../types/IMetas';
 import GenericMetaRow from './GenericMetaRow';
-import { addRowGenericMeta, deleteRowGenericMeta } from '../../services/api';
+import { addRowGenericMeta, deleteRowGenericMeta, updateRowGenericMeta } from '../../services/api';
 
 interface GenericMetaTableProps {
   meta: GenericMeta;
@@ -21,8 +21,8 @@ const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
   }
 
   const deleteRow = async (row: string[]) => {
-    const newData = data.filter((r) => r !== row);
     await deleteRowGenericMeta(meta.title, row)
+    const newData = data.filter((r) => r !== row);
     setData(newData);
   }
 
@@ -44,14 +44,27 @@ const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((row) => (
-          <GenericMetaRow
-            key={row[0]}
-            row={row}
-            dataTypes={dataTypes}
-            onDelete={(row) => deleteRow(row)}
-          />
-        ))}
+        {
+          data.map((row) => (
+            <tr key={`${row[0]}`}>
+              {row.map((d, index) => (
+                <GenericMetaRow
+                  key={index}
+                  data={d}
+                  index={index}
+                  dataType={dataTypes[index]}
+                  updateData={(rowD) => {
+                    const oldId = row[0];
+                    const newData = row[index] = rowD;
+                    let newRow = row;
+                    newRow[index] = newData;
+                    updateRowGenericMeta(meta.title, oldId, newRow);
+                  }}
+                />
+              ))}
+              <td className='delete' onClick={() => deleteRow(row)}><XCircleFillIcon /></td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

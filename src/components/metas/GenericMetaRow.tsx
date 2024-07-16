@@ -4,11 +4,12 @@ import { XIcon, CheckIcon } from '@primer/octicons-react';
 
 interface GenericMetaRowProps {
   data: string;
+  index: number;
   dataType: string;
   updateData: (data: string) => void;
 }
 
-const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ data, dataType, updateData }) => {
+const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ data, index, dataType, updateData }) => {
   const [rowD, setRowD] = useState<string>("");
   const [editing, setEditing] = useState<boolean>(false);
   const [tempRowD, setTempRowD] = useState<string>(rowD);
@@ -43,10 +44,12 @@ const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ data, dataType, updateD
 
   useEffect(() => {
     setRowD(data);
+    setTempRowD(data);
   }, []);
 
   return (
     <td
+      className={index === 0 ? `first-column ${dataType}` : dataType}
       onClick={() => {
         dataType === 'checkbox' && updateCheckpoint();
       }}

@@ -3,7 +3,8 @@ import {
   getSetupMetas, addSetupRow,
   getFinanceMetas, updateFinanceMeta,
   getMetas, addMeta,
-  getGenericMetas
+  getGenericMetas,
+  deleteGenericMeta
 } from '../services/api';
 import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
 import { CheckboxIcon, DiffAddedIcon } from '@primer/octicons-react';
@@ -56,6 +57,11 @@ const Metas: React.FC = () => {
     const newMeta = { meta: 'New Meta', deadline: '00/00/0000', achieved: false };
     await addMeta(newMeta);
     setMetas([...metas, newMeta]);
+  }
+
+  const deleteGeneric = async (title: string) => {
+    await deleteGenericMeta(title);
+    setGenericMetas(genericMetas.filter((meta) => meta.title !== title));
   }
 
   useEffect(() => {
@@ -218,7 +224,14 @@ const Metas: React.FC = () => {
       <section className='generic-section'>
         {genericMetas && genericMetas.map((meta) => (
           <div className='generic-table' key={meta.title}>
-            <h1>{meta.title}</h1>
+            <div>
+              <p className='space'></p>
+              <h1>{meta.title}</h1>
+              <button
+                className='x-button'
+                onClick={() => deleteGeneric(meta.title)}
+              ></button>
+            </div>
             <GenericMetaTable meta={meta} />
           </div>
         ))}

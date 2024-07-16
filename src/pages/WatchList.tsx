@@ -220,7 +220,13 @@ const WatchList: React.FC = () => {
 
       <div className='t-a-bar'>
         <button onClick={previousSlide}>{<ChevronLeftIcon />}</button>
+        <div className='counter'><p></p></div>
         {currentSlide === 0 ? <h1>Alone</h1> : <h1>Together</h1>}
+        {currentSlide === 0 ? (
+          <div className='counter'><h5>{sunday.length + monday.length + tuesday.length + wednesday.length + thursday.length + friday.length + saturday.length}</h5><p></p></div>
+        ) : (
+          <div className='counter'><h5>{sun.length + mon.length + tue.length + wed.length + thu.length + fri.length + sat.length}</h5><p></p></div>
+        )}
         <button onClick={nextSlide}>{<ChevronRightIcon />}</button>
       </div>
       {currentSlide === 0 ? (

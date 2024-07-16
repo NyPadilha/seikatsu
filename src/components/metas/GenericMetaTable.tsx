@@ -51,6 +51,7 @@ const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
                 <GenericMetaRow
                   key={index}
                   data={d}
+                  index={index}
                   dataType={dataTypes[index]}
                   updateData={(rowD) => {
                     const oldId = row[0];
@@ -61,7 +62,7 @@ const GenericMetaTable: React.FC<GenericMetaTableProps> = ({ meta }) => {
                   }}
                 />
               ))}
-              <td onClick={() => deleteRow(row)}><XCircleFillIcon /></td>
+              <td className='delete' onClick={() => deleteRow(row)}><XCircleFillIcon /></td>
             </tr>
           ))}
       </tbody>

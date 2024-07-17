@@ -1451,6 +1451,31 @@ body {
     margin-bottom: 70px;
   }
 
+  .buttons {
+    @include flex(row, center, center);
+    width: 80%;
+    margin: 0 10% 0 10%;
+
+    .btn {
+      @include flex(row, center, center);
+      width: 150px;
+      height: 30px;
+      background-color: $black;
+      color: $lesserGray;
+      border: $black 1px solid;
+      border-radius: 3px;
+      margin: 0 20px 0 20px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: $yellow;
+      color: $black;
+    }
+  }
+
   .home-btn {
     @include flex(row, center, center);
     background-color: $black;
@@ -1466,6 +1491,109 @@ body {
   }
 
   .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#transactions {
+  @include flex(column, flex-start, center);
+  @include marginPadding0;
+
+  .banner {
+    @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
+  }
+
+  .columns {
+    @include flex(row, center, center);
+    background-color: $black;
+    border: $black 1px solid;
+    border-radius: 3px;
+    color: $lesserGray;
+    width: 80%;
+
+    h1 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 7px 0 7px 0;
+      text-align: center;
+    }
+
+    .date {
+      width: 120px;
+    }
+
+    .value,
+    .category,
+    .account {
+      width: 200px;
+    }
+
+    .description {
+      flex-grow: 1;
+    }
+
+    .add {
+      @include flex(row, center, center);
+      width: 30px;
+    }
+  }
+
+  section {
+    @include flex(column, center, center);
+    width: 80%;
+
+    div {
+      @include flex(row, center, center);
+      width: 100%;
+
+      h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 5px 0 5px 0;
+        text-align: center;
+      }
+
+      .date {
+        width: 120px;
+      }
+
+      .value,
+      .category,
+      .account {
+        width: 200px;
+      }
+
+      .description {
+        flex-grow: 1;
+      }
+
+      .delete {
+        @include flex(row, center, center);
+        width: 30px;
+      }
+    }
+  }
+
+  .back-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    margin: 60px 0 100px 0;
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
+  }
+
+  .back-btn:hover {
     background-color: $yellow;
     color: $black;
   }

@@ -24,7 +24,9 @@
         "resizable": true,
         "title": "Seikatsu",
         "width": 1400,
-        "height": 900
+        "height": 900,
+        "minWidth": 950,
+        "minHeight": 600
       }
     ],
     "security": {

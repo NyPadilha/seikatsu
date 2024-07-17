@@ -61,6 +61,156 @@ pub fn del_account(name: &str) {
     write_accounts(&accounts_list);
 }
 
+pub fn update_account_name(name: &str, new_name: &str) {
+    let mut accounts_list = read_accounts().unwrap_or_else(Vec::new);
+    for account in accounts_list.iter_mut() {
+        if account.name == name {
+            account.name = new_name.to_string();
+        }
+    }
+    write_accounts(&accounts_list);
+}
+
+pub fn update_account_tag(name: &str, tag: &str) {
+    let mut accounts_list = read_accounts().unwrap_or_else(Vec::new);
+    for account in accounts_list.iter_mut() {
+        if account.name == name {
+            account.tag = tag.to_string();
+        }
+    }
+    write_accounts(&accounts_list);
+}
+
+pub fn update_account_balance(name: &str, balance: f32) {
+    let mut accounts_list = read_accounts().unwrap_or_else(Vec::new);
+    for account in accounts_list.iter_mut() {
+        if account.name == name {
+            account.balance = balance;
+        }
+    }
+    write_accounts(&accounts_list);
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Category {
+    pub name: String,
+    pub tag: String,
+}
+
+pub fn read_categories() -> Option<Vec<Category>> {
+    let path = Path::new("finance-categories.json");
+    if path.exists() {
+        let mut file = File::open(path).expect("Failed to open file");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents)
+            .expect("Failed to read file");
+        let categories: Vec<Category> =
+            serde_json::from_str(&contents).expect("Failed to parse JSON");
+        Some(categories)
+    } else {
+        None
+    }
+}
+
+pub fn write_categories(categories: &Vec<Category>) {
+    let contents = serde_json::to_string(categories).expect("Failed to serialize to JSON");
+    let mut file = File::create("finance-categories.json").expect("Failed to create file");
+    file.write_all(contents.as_bytes())
+        .expect("Failed to write to file");
+}
+
+pub fn add_category(category: Category) {
+    let mut categories_list = read_categories().unwrap_or_else(Vec::new);
+    categories_list.push(category);
+    write_categories(&categories_list);
+}
+
+pub fn del_category(name: &str) {
+    let mut categories_list = read_categories().unwrap_or_else(Vec::new);
+    categories_list.retain(|category| category.name != name);
+    write_categories(&categories_list);
+}
+
+pub fn update_category_name(name: &str, new_name: &str) {
+    let mut categories_list = read_categories().unwrap_or_else(Vec::new);
+    for category in categories_list.iter_mut() {
+        if category.name == name {
+            category.name = new_name.to_string();
+        }
+    }
+    write_categories(&categories_list);
+}
+
+pub fn update_category_tag(name: &str, tag: &str) {
+    let mut categories_list = read_categories().unwrap_or_else(Vec::new);
+    for category in categories_list.iter_mut() {
+        if category.name == name {
+            category.tag = tag.to_string();
+        }
+    }
+    write_categories(&categories_list);
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Creditor {
+    pub name: String,
+    pub tag: String,
+}
+
+pub fn read_creditors() -> Option<Vec<Creditor>> {
+    let path = Path::new("creditors.json");
+    if path.exists() {
+        let mut file = File::open(path).expect("Failed to open file");
+        let mut contents = String::new();
+        file.read_to_string(&mut contents)
+            .expect("Failed to read file");
+        let creditors: Vec<Creditor> =
+            serde_json::from_str(&contents).expect("Failed to parse JSON");
+        Some(creditors)
+    } else {
+        None
+    }
+}
+
+pub fn write_creditors(creditors: &Vec<Creditor>) {
+    let contents = serde_json::to_string(creditors).expect("Failed to serialize to JSON");
+    let mut file = File::create("creditors.json").expect("Failed to create file");
+    file.write_all(contents.as_bytes())
+        .expect("Failed to write to file");
+}
+
+pub fn add_creditor(creditor: Creditor) {
+    let mut creditors_list = read_creditors().unwrap_or_else(Vec::new);
+    creditors_list.push(creditor);
+    write_creditors(&creditors_list);
+}
+
+pub fn del_creditor(name: &str) {
+    let mut creditors_list = read_creditors().unwrap_or_else(Vec::new);
+    creditors_list.retain(|creditor| creditor.name != name);
+    write_creditors(&creditors_list);
+}
+
+pub fn update_creditor_name(name: &str, new_name: &str) {
+    let mut creditors_list = read_creditors().unwrap_or_else(Vec::new);
+    for creditor in creditors_list.iter_mut() {
+        if creditor.name == name {
+            creditor.name = new_name.to_string();
+        }
+    }
+    write_creditors(&creditors_list);
+}
+
+pub fn update_creditor_tag(name: &str, tag: &str) {
+    let mut creditors_list = read_creditors().unwrap_or_else(Vec::new);
+    for creditor in creditors_list.iter_mut() {
+        if creditor.name == name {
+            creditor.tag = tag.to_string();
+        }
+    }
+    write_creditors(&creditors_list);
+}
+
 #[derive(Serialize, Deserialize)]
 pub struct Transaction {
     pub id: u32,

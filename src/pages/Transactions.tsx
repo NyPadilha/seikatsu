@@ -63,6 +63,7 @@ const Transactions: React.FC = () => {
       </section>
 
       <Link className='back-btn' to='/finance'>Back</Link>
+      <Link className='home-btn' to='/'>Home</Link>
     </section>
   );
 };

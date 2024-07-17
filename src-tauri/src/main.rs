@@ -2,6 +2,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use finance::Account;
+use finance::Category;
+use finance::Creditor;
 use finance::Debt;
 use finance::Transaction;
 use metas::FinanceMeta;
@@ -211,6 +213,71 @@ fn del_account(name: &str) {
 }
 
 #[tauri::command]
+fn update_account_name(old_name: &str, new_name: &str) {
+    finance::update_account_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn update_account_tag(account: &str, tag: &str) {
+    finance::update_account_tag(account, tag);
+}
+
+#[tauri::command]
+fn update_account_balance(account: &str, balance: f32) {
+    finance::update_account_balance(account, balance);
+}
+
+#[tauri::command]
+fn get_categories() -> Option<Vec<Category>> {
+    finance::read_categories()
+}
+
+#[tauri::command]
+fn add_category(category: Category) {
+    finance::add_category(category);
+}
+
+#[tauri::command]
+fn del_category(category: &str) {
+    finance::del_category(category);
+}
+
+#[tauri::command]
+fn update_category_name(old_name: &str, new_name: &str) {
+    finance::update_category_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn update_category_tag(category: &str, tag: &str) {
+    finance::update_category_tag(category, tag);
+}
+
+#[tauri::command]
+fn get_creditors() -> Option<Vec<Creditor>> {
+    finance::read_creditors()
+}
+
+#[tauri::command]
+fn add_creditor(creditor: Creditor) {
+    finance::add_creditor(creditor);
+}
+
+#[tauri::command]
+fn del_creditor(creditor: &str) {
+    finance::del_creditor(creditor);
+}
+
+#[tauri::command]
+fn update_creditor_name(old_name: &str, new_name: &str) {
+    finance::update_creditor_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn update_creditor_tag(creditor: &str, tag: &str) {
+    finance::update_creditor_tag(creditor, tag);
+}
+
+#[tauri::command]
 fn get_transactions() -> Option<Vec<Transaction>> {
     finance::read_transactions()
 }
@@ -334,6 +401,9 @@ fn main() {
             get_accounts,
             add_account,
             del_account,
+            update_account_name,
+            update_account_tag,
+            update_account_balance,
             get_transactions,
             add_transaction,
             del_transaction,
@@ -350,7 +420,17 @@ fn main() {
             update_debt_value,
             update_debt_cet,
             update_debt_monthly_installment,
-            update_debt_outstanding_installments
+            update_debt_outstanding_installments,
+            get_categories,
+            add_category,
+            del_category,
+            update_category_name,
+            update_category_tag,
+            get_creditors,
+            add_creditor,
+            del_creditor,
+            update_creditor_name,
+            update_creditor_tag
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

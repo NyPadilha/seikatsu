@@ -5,7 +5,7 @@ import { getAccounts, getDebts } from '../services/api';
 
 const Finance: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
-  const [debts, setDebts] = useState<Debt[]>([]);
+  const [/*debts*/, setDebts] = useState<Debt[]>([]);
 
   const cash: string | number = accounts.find(account => account.tag === 'cash')?.balance || 0;
   const checking: string | number = accounts.reduce((acc, account) => account.tag === 'bank' ? acc + account.balance : acc, 0);

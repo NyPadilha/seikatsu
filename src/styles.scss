@@ -1562,7 +1562,12 @@ body {
         width: 120px;
       }
 
-      .value,
+      .value {
+        @include flex(row, space-between, center);
+        padding: 0 10px 0 10px;
+        width: 180px;
+      }
+
       .category,
       .account {
         width: 200px;

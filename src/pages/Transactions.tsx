@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Transaction } from '../types/IFinance';
-import { addTransaction, getTransactions } from '../services/api';
+import { getTransactions, addTransaction, deleteTransaction } from '../services/api';
 import { DiffAddedIcon, XCircleFillIcon } from '@primer/octicons-react';
 import { Link } from 'react-router-dom';
 
@@ -8,16 +8,23 @@ const Transactions: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   const addNewTransaction = async () => {
+    const newDate = new Date()
     const newTransaction = {
-      id: transactions ? transactions[transactions.length - 1].id + 1 : 1,
-      date: '',
+      id: transactions.length ? transactions[transactions.length - 1].id + 1 : 1,
+      date: `${newDate.getDate().toString().padStart(2, '0')}/${(newDate.getMonth() + 1).toString().padStart(2, '0')}/${newDate.getFullYear()}`,
       value: 0,
       category: '',
       description: '',
       account: '',
     }
+    console.log(newTransaction)
     await addTransaction(newTransaction)
     setTransactions([...transactions, newTransaction])
+  }
+
+  const delTransaction = async (id: number) => {
+    await deleteTransaction(id)
+    setTransactions(transactions.filter(transaction => transaction.id !== id))
   }
 
   useEffect(() => {
@@ -46,11 +53,11 @@ const Transactions: React.FC = () => {
         {transactions && transactions.map(transaction => (
           <div key={transaction.id}>
             <h2 className='date'>{transaction.date}</h2>
-            <h2 className='value'>{transaction.value}</h2>
+            <div className='value'><h2>R$</h2><h2>{transaction.value.toFixed(2)}</h2></div>
             <h2 className='category'>{transaction.category}</h2>
             <h2 className='description'>{transaction.description}</h2>
             <h2 className='account'>{transaction.account}</h2>
-            <h2 className='delete'><XCircleFillIcon /></h2>
+            <h2 className='delete' onClick={() => delTransaction(transaction.id)}><XCircleFillIcon /></h2>
           </div>
         ))}
       </section>

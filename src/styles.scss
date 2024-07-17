@@ -413,6 +413,25 @@ body {
       background-color: $yellow;
       color: $black;
     }
+
+    .counter {
+      @include flex(row, space-between, center);
+      width: 347px;
+
+      h5 {
+        @include marginPadding0();
+        font-size: 16px;
+        font-weight: 600;
+        padding: 2px 3px;
+        border: $black 1px solid;
+        border-radius: 3px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      }
+
+      p {
+        @include marginPadding0();
+      }
+    }
   }
 
   .tag-modal,
@@ -1303,6 +1322,7 @@ body {
 
   .generic-section {
     @include flex(row, center, flex-start);
+    margin-top: 50px;
     flex-wrap: wrap;
     gap: 50px;
 
@@ -1397,6 +1417,38 @@ body {
         }
       }
     }
+  }
+
+  .home-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    margin: 60px 0 100px 0;
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
+  }
+
+  .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#finance {
+  @include flex(column, flex-start, center);
+  @include marginPadding0;
+
+  .banner {
+    @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
   }
 
   .home-btn {

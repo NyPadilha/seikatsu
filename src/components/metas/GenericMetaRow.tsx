@@ -19,7 +19,7 @@ const GenericMetaRow: React.FC<GenericMetaRowProps> = ({ data, index, dataType, 
       return data === 'true' ? <CheckIcon /> : <XIcon />;
     }
     if (type === 'money') {
-      return `R$ ${data}`;
+      return `R$ ${Number(data).toFixed(2)}`;
     }
     return data;
   }

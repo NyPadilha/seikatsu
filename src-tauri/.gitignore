@@ -15,6 +15,11 @@ workout.json
 setup.json
 finance_meta.json
 generic_meta.json
+accounts.json
+transactions.json
+debts.json
+creditors.json
+finance-categories.json
 */user_profile.json
 */watchlist.json
 */finance.json
@@ -23,3 +28,8 @@ generic_meta.json
 */setup.json
 */finance_meta.json
 */generic_meta.json
+*/accounts.json
+*/transactions.json
+*/debts.json
+*/creditors.json
+*/finance-categories.json

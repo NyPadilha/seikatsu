@@ -1,6 +1,11 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use finance::Account;
+use finance::Category;
+use finance::Creditor;
+use finance::Debt;
+use finance::Transaction;
 use metas::FinanceMeta;
 use metas::GenericMetaTable;
 use metas::Metas;
@@ -8,6 +13,7 @@ use metas::SetupMetas;
 use training::Workout;
 use watchlist::Anime;
 
+mod finance;
 mod metas;
 mod profile;
 mod season_scraper;
@@ -190,6 +196,167 @@ fn update_row_generic_meta(title: &str, row_id: String, row: Vec<String>) {
     metas::update_row_generic_meta(title, row_id, row);
 }
 
+// finance
+#[tauri::command]
+fn get_accounts() -> Option<Vec<Account>> {
+    finance::read_accounts()
+}
+
+#[tauri::command]
+fn add_account(account: Account) {
+    finance::add_account(account);
+}
+
+#[tauri::command]
+fn del_account(name: &str) {
+    finance::del_account(name);
+}
+
+#[tauri::command]
+fn update_account_name(old_name: &str, new_name: &str) {
+    finance::update_account_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn update_account_tag(account: &str, tag: &str) {
+    finance::update_account_tag(account, tag);
+}
+
+#[tauri::command]
+fn update_account_balance(account: &str, balance: f32) {
+    finance::update_account_balance(account, balance);
+}
+
+#[tauri::command]
+fn get_categories() -> Option<Vec<Category>> {
+    finance::read_categories()
+}
+
+#[tauri::command]
+fn add_category(category: Category) {
+    finance::add_category(category);
+}
+
+#[tauri::command]
+fn del_category(category: &str) {
+    finance::del_category(category);
+}
+
+#[tauri::command]
+fn update_category_name(old_name: &str, new_name: &str) {
+    finance::update_category_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn update_category_tag(category: &str, tag: &str) {
+    finance::update_category_tag(category, tag);
+}
+
+#[tauri::command]
+fn get_creditors() -> Option<Vec<Creditor>> {
+    finance::read_creditors()
+}
+
+#[tauri::command]
+fn add_creditor(creditor: Creditor) {
+    finance::add_creditor(creditor);
+}
+
+#[tauri::command]
+fn del_creditor(creditor: &str) {
+    finance::del_creditor(creditor);
+}
+
+#[tauri::command]
+fn update_creditor_name(old_name: &str, new_name: &str) {
+    finance::update_creditor_name(old_name, new_name);
+}
+
+#[tauri::command]
+fn get_transactions() -> Option<Vec<Transaction>> {
+    finance::read_transactions()
+}
+
+#[tauri::command]
+fn add_transaction(transaction: Transaction) {
+    finance::add_transaction(transaction);
+}
+
+#[tauri::command]
+fn del_transaction(id: u32) {
+    finance::del_transaction(id);
+}
+
+#[tauri::command]
+fn update_transaction_date(id: u32, date: &str) {
+    finance::update_transaction_date(id, date);
+}
+
+#[tauri::command]
+fn update_transaction_account(id: u32, account: &str) {
+    finance::update_transaction_account(id, account);
+}
+
+#[tauri::command]
+fn update_transaction_category(id: u32, category: &str) {
+    finance::update_transaction_category(id, category);
+}
+
+#[tauri::command]
+fn update_transaction_description(id: u32, description: &str) {
+    finance::update_transaction_description(id, description);
+}
+
+#[tauri::command]
+fn update_transaction_value(id: u32, value: f32) {
+    finance::update_transaction_value(id, value);
+}
+
+#[tauri::command]
+fn get_debts() -> Option<Vec<Debt>> {
+    finance::read_debts()
+}
+
+#[tauri::command]
+fn add_debt(debt: Debt) {
+    finance::add_debt(debt);
+}
+
+#[tauri::command]
+fn del_debt(id: u32) {
+    finance::del_debt(id);
+}
+
+#[tauri::command]
+fn update_debt_description(id: u32, description: &str) {
+    finance::update_debt_description(id, description);
+}
+
+#[tauri::command]
+fn update_debt_creditor(id: u32, creditor: &str) {
+    finance::update_debt_creditor(id, creditor);
+}
+
+#[tauri::command]
+fn update_debt_value(id: u32, value: f32) {
+    finance::update_debt_value(id, value);
+}
+
+#[tauri::command]
+fn update_debt_cet(id: u32, cet: f32) {
+    finance::update_debt_cet(id, cet);
+}
+
+#[tauri::command]
+fn update_debt_monthly_installment(id: u32, monthly_installment: f32) {
+    finance::update_debt_monthly_installment(id, monthly_installment);
+}
+
+#[tauri::command]
+fn update_debt_outstanding_installments(id: u32, outstanding_installments: u32) {
+    finance::update_debt_outstanding_installments(id, outstanding_installments);
+}
+
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -225,7 +392,39 @@ fn main() {
             del_generic_meta,
             add_row_generic_meta,
             del_row_generic_meta,
-            update_row_generic_meta
+            update_row_generic_meta,
+            get_accounts,
+            add_account,
+            del_account,
+            update_account_name,
+            update_account_tag,
+            update_account_balance,
+            get_transactions,
+            add_transaction,
+            del_transaction,
+            update_transaction_date,
+            update_transaction_account,
+            update_transaction_category,
+            update_transaction_description,
+            update_transaction_value,
+            get_debts,
+            add_debt,
+            del_debt,
+            update_debt_description,
+            update_debt_creditor,
+            update_debt_value,
+            update_debt_cet,
+            update_debt_monthly_installment,
+            update_debt_outstanding_installments,
+            get_categories,
+            add_category,
+            del_category,
+            update_category_name,
+            update_category_tag,
+            get_creditors,
+            add_creditor,
+            del_creditor,
+            update_creditor_name
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

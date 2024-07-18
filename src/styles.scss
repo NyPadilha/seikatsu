@@ -413,6 +413,25 @@ body {
       background-color: $yellow;
       color: $black;
     }
+
+    .counter {
+      @include flex(row, space-between, center);
+      width: 347px;
+
+      h5 {
+        @include marginPadding0();
+        font-size: 16px;
+        font-weight: 600;
+        padding: 2px 3px;
+        border: $black 1px solid;
+        border-radius: 3px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      }
+
+      p {
+        @include marginPadding0();
+      }
+    }
   }
 
   .tag-modal,
@@ -1303,6 +1322,7 @@ body {
 
   .generic-section {
     @include flex(row, center, flex-start);
+    margin-top: 50px;
     flex-wrap: wrap;
     gap: 50px;
 
@@ -1413,6 +1433,324 @@ body {
     height: 40px;
   }
 
+  .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#finance {
+  @include flex(column, flex-start, center);
+  @include marginPadding0;
+
+  .banner {
+    @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
+  }
+
+  .buttons {
+    @include flex(row, center, center);
+    width: 80%;
+    margin: 0 10% 0 10%;
+
+    .btn {
+      @include flex(row, center, center);
+      width: 150px;
+      height: 30px;
+      background-color: $black;
+      color: $lesserGray;
+      border: $black 1px solid;
+      border-radius: 3px;
+      margin: 0 20px 0 20px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: $yellow;
+      color: $black;
+    }
+  }
+
+  .home-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    margin: 60px 0 100px 0;
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
+  }
+
+  .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#transactions {
+  @include flex(column, flex-start, center);
+  @include marginPadding0;
+
+  .banner {
+    @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
+  }
+
+  .columns {
+    @include flex(row, center, center);
+    background-color: $black;
+    border: $black 1px solid;
+    border-radius: 3px;
+    color: $lesserGray;
+    width: 80%;
+
+    h1 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 7px 0 7px 0;
+      text-align: center;
+    }
+
+    .date {
+      width: 120px;
+    }
+
+    .value,
+    .category,
+    .account {
+      width: 200px;
+    }
+
+    .description {
+      flex-grow: 1;
+    }
+
+    .add {
+      @include flex(row, center, center);
+      width: 30px;
+    }
+  }
+
+  section {
+    @include flex(column, center, center);
+    width: 80%;
+
+    div {
+      @include flex(row, center, center);
+      width: 100%;
+
+      h2 {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 5px 0 5px 0;
+        text-align: center;
+      }
+
+      .date {
+        width: 120px;
+      }
+
+      .value {
+        @include flex(row, space-between, center);
+        padding: 0 10px 0 10px;
+        width: 180px;
+      }
+
+      .category,
+      .account {
+        width: 200px;
+      }
+
+      .description {
+        flex-grow: 1;
+      }
+
+      .delete {
+        @include flex(row, center, center);
+        width: 30px;
+      }
+    }
+  }
+
+
+  .back-btn {
+    margin: 60px 0 10px 0;
+  }
+
+  .home-btn {
+    margin: 0 0 100px 0;
+  }
+
+  .back-btn,
+  .home-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
+  }
+
+  .back-btn:hover,
+  .home-btn:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#finance-settings {
+  @include flex(column, flex-start, center);
+  @include marginPadding0;
+
+  .banner {
+    @include flex(column, center, center);
+    background: linear-gradient(to right, #000000, #FEBD29, #000000);
+    width: 100%;
+    height: 210px;
+    margin-bottom: 70px;
+  }
+
+  section {
+    @include flex(row, space-between, flex-start);
+    width: 80%;
+
+    .column {
+      @include flex(column, center, center);
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      width: 22%;
+
+      .header {
+        @include flex(row, space-between, center);
+        width: 100%;
+        background-color: $black;
+        border: $black 1px solid;
+        border-radius: 5px 5px 0 0;
+        color: $lesserGray;
+        text-align: center;
+
+        h1 {
+          font-size: 18px;
+          font-weight: 800;
+          text-align: center;
+          margin: 3px 0 3px 0;
+        }
+
+        p {
+          @include flex(row, center, center);
+          @include marginPadding0;
+          width: 30px;
+        }
+      }
+
+      .row {
+        @include flex(row, space-between, center);
+        color: $black;
+        width: 100%;
+
+        h2 {
+          font-size: 12px;
+          font-weight: 600;
+          margin: 5px 0 5px 5px;
+          text-align: center;
+        }
+
+        .x-button,
+        .x-button:hover {
+          background-color: rgb(255, 80, 80);
+          border: rgb(255, 60, 60) 1px solid;
+          margin: 5px 7px 5px 0;
+          width: 12px;
+          height: 12px;
+          border-radius: 20px;
+          align-self: flex-end
+        }
+      }
+    }
+
+    .category {
+      width: 44%;
+
+      h1 {
+        width: 100%;
+      }
+
+      .ie {
+        @include flex(row, space-between, flex-start);
+        width: 100%;
+
+        .income,
+        .expense {
+          @include flex(column, center, center);
+          width: 48%;
+
+          .top {
+            @include flex(row, space-between, center);
+            width: 100%;
+            background-color: $black;
+            border: $black 1px solid;
+            border-radius: 5px 5px 0 0;
+            color: $lesserGray;
+            margin-top: 10px;
+            text-align: center;
+
+            h2 {
+              font-size: 14px;
+              font-weight: 800;
+              text-align: center;
+              margin: 3px 0 3px 0;
+            }
+
+            p {
+              @include flex(row, center, center);
+              @include marginPadding0;
+              width: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .back-btn {
+    margin: 60px 0 10px 0;
+  }
+
+  .home-btn {
+    margin: 0 0 100px 0;
+  }
+
+  .back-btn,
+  .home-btn {
+    @include flex(row, center, center);
+    background-color: $black;
+    color: $lesserGray;
+    border: $black 1px solid;
+    border-radius: 3px;
+    font-size: 26px;
+    font-weight: 800;
+    text-decoration: none;
+    width: 200px;
+    height: 40px;
+  }
+
+  .back-btn:hover,
   .home-btn:hover {
     background-color: $yellow;
     color: $black;

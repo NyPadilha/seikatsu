@@ -54,7 +54,12 @@ const Metas: React.FC = () => {
   };
 
   const addNewMeta = async () => {
-    const newMeta = { meta: 'New Meta', deadline: '00/00/0000', achieved: false };
+    const newDate = new Date();
+    const newMeta = {
+      meta: 'New Meta',
+      deadline: `${newDate.getDate().toString().padStart(2, '0')}/${(newDate.getMonth() + 1).toString().padStart(2, '0')}/${newDate.getFullYear()}`,
+      achieved: false
+    };
     await addMeta(newMeta);
     setMetas([...metas, newMeta]);
   }

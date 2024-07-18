@@ -24,7 +24,9 @@ pub fn read_watchlist() -> Option<Vec<Anime>> {
         let watchlist: Vec<Anime> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(watchlist)
     } else {
-        None
+        let watchlist: Vec<Anime> = Vec::new();
+        write_watchlist(&watchlist);
+        Some(watchlist)
     }
 }
 

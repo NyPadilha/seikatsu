@@ -2,6 +2,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { Anime } from '../types/IWatchlist';
 import { Workout } from '../types/ITraining';
 import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
+import { Account, Category, Creditor, Transaction, Debt } from '../types/IFinance';
 
 // Watchlist
 export async function getWatchlist() {
@@ -136,4 +137,142 @@ export async function deleteRowGenericMeta(meta: string, row: string[]) {
 export async function updateRowGenericMeta(title: string, rowId: string, row: string[]) {
   console.log(title, rowId, row);
   await invoke('update_row_generic_meta', { title, rowId, row });
+}
+
+// Finance
+export async function getAccounts() {
+  const accounts: Account[] = await invoke('get_accounts');
+  return accounts;
+}
+
+export async function addAccount(account: Account) {
+  await invoke('add_account', { account });
+}
+
+export async function deleteAccount(name: string) {
+  await invoke('del_account', { name });
+}
+
+export async function updateAccountName(oldName: string, newName: string) {
+  await invoke('update_account_name', { oldName, newName });
+}
+
+export async function updateAccountTag(name: string, tag: string) {
+  await invoke('update_account_tag', { name, tag });
+}
+
+export async function updateAccountBalance(name: string, balance: number) {
+  await invoke('update_account_balance', { name, balance });
+}
+
+export async function getCategories() {
+  const categories: Category[] = await invoke('get_categories');
+  return categories;
+}
+
+export async function addCategory(category: Category) {
+  await invoke('add_category', { category });
+}
+
+export async function deleteCategory(name: string) {
+  await invoke('del_category', { name });
+}
+
+export async function updateCategoryName(oldName: string, newName: string) {
+  await invoke('update_category_name', { oldName, newName });
+}
+
+export async function updateCategoryTag(name: string, tag: string) {
+  await invoke('update_category_tag', { name, tag });
+}
+
+export async function getCreditors() {
+  const creditors: Creditor[] = await invoke('get_creditors');
+  return creditors;
+}
+
+export async function addCreditor(creditor: Creditor) {
+  await invoke('add_creditor', { creditor });
+}
+
+export async function deleteCreditor(name: string) {
+  await invoke('del_creditor', { name });
+}
+
+export async function updateCreditorName(oldName: string, newName: string) {
+  await invoke('update_creditor_name', { oldName, newName });
+}
+
+export async function updateCreditorTag(name: string, tag: string) {
+  await invoke('update_creditor_tag', { name, tag });
+}
+
+export async function getTransactions() {
+  const transactions: Transaction[] = await invoke('get_transactions');
+  return transactions;
+}
+
+export async function addTransaction(transaction: Transaction) {
+  await invoke('add_transaction', { transaction });
+}
+
+export async function deleteTransaction(id: number) {
+  await invoke('del_transaction', { id });
+}
+
+export async function updateTransactionDate(id: number, date: string) {
+  await invoke('update_transaction_date', { id, date });
+}
+
+export async function updateTransactionAccount(id: number, account: string) {
+  await invoke('update_transaction_account', { id, account });
+}
+
+export async function updateTransactionCategory(id: number, category: string) {
+  await invoke('update_transaction_category', { id, category });
+}
+
+export async function updateTransactionDescription(id: number, description: string) {
+  await invoke('update_transaction_description', { id, description });
+}
+
+export async function updateTransactionValue(id: number, value: number) {
+  await invoke('update_transaction_value', { id, value });
+}
+
+export async function getDebts() {
+  const debts: Debt[] = await invoke('get_debts');
+  return debts;
+}
+
+export async function addDebt(debt: Debt) {
+  await invoke('add_debt', { debt });
+}
+
+export async function deleteDebt(id: number) {
+  await invoke('del_debt', { id });
+}
+
+export async function updateDebtDescription(id: number, description: string) {
+  await invoke('update_debt_description', { id, description });
+}
+
+export async function updateDebtCreditor(id: number, creditor: string) {
+  await invoke('update_debt_creditor', { id, creditor });
+}
+
+export async function updateDebtValue(id: number, value: number) {
+  await invoke('update_debt_value', { id, value });
+}
+
+export async function updateDebtCet(id: number, cet: number) {
+  await invoke('update_debt_cet', { id, cet });
+}
+
+export async function updateDebtMonthlyInstallment(id: number, monthly_installment: number) {
+  await invoke('update_debt_monthly_installment', { id, monthly_installment });
+}
+
+export async function updateDebtOutstandingInstallments(id: number, outstanding_installments: number) {
+  await invoke('update_debt_outstanding_installments', { id, outstanding_installments });
 }

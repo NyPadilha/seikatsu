@@ -1698,7 +1698,10 @@ body {
         .income,
         .expense {
           @include flex(column, center, center);
+          border-radius: 5px;
           width: 48%;
+          box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+          margin: 10px;
 
           .top {
             @include flex(row, space-between, center);
@@ -1707,7 +1710,6 @@ body {
             border: $black 1px solid;
             border-radius: 5px 5px 0 0;
             color: $lesserGray;
-            margin-top: 10px;
             text-align: center;
 
             h2 {
@@ -1721,6 +1723,30 @@ body {
               @include flex(row, center, center);
               @include marginPadding0;
               width: 30px;
+            }
+          }
+
+          .row {
+            @include flex(row, space-between, center);
+            color: $black;
+            width: 100%;
+
+            h3 {
+              font-size: 12px;
+              font-weight: 600;
+              margin: 5px 0 5px 5px;
+              text-align: center;
+            }
+
+            .x-button,
+            .x-button:hover {
+              background-color: rgb(255, 80, 80);
+              border: rgb(255, 60, 60) 1px solid;
+              margin: 5px 7px 5px 0;
+              width: 12px;
+              height: 12px;
+              border-radius: 20px;
+              align-self: flex-end
             }
           }
         }

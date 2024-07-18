@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Account, CategoryTag, Category, Creditor } from '../types/IFinance';
-import { addAccount, addCategory, addCreditor, getAccounts, getCategories, getCreditors } from '../services/api';
+import { addAccount, addCategory, addCreditor, getAccounts, getCategories, getCreditors, deleteAccount, deleteCategory, deleteCreditor } from '../services/api';
 import { DiffAddedIcon } from '@primer/octicons-react';
 
 const FinanceSettings: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [creditors, setCreditors] = useState<Creditor[]>([]);
+  const [isEditingCreditor, setIsEditingCreditor] = useState<boolean>(false);
+  const [newCreditor, setNewCreditor] = useState<string>('');
+  const [isEditingCategory, setIsEditingCategory] = useState<boolean>(false);
+  const [newCategory, setNewCategory] = useState<string>('');
+  const [isEditingAccount, setIsEditingAccount] = useState<boolean>(false);
+  const [newAccount, setNewAccount] = useState<string>('');
 
   const addNewAccount = async () => {
     const newAccount: Account = {
@@ -39,6 +45,38 @@ const FinanceSettings: React.FC = () => {
     creditors ? setCreditors([...creditors, newCreditor]) : setCreditors([newCreditor]);
   };
 
+  const delAccount = async (name: string) => {
+    await deleteAccount(name);
+    setAccounts(accounts.filter(account => account.name !== name));
+  };
+
+  const delCategory = async (name: string) => {
+    await deleteCategory(name);
+    setCategories(categories.filter(category => category.name !== name));
+  };
+
+  const delCreditor = async (name: string) => {
+    await deleteCreditor(name);
+    setCreditors(creditors.filter(creditor => creditor.name !== name));
+  };
+
+  // const handleCreditorBlur = async () => {
+  //   setIsEditingCreditor(false);
+  //   setCreditors(creditors.map(creditor => {
+  //     if (creditor.name === newCreditor) {
+  //       return creditor;
+  //     } else {
+  //       return creditor;
+  //     }
+  //   }));
+  // }
+
+  const creditorKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleCreditorBlur();
+    }
+  }
+
   useEffect(() => {
     async function fetchApi() {
       const accounts = await getAccounts();
@@ -68,7 +106,10 @@ const FinanceSettings: React.FC = () => {
           {creditors && creditors.map(creditor => (
             <div className='row' key={creditor.name}>
               <h2>{creditor.name}</h2>
-              <p className='x-button'></p>
+              <p
+                className='x-button'
+                onClick={() => delCreditor(creditor.name)}
+              ></p>
             </div>
           ))}
         </div>
@@ -87,7 +128,10 @@ const FinanceSettings: React.FC = () => {
               {categories && categories.filter(category => category.tag === 'income').map(category => (
                 <div className='row' key={category.name}>
                   <h3>{category.name}</h3>
-                  <p className='x-button'></p>
+                  <p
+                    className='x-button'
+                    onClick={() => delCategory(category.name)}
+                  ></p>
                 </div>
               ))}
             </div>
@@ -100,7 +144,10 @@ const FinanceSettings: React.FC = () => {
               {categories && categories.filter(category => category.tag === 'expense').map(category => (
                 <div className='row' key={category.name}>
                   <h3>{category.name}</h3>
-                  <p className='x-button'></p>
+                  <p
+                    className='x-button'
+                    onClick={() => delCategory(category.name)}
+                  ></p>
                 </div>
               ))}
             </div>
@@ -116,7 +163,10 @@ const FinanceSettings: React.FC = () => {
           {accounts && accounts.map(account => (
             <div className='row' key={account.name}>
               <h2>{account.name}</h2>
-              <p className='x-button'></p>
+              <p
+                className='x-button'
+                onClick={() => delAccount(account.name)}
+              ></p>
             </div>
           ))}
         </div>

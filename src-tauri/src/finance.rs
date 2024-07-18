@@ -154,7 +154,6 @@ pub fn update_category_tag(name: &str, tag: &str) {
 #[derive(Serialize, Deserialize)]
 pub struct Creditor {
     pub name: String,
-    pub tag: String,
 }
 
 pub fn read_creditors() -> Option<Vec<Creditor>> {
@@ -196,16 +195,6 @@ pub fn update_creditor_name(name: &str, new_name: &str) {
     for creditor in creditors_list.iter_mut() {
         if creditor.name == name {
             creditor.name = new_name.to_string();
-        }
-    }
-    write_creditors(&creditors_list);
-}
-
-pub fn update_creditor_tag(name: &str, tag: &str) {
-    let mut creditors_list = read_creditors().unwrap_or_else(Vec::new);
-    for creditor in creditors_list.iter_mut() {
-        if creditor.name == name {
-            creditor.tag = tag.to_string();
         }
     }
     write_creditors(&creditors_list);

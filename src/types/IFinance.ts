@@ -1,7 +1,20 @@
+export type AccountTag = "cash" | "bank" | "credit";
+
 export type Account = {
   name: string;
-  tag: string;
+  tag: AccountTag;
   balance: number;
+};
+
+export type CategoryTag = "income" | "expense";
+
+export type Category = {
+  name: string;
+  tag: string;
+};
+
+export type Creditor = {
+  name: string;
 };
 
 export type Transaction = {

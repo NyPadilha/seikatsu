@@ -18,6 +18,8 @@ generic_meta.json
 accounts.json
 transactions.json
 debts.json
+creditors.json
+finance-categories.json
 */user_profile.json
 */watchlist.json
 */finance.json
@@ -29,3 +31,5 @@ debts.json
 */accounts.json
 */transactions.json
 */debts.json
+*/creditors.json
+*/finance-categories.json

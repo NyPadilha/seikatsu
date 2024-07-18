@@ -2,7 +2,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { Anime } from '../types/IWatchlist';
 import { Workout } from '../types/ITraining';
 import { SetupMetas, FinanceMeta, MetasType, GenericMeta } from '../types/IMetas';
-import { Account, Transaction, Debt } from '../types/IFinance';
+import { Account, Category, Creditor, Transaction, Debt } from '../types/IFinance';
 
 // Watchlist
 export async function getWatchlist() {
@@ -151,6 +151,60 @@ export async function addAccount(account: Account) {
 
 export async function deleteAccount(name: string) {
   await invoke('del_account', { name });
+}
+
+export async function updateAccountName(oldName: string, newName: string) {
+  await invoke('update_account_name', { oldName, newName });
+}
+
+export async function updateAccountTag(name: string, tag: string) {
+  await invoke('update_account_tag', { name, tag });
+}
+
+export async function updateAccountBalance(name: string, balance: number) {
+  await invoke('update_account_balance', { name, balance });
+}
+
+export async function getCategories() {
+  const categories: Category[] = await invoke('get_categories');
+  return categories;
+}
+
+export async function addCategory(category: Category) {
+  await invoke('add_category', { category });
+}
+
+export async function deleteCategory(name: string) {
+  await invoke('del_category', { name });
+}
+
+export async function updateCategoryName(oldName: string, newName: string) {
+  await invoke('update_category_name', { oldName, newName });
+}
+
+export async function updateCategoryTag(name: string, tag: string) {
+  await invoke('update_category_tag', { name, tag });
+}
+
+export async function getCreditors() {
+  const creditors: Creditor[] = await invoke('get_creditors');
+  return creditors;
+}
+
+export async function addCreditor(creditor: Creditor) {
+  await invoke('add_creditor', { creditor });
+}
+
+export async function deleteCreditor(name: string) {
+  await invoke('del_creditor', { name });
+}
+
+export async function updateCreditorName(oldName: string, newName: string) {
+  await invoke('update_creditor_name', { oldName, newName });
+}
+
+export async function updateCreditorTag(name: string, tag: string) {
+  await invoke('update_creditor_tag', { name, tag });
 }
 
 export async function getTransactions() {

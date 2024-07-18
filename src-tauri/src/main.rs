@@ -273,11 +273,6 @@ fn update_creditor_name(old_name: &str, new_name: &str) {
 }
 
 #[tauri::command]
-fn update_creditor_tag(creditor: &str, tag: &str) {
-    finance::update_creditor_tag(creditor, tag);
-}
-
-#[tauri::command]
 fn get_transactions() -> Option<Vec<Transaction>> {
     finance::read_transactions()
 }
@@ -429,8 +424,7 @@ fn main() {
             get_creditors,
             add_creditor,
             del_creditor,
-            update_creditor_name,
-            update_creditor_tag
+            update_creditor_name
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

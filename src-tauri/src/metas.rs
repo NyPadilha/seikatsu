@@ -21,7 +21,9 @@ pub fn read_setup() -> Option<Vec<SetupMetas>> {
         let setup: Vec<SetupMetas> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(setup)
     } else {
-        None
+        let setup: Vec<SetupMetas> = Vec::new();
+        write_setup(&setup);
+        Some(setup)
     }
 }
 
@@ -81,7 +83,9 @@ pub fn read_finance() -> Option<FinanceMeta> {
         let finance: FinanceMeta = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(finance)
     } else {
-        None
+        let finance: FinanceMeta = FinanceMeta { value: 1000000.0 };
+        write_finance(&finance);
+        Some(finance)
     }
 }
 
@@ -109,7 +113,9 @@ pub fn read_metas() -> Option<Vec<Metas>> {
         let metas: Vec<Metas> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(metas)
     } else {
-        None
+        let metas: Vec<Metas> = Vec::new();
+        write_metas(&metas);
+        Some(metas)
     }
 }
 
@@ -186,7 +192,9 @@ pub fn read_generic_metas() -> Option<Vec<GenericMetaTable>> {
             serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(generic_meta)
     } else {
-        None
+        let generic_meta: Vec<GenericMetaTable> = Vec::new();
+        write_generic_metas(&generic_meta);
+        Some(generic_meta)
     }
 }
 

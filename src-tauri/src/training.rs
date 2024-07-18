@@ -28,7 +28,9 @@ pub fn read_workout() -> Option<Vec<Workout>> {
         let workout: Vec<Workout> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(workout)
     } else {
-        None
+        let workout: Vec<Workout> = Vec::new();
+        write_workout(&workout);
+        Some(workout)
     }
 }
 

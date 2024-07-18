@@ -108,7 +108,9 @@ pub fn read_categories() -> Option<Vec<Category>> {
             serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(categories)
     } else {
-        None
+        let categories: Vec<Category> = Vec::new();
+        write_categories(&categories);
+        Some(categories)
     }
 }
 
@@ -167,7 +169,9 @@ pub fn read_creditors() -> Option<Vec<Creditor>> {
             serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(creditors)
     } else {
-        None
+        let creditors: Vec<Creditor> = Vec::new();
+        write_creditors(&creditors);
+        Some(creditors)
     }
 }
 
@@ -221,7 +225,9 @@ pub fn read_transactions() -> Option<Vec<Transaction>> {
             serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(transactions)
     } else {
-        None
+        let transactions: Vec<Transaction> = Vec::new();
+        write_transactions(&transactions);
+        Some(transactions)
     }
 }
 
@@ -315,7 +321,9 @@ pub fn read_debts() -> Option<Vec<Debt>> {
         let debts: Vec<Debt> = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(debts)
     } else {
-        None
+        let debts: Vec<Debt> = Vec::new();
+        write_debts(&debts);
+        Some(debts)
     }
 }
 

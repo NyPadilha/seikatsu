@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Account, CategoryTag, Category, Creditor } from '../types/IFinance';
-import { addAccount, addCategory, addCreditor, getAccounts, getCategories, getCreditors, deleteAccount, deleteCategory, deleteCreditor } from '../services/api';
+import { addAccount, addCategory, addCreditor, getAccounts, getCategories, getCreditors } from '../services/api';
 import { DiffAddedIcon } from '@primer/octicons-react';
+import { Link } from 'react-router-dom';
+import CreditorRow from '../components/finance/SettingsCreditorRow';
+import CategoryRow from '../components/finance/SettingsCategoryRow';
+import AccountRow from '../components/finance/SettingsAccountRow';
 
 const FinanceSettings: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [creditors, setCreditors] = useState<Creditor[]>([]);
-  const [isEditingCreditor, setIsEditingCreditor] = useState<boolean>(false);
-  const [newCreditor, setNewCreditor] = useState<string>('');
-  const [isEditingCategory, setIsEditingCategory] = useState<boolean>(false);
-  const [newCategory, setNewCategory] = useState<string>('');
-  const [isEditingAccount, setIsEditingAccount] = useState<boolean>(false);
-  const [newAccount, setNewAccount] = useState<string>('');
 
   const addNewAccount = async () => {
     const newAccount: Account = {
@@ -45,38 +42,6 @@ const FinanceSettings: React.FC = () => {
     creditors ? setCreditors([...creditors, newCreditor]) : setCreditors([newCreditor]);
   };
 
-  const delAccount = async (name: string) => {
-    await deleteAccount(name);
-    setAccounts(accounts.filter(account => account.name !== name));
-  };
-
-  const delCategory = async (name: string) => {
-    await deleteCategory(name);
-    setCategories(categories.filter(category => category.name !== name));
-  };
-
-  const delCreditor = async (name: string) => {
-    await deleteCreditor(name);
-    setCreditors(creditors.filter(creditor => creditor.name !== name));
-  };
-
-  // const handleCreditorBlur = async () => {
-  //   setIsEditingCreditor(false);
-  //   setCreditors(creditors.map(creditor => {
-  //     if (creditor.name === newCreditor) {
-  //       return creditor;
-  //     } else {
-  //       return creditor;
-  //     }
-  //   }));
-  // }
-
-  const creditorKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
-    if (key === 'Enter') {
-      handleCreditorBlur();
-    }
-  }
-
   useEffect(() => {
     async function fetchApi() {
       const accounts = await getAccounts();
@@ -104,13 +69,13 @@ const FinanceSettings: React.FC = () => {
           </div>
 
           {creditors && creditors.map(creditor => (
-            <div className='row' key={creditor.name}>
-              <h2>{creditor.name}</h2>
-              <p
-                className='x-button'
-                onClick={() => delCreditor(creditor.name)}
-              ></p>
-            </div>
+            <CreditorRow
+              key={creditor.name}
+              creditor={creditor}
+              onDelete={(name) =>
+                setCreditors(creditors.filter(creditor => creditor.name !== name))
+              }
+            />
           ))}
         </div>
         <div className='column category'>
@@ -126,13 +91,13 @@ const FinanceSettings: React.FC = () => {
                 <p onClick={() => addNewCategory('income')}><DiffAddedIcon /></p>
               </div>
               {categories && categories.filter(category => category.tag === 'income').map(category => (
-                <div className='row' key={category.name}>
-                  <h3>{category.name}</h3>
-                  <p
-                    className='x-button'
-                    onClick={() => delCategory(category.name)}
-                  ></p>
-                </div>
+                <CategoryRow
+                  key={category.name}
+                  category={category}
+                  onDelete={(name) =>
+                    setCategories(categories.filter(category => category.name !== name))
+                  }
+                />
               ))}
             </div>
             <div className='expense'>
@@ -142,13 +107,13 @@ const FinanceSettings: React.FC = () => {
                 <p onClick={() => addNewCategory('expense')}><DiffAddedIcon /></p>
               </div>
               {categories && categories.filter(category => category.tag === 'expense').map(category => (
-                <div className='row' key={category.name}>
-                  <h3>{category.name}</h3>
-                  <p
-                    className='x-button'
-                    onClick={() => delCategory(category.name)}
-                  ></p>
-                </div>
+                <CategoryRow
+                  key={category.name}
+                  category={category}
+                  onDelete={(name) =>
+                    setCategories(categories.filter(category => category.name !== name))
+                  }
+                />
               ))}
             </div>
           </div>
@@ -161,13 +126,13 @@ const FinanceSettings: React.FC = () => {
           </div>
 
           {accounts && accounts.map(account => (
-            <div className='row' key={account.name}>
-              <h2>{account.name}</h2>
-              <p
-                className='x-button'
-                onClick={() => delAccount(account.name)}
-              ></p>
-            </div>
+            <AccountRow
+              key={account.name}
+              account={account}
+              onDelete={(name) =>
+                setAccounts(accounts.filter(account => account.name !== name))
+              }
+            />
           ))}
         </div>
       </section>

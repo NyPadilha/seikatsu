@@ -42,8 +42,7 @@ const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, onDelete, 
 
   const onDateKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
-      setIsEditingDate(false)
-      await updateTransactionDate(transaction.id, date)
+      handleDateBlur()
       onDateChange(transaction.id, date)
     }
   }
@@ -55,8 +54,7 @@ const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, onDelete, 
 
   const onValueKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
-      setIsEditingValue(false)
-      await updateTransactionValue(transaction.id, value)
+      handleValueBlur()
     }
   }
 
@@ -67,8 +65,7 @@ const TransactionRow: React.FC<TransactionRowProps> = ({ transaction, onDelete, 
 
   const onDescriptionKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
-      setIsEditingDescription(false)
-      await updateTransactionDescription(transaction.id, description)
+      handleDescriptionBlur()
     }
   }
 

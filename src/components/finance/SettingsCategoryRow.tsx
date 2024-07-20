@@ -19,7 +19,6 @@ const CategoryRow: React.FC<CategoryRowProps> = ({ category, onDelete }) => {
   const handleCategoryBlur = async () => {
     setIsEditingCategory(false);
     await updateCategoryName(category.name, categoryName);
-    setCategoryName(categoryName);
   }
 
   const categoryKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {

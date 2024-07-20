@@ -19,7 +19,6 @@ const CreditorRow: React.FC<CreditorRowProps> = ({ creditor, onDelete }) => {
   const handleCreditorBlur = async () => {
     setIsEditingCreditor(false);
     await updateCreditorName(creditor.name, creditorName);
-    setCreditorName(creditorName);
   }
 
   const creditorKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {

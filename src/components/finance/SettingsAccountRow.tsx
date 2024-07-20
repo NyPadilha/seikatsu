@@ -21,7 +21,6 @@ const AccountRow: React.FC<AccountRowProps> = ({ account, onDelete }) => {
   const handleAccountBlur = async () => {
     setIsEditingAccount(false);
     await updateAccountName(account.name, accountName);
-    setAccountName(accountName);
   }
 
   const accountKeyPress = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {

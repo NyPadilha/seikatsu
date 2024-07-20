@@ -238,8 +238,8 @@ fn add_category(category: Category) {
 }
 
 #[tauri::command]
-fn del_category(category: &str) {
-    finance::del_category(category);
+fn del_category(name: &str) {
+    finance::del_category(name);
 }
 
 #[tauri::command]
@@ -263,8 +263,8 @@ fn add_creditor(creditor: Creditor) {
 }
 
 #[tauri::command]
-fn del_creditor(creditor: &str) {
-    finance::del_creditor(creditor);
+fn del_creditor(name: &str) {
+    finance::del_creditor(name);
 }
 
 #[tauri::command]

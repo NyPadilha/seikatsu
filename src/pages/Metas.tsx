@@ -173,6 +173,24 @@ const Metas: React.FC = () => {
                   onDelete={(meta) => {
                     setMetas(metas.filter((m) => m.meta !== meta))
                   }}
+                  onDeadlineChange={(meta, deadline) => {
+                    const newMetas = metas.map((m) => {
+                      if (m.meta === meta) {
+                        return { meta, deadline, achieved: m.achieved };
+                      }
+                      return m;
+                    });
+                    const sortedMetas = newMetas.sort((a, b) => {
+                      const rearrangeDate = (date: string) => date.split('/').reverse().join('/');
+                      const aDate = rearrangeDate(a.deadline);
+                      const bDate = rearrangeDate(b.deadline);
+
+                      if (aDate < bDate) return -1;
+                      if (aDate > bDate) return 1;
+                      return 0;
+                    });
+                    setMetas(sortedMetas);
+                  }}
                 />
               ))}
             </tbody>

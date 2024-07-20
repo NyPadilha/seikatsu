@@ -6,9 +6,10 @@ import { MetasType } from '../../types/IMetas';
 interface MetasRowProps {
   meta: MetasType;
   onDelete: (meta: string) => void;
+  onDeadlineChange: (meta: string, deadline: string) => void;
 }
 
-const MetasRow: React.FC<MetasRowProps> = ({ meta, onDelete }) => {
+const MetasRow: React.FC<MetasRowProps> = ({ meta, onDelete, onDeadlineChange }) => {
   const [metaName, setMetaName] = useState<string>('');
   const [deadline, setDeadline] = useState<string>('');
   const [achieved, setAchieved] = useState<boolean>(false);
@@ -41,6 +42,7 @@ const MetasRow: React.FC<MetasRowProps> = ({ meta, onDelete }) => {
   const handleKeyPressDeadline = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
       handleBlurDeadline();
+      onDeadlineChange(metaName, deadline);
     }
   }
 

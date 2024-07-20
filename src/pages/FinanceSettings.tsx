@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Account, CategoryTag, Category, Creditor } from '../types/IFinance';
 import { addAccount, addCategory, addCreditor, getAccounts, getCategories, getCreditors } from '../services/api';
 import { DiffAddedIcon } from '@primer/octicons-react';
+import { Link } from 'react-router-dom';
+import CreditorRow from '../components/finance/SettingsCreditorRow';
+import CategoryRow from '../components/finance/SettingsCategoryRow';
+import AccountRow from '../components/finance/SettingsAccountRow';
 
 const FinanceSettings: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -66,10 +69,13 @@ const FinanceSettings: React.FC = () => {
           </div>
 
           {creditors && creditors.map(creditor => (
-            <div className='row' key={creditor.name}>
-              <h2>{creditor.name}</h2>
-              <p className='x-button'></p>
-            </div>
+            <CreditorRow
+              key={creditor.name}
+              creditor={creditor}
+              onDelete={(name) =>
+                setCreditors(creditors.filter(creditor => creditor.name !== name))
+              }
+            />
           ))}
         </div>
         <div className='column category'>
@@ -85,10 +91,13 @@ const FinanceSettings: React.FC = () => {
                 <p onClick={() => addNewCategory('income')}><DiffAddedIcon /></p>
               </div>
               {categories && categories.filter(category => category.tag === 'income').map(category => (
-                <div className='row' key={category.name}>
-                  <h3>{category.name}</h3>
-                  <p className='x-button'></p>
-                </div>
+                <CategoryRow
+                  key={category.name}
+                  category={category}
+                  onDelete={(name) =>
+                    setCategories(categories.filter(category => category.name !== name))
+                  }
+                />
               ))}
             </div>
             <div className='expense'>
@@ -98,10 +107,13 @@ const FinanceSettings: React.FC = () => {
                 <p onClick={() => addNewCategory('expense')}><DiffAddedIcon /></p>
               </div>
               {categories && categories.filter(category => category.tag === 'expense').map(category => (
-                <div className='row' key={category.name}>
-                  <h3>{category.name}</h3>
-                  <p className='x-button'></p>
-                </div>
+                <CategoryRow
+                  key={category.name}
+                  category={category}
+                  onDelete={(name) =>
+                    setCategories(categories.filter(category => category.name !== name))
+                  }
+                />
               ))}
             </div>
           </div>
@@ -114,10 +126,13 @@ const FinanceSettings: React.FC = () => {
           </div>
 
           {accounts && accounts.map(account => (
-            <div className='row' key={account.name}>
-              <h2>{account.name}</h2>
-              <p className='x-button'></p>
-            </div>
+            <AccountRow
+              key={account.name}
+              account={account}
+              onDelete={(name) =>
+                setAccounts(accounts.filter(account => account.name !== name))
+              }
+            />
           ))}
         </div>
       </section>

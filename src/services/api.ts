@@ -157,12 +157,12 @@ export async function updateAccountName(oldName: string, newName: string) {
   await invoke('update_account_name', { oldName, newName });
 }
 
-export async function updateAccountTag(name: string, tag: string) {
-  await invoke('update_account_tag', { name, tag });
+export async function updateAccountTag(account: string, tag: string) {
+  await invoke('update_account_tag', { account, tag });
 }
 
-export async function updateAccountBalance(name: string, balance: number) {
-  await invoke('update_account_balance', { name, balance });
+export async function updateAccountBalance(account: string, balance: number) {
+  await invoke('update_account_balance', { account, balance });
 }
 
 export async function getCategories() {
@@ -201,10 +201,6 @@ export async function deleteCreditor(name: string) {
 
 export async function updateCreditorName(oldName: string, newName: string) {
   await invoke('update_creditor_name', { oldName, newName });
-}
-
-export async function updateCreditorTag(name: string, tag: string) {
-  await invoke('update_creditor_tag', { name, tag });
 }
 
 export async function getTransactions() {

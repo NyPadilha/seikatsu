@@ -88,7 +88,15 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onDelete, onTagChange }) =
 
   useEffect(() => {
     if (tagChanged.url === url) {
-      onTagChange(anime, tagChanged.tag);
+      const updatedAnime: Anime = {
+        title: title,
+        url: url,
+        image,
+        to_watch: to_watch,
+        description: description,
+        tag: anime.tag
+      }
+      onTagChange(updatedAnime, tagChanged.tag);
       setTagChanged({ url: null, tag: null });
     }
   }, [tagChanged]);

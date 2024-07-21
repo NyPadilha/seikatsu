@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 
 const Debts: React.FC = () => {
   return (
-    <section>
+    <section id='debts'>
       <div className='banner'>PlaceHolder</div>
 
       <div>Debts</div>
-      <Link to='/finance'>Back</Link>
+
+      <Link className='back-btn' to='/finance'>Back</Link>
+      <Link className='home-btn' to='/'>Home</Link>
     </section>
   );
 };

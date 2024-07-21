@@ -35,7 +35,7 @@ const Finance: React.FC = () => {
       </div>
 
       <div className='balance-sheet'>
-        <div>
+        <div className='content'>
           <div className='assets'>
             <div className='total-assets'>
               <h3>Total Assets</h3>
@@ -117,7 +117,7 @@ const Finance: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className='total'></div>
+        <div className='total'>TOTAL PLACEHOLDER</div>
       </div>
 
       <Link className='home-btn' to='/'>Home</Link>

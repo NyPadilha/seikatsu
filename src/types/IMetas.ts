@@ -7,6 +7,7 @@ export type SetupMetas = {
 
 export type FinanceMeta = {
   value: number,
+  emergency_fund: number,
 }
 
 export type MetasType = {

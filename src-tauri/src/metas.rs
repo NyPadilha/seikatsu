@@ -71,6 +71,7 @@ pub fn update_setup_item(old_item: &str, new_item: &str) {
 #[derive(Serialize, Deserialize)]
 pub struct FinanceMeta {
     pub value: f32,
+    pub emergency_fund: f32,
 }
 
 pub fn read_finance() -> Option<FinanceMeta> {
@@ -83,7 +84,10 @@ pub fn read_finance() -> Option<FinanceMeta> {
         let finance: FinanceMeta = serde_json::from_str(&contents).expect("Failed to parse JSON");
         Some(finance)
     } else {
-        let finance: FinanceMeta = FinanceMeta { value: 1000000.0 };
+        let finance: FinanceMeta = FinanceMeta {
+            value: 1000000.0,
+            emergency_fund: 5000.0,
+        };
         write_finance(&finance);
         Some(finance)
     }

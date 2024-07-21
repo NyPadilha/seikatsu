@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Account, Debt } from '../types/IFinance';
-import { getAccounts, getDebts } from '../services/api';
+import { getAccounts, getDebts, getTransactions } from '../services/api';
 
 const Finance: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -14,6 +14,15 @@ const Finance: React.FC = () => {
     async function fetchApi() {
       const accounts = await getAccounts();
       const debts = await getDebts();
+      const transactions = await getTransactions();
+
+      accounts.map(account => {
+        transactions.forEach(transaction => {
+          if (transaction.account === account.name) {
+            account.balance += transaction.value;
+          }
+        })
+      });
 
       setAccounts(accounts);
       setDebts(debts);

@@ -22,9 +22,7 @@ const Metas: React.FC = () => {
   const [metas, setMetas] = useState<MetasType[]>([]);
   const [genericMetas, setGenericMetas] = useState<GenericMeta[]>([]);
   const [editingFinanceMeta, setEditingFinanceMeta] = useState<boolean>(false);
-  const [newFinanceMeta, setNewFinanceMeta] = useState<string>(
-    financeMeta ? financeMeta.value.toString() : '',
-  );
+  const [editingEmergencyFund, setEditingEmergencyFund] = useState<boolean>(false);
   const { isCreateTableModalOpen, setIsCreateTableModalOpen } = useContext(MetasContext);
 
   const addNewSetupRow = async () => {
@@ -33,23 +31,25 @@ const Metas: React.FC = () => {
     setSetupMetas([...setupMetas, newItem]);
   }
 
-  const handleDCFinanceMeta = () => {
-    setEditingFinanceMeta(true);
-  };
-
-  const handleFinanceMetaChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setNewFinanceMeta(target.value);
-  };
-
   const handleFinanceMetaBlur = async () => {
-    setFinanceMeta({ value: parseFloat(newFinanceMeta) });
+    await updateFinanceMeta(financeMeta as FinanceMeta);
     setEditingFinanceMeta(false);
-    await updateFinanceMeta({ value: parseFloat(newFinanceMeta) });
   };
 
   const handleKeyPressFinanceMeta = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
     if (key === 'Enter') {
       handleFinanceMetaBlur();
+    }
+  };
+
+  const handleEmergencyFundBlur = async () => {
+    await updateFinanceMeta(financeMeta as FinanceMeta);
+    setEditingEmergencyFund(false);
+  };
+
+  const handleKeyPressEmergencyFund = async ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (key === 'Enter') {
+      handleEmergencyFundBlur();
     }
   };
 
@@ -88,7 +88,6 @@ const Metas: React.FC = () => {
 
       setSetupMetas(setupMetas);
       setFinanceMeta(financeMeta);
-      setNewFinanceMeta(financeMeta.value.toString());
       setMetas(sortedMetas);
       setGenericMetas(genericMetas);
     }
@@ -203,15 +202,15 @@ const Metas: React.FC = () => {
             {editingFinanceMeta ? (
               <input
                 type="text"
-                value={newFinanceMeta}
-                onChange={handleFinanceMetaChange}
+                value={financeMeta && financeMeta.value}
+                onChange={(e) => setFinanceMeta({ value: parseFloat(e.target.value), emergency_fund: financeMeta?.emergency_fund || 0 })}
                 onBlur={handleFinanceMetaBlur}
                 onKeyDown={handleKeyPressFinanceMeta}
                 autoFocus
               />
             ) : (
               <h2
-                onDoubleClick={handleDCFinanceMeta}
+                onDoubleClick={() => setEditingFinanceMeta(true)}
               >R$ {financeMeta && financeMeta.value.toFixed(2)}</h2>
             )}
           </div>
@@ -225,19 +224,34 @@ const Metas: React.FC = () => {
             <tbody>
               <tr>
                 <td>Renda Variavel | 40% Bull Bear</td>
-                <td>R$ {financeMeta ? ((financeMeta.value - 5000) * 0.4).toFixed(2) : 0}</td>
+                <td>R$ {financeMeta ? ((financeMeta.value - financeMeta.emergency_fund) * 0.4).toFixed(2) : 0}</td>
               </tr>
               <tr>
                 <td>Renda Variavel | 40% Top20 CDV</td>
-                <td>R$ {financeMeta ? ((financeMeta.value - 5000) * 0.4).toFixed(2) : 0}</td>
+                <td>R$ {financeMeta ? ((financeMeta.value - financeMeta.emergency_fund) * 0.4).toFixed(2) : 0}</td>
               </tr>
               <tr>
                 <td>Renda Variavel | 20% Top15 FII</td>
-                <td>R$ {financeMeta ? ((financeMeta.value - 5000) * 0.2).toFixed(2) : 0}</td>
+                <td>R$ {financeMeta ? ((financeMeta.value - financeMeta.emergency_fund) * 0.2).toFixed(2) : 0}</td>
               </tr>
               <tr>
                 <td>Reserva de Emergencia</td>
-                <td>R$ 5000.00</td>
+                <td
+                  onDoubleClick={() => setEditingEmergencyFund(true)}
+                >
+                  {editingEmergencyFund ? (
+                    <input
+                      type="text"
+                      value={financeMeta && financeMeta.emergency_fund}
+                      onChange={(e) => setFinanceMeta({ value: financeMeta?.value || 0, emergency_fund: parseFloat(e.target.value) })}
+                      onBlur={handleEmergencyFundBlur}
+                      onKeyDown={handleKeyPressEmergencyFund}
+                      autoFocus
+                    />
+                  ) : (
+                    `R$ ${financeMeta ? ((financeMeta.emergency_fund)).toFixed(2) : 0}`
+                  )}
+                </td>
               </tr>
             </tbody>
           </table>

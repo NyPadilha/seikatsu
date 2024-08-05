@@ -1930,6 +1930,62 @@ body {
     margin-bottom: 70px;
   }
 
+  .columns {
+    @include flex(row, center, center);
+    background-color: $black;
+    border: $black 1px solid;
+    border-radius: 3px;
+    color: $lesserGray;
+    width: 80%;
+
+    h1 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 7px 0 7px 0;
+      text-align: center;
+    }
+
+    .add {
+      @include flex(row, center, center);
+      width: 30px;
+    }
+  }
+
+  section {
+    @include flex(column, center, center);
+    width: 80%;
+
+    div {
+      @include flex(row, center, center);
+      width: 100%;
+
+      h2 {
+        color: $black;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 5px 0 5px 0;
+        text-align: center;
+        min-height: 18px;
+      }
+
+      input {
+        width: 196px;
+        background-color: $gray;
+        height: 15px;
+        border: $gray 1px solid;
+        border-radius: 3px;
+        font-size: 10px;
+        margin: 5px 0 5px 0;
+        text-align: center;
+      }
+
+      .delete {
+        @include flex(row, center, center);
+        width: 30px;
+      }
+    }
+  }
+
   .back-btn {
     margin: 60px 0 10px 0;
   }
